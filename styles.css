@@ -1,0 +1,232 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color:  #e0dddd;;
+    background-repeat: auto;
+    background-size: cover;
+    height: 100vh;
+    /* overflow-y: hidden; */
+}
+.row-padding{padding:0 8px}
+.hover-opacity-off:hover{opacity:1}
+
+.text-container{
+    display: grid;
+    background-color: rgb(0, 0, 0);
+    height: 350px;
+    background-image: url("cover.png");
+    background-size: contain; 
+    background-position: top; 
+    background-repeat: no-repeat;
+    
+}
+.text-container h1 {
+    font-size: 100px; /* Mărimea textului */
+}
+.centrat {
+    text-align: center;
+    margin-top: 0px;
+    font-size: 24px;
+    color: white;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    align-items: center; /* Aliniaza continutul pe axa verticala */
+    justify-content: space-between; /* Aseaza continutul la marginea stanga si dreapta */
+}
+
+.oscarContainer{
+    max-width: 600px;
+    background-color: #1a1b1c;
+    left: 50px;
+    right: inherit;
+    position: relative;
+    width: 600px;
+    height: 500px;
+    border-radius: 10px;
+    background-image: url("oscar.png");
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-position: bottom left;
+}
+
+.oscarContainer h1{
+    font-size: 50px;
+    color: antiquewhite;
+    text-align: center;}
+
+.oscarContainer p{
+    color: antiquewhite;
+   position: relative;
+}
+
+.oscarContainer:hover{
+
+    opacity: 0.8;
+}
+
+.emmyContainer{
+    max-width: 600px;
+    right: 50px;
+    position: absolute;
+    background-color: #1a1b1c; /* Culoarea de fundal a containerului suplimentar */
+    border-radius: 10px; /* Rotunjirea marginilor containerului */
+    width: 600px; /* Lățimea containerului */
+    height: 500px; /* Înălțimea containerului */
+    background-image: url(emmy.png);
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: bottom right;
+}
+
+.emmyContainer h1{
+    font-size: 50px;
+    color: antiquewhite;
+    text-align: center;
+}
+.emmyContainer p{
+    color: antiquewhite;
+   position: relative;
+}
+
+
+.cannesContainer{
+    max-width: 600px;
+    background-color: #1a1b1c;
+    left: 50px;
+    right: inherit;
+    position: relative;
+    width: 600px;
+    height: 500px;
+    border-radius: 10px;
+    background-image: url("cannes.png");
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-position: bottom left;
+}
+
+.top-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.top-menu div {
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.top-menu div:hover {
+    background-color: #7c8388;
+}
+
+.top-menu div i {
+    font-size: 24px;
+}
+
+.back-button {
+    background-image: url('search.png'); 
+    background-size: contain; 
+    background-repeat: no-repeat;
+    width: 10px; 
+    height: 10px; 
+    cursor: pointer;}
+
+.home-button {
+    background-image: url('home.png'); 
+    background-size: contain;
+    background-repeat: no-repeat; 
+    width: 10px; 
+    height: 10px; 
+    cursor: pointer; 
+}
+
+.account-button {
+    background-image: url('account.png'); 
+    background-size: contain;
+    background-repeat: no-repeat; 
+    width: 10px; 
+    height: 10px;
+    cursor: pointer; }
+
+.logo-container {
+    display: flex;
+    justify-content:center;
+    flex-wrap: wrap;
+}
+
+.logoNetflix, .logoDisney {
+    position: relative;
+    left: 500px;
+    top: initial;
+    transform: initial;
+    margin: 50px auto;
+}
+
+
+.logoNetflix {
+    background-image: url('evan-peters.jpg');
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    left: 100%;
+    top: 70%;
+    width: 300px;
+    height: 300px;
+    transform: translate(-50%, -50%);
+}
+
+.actorsContainer{
+    display: flex;
+    justify-content: center;
+    background-color: black;
+}
+.caption {
+    margin-top: 10px;
+    color: white;
+    font-size: 18px;
+}
+
+.logoDisney {
+    background-image: url('leo-dicaprio.jpg');
+    background-size: 300px;
+    background-color: rgb(0, 0, 0);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    left: 30%;
+    top: 70%;
+    width: 300px;
+    height: 300px;
+    transform: translate(-50%, -50%);
+}
+
+.logoNetflix:hover, .logoDisney:hover{
+    opacity: 0.9;
+   
+}
+@media (min-width: 768px) {
+    .logoNetflix {
+        left: 35%;
+    }
+
+    .logoDisney {
+        left: 75%;
+    }
+}
