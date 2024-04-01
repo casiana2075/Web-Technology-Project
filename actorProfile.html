@@ -4,177 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="actorProfile.css"> 
     <link rel="icon" href="../Project/Resources/icon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Actor Profile</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            
-            background-color: #1a1b1c;
-            background-size: cover;
-            background-attachment: fixed;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .top-menu {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            background-color: #ffffff;
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .top-menu div {
-            background-color: transparent;
-            padding: 10px;
-            border-radius: 50%;
-        }
-
-        .top-menu div:hover {
-            background-color: #7c8388;
-        }
-
-        .top-menu div i {
-            font-size: 24px;
-        }
-
-        .profile {
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-
-        .profile img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-
-        .profile-info {
-            background-color: rgb(255, 255, 255);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .profile h1 {
-            font-size: 24px;
-            margin: 0;
-        }
-
-        .profile p {
-            font-size: 16px;
-            margin: 10px 0;
-        }
-
-        .movies {
-            margin-top: 20px;
-        }
-
-        .movies h2 {
-            font-size: 20px;
-            color: #ffffff;
-            margin: 0;
-        }
-
-        .movies ul {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            grid-gap: 10px;
-        }
-
-        .movies li {
-            font-size: 16px;
-        }
-
-        .movies img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            transition: filter 0.3s ease;
-        }
-
-        .movies img:hover {
-            filter: hue-rotate(180deg);
-        }
-
-        .add-to-favorites {
-            margin-top: 10px;
-        }
-
-        .add-to-favorites button {
-            padding: 10px;
-            font-size: 24px;
-            background-color: transparent;
-            color: #1a1b1c;
-            border: none;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .add-to-favorites button:hover {
-            color: rgb(255, 0, 0);
-        }
-
-        @media screen and (max-width: 480px) {
-            .container {
-                max-width: 90%;
-                padding: 10px;
-            }
-
-            .profile {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .profile img {
-                width: 150px;
-                height: 150px;
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
-        }
-
-        @media screen and (min-width: 481px) and (max-width: 1200px) {
-            .container {
-                max-width: 90%;
-                padding: 10px;
-            }
-            .profile {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .profile img {
-                width: 150px;
-                height: 150px;
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
-        }
-
-        @media screen and (min-width: 1201px) {
-            .container {
-                max-width: 1200px;
-                padding: 20px;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -185,17 +19,21 @@
             <div class="account-button"><i class="fas fa-user"></i></div>
         </div>
         <div class="profile">
-            <img src="https://via.placeholder.com/200" alt="Actor Profile">
+            <img src="../Project/Resources/actorProfile.png" alt="Actor Profile">
             <div class="profile-info">
                 <h1>Lorem Ipsum</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis 
-                    at mi vel tristique. Maecenas tempus interdum mi, eget efficitur nulla. 
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis
+                    at mi vel tristique. Maecenas tempus interdum mi, eget efficitur nulla.
                     Nunc id orci tristique, porttitor ipsum sed, mollis purus. Nulla vulputate
-                     orci ut tincidunt lacinia. Proin at faucibus turpis. Donec nec erat 
-                     rhoncus, venenatis metus sit amet, fringilla purus. Sed tincidunt 
-                     venenatis elit id tempor. Proin ac risus ipsum.Nullam metus eros, vehicula vel augue non, pulvinar commodo turpis.</p>
-                <div class="add-to-favorites">
-                    <button>&#10084;</button> <!-- unicode heart character -->
+                    orci ut tincidunt lacinia. Proin at faucibus turpis. Donec nec erat
+                    rhoncus, venenatis metus sit amet, fringilla purus. Sed tincidunt
+                    venenatis elit id tempor. Proin ac risus ipsum.Nullam metus eros, vehicula vel augue non, pulvinar
+                    commodo turpis.</p>
+                <div class="awards-icons">
+                    <i class="fas fa-heart" data-tooltip="Add To Favorite"></i> <!-- Favorite Icon -->
+                    <a href="../Project/oscarPage.html"><i class="fas fa-trophy" data-tooltip="Oscar"></i></a> <!-- Oscar Icon -->
+                    <a href="../Project/emmyPage.html"><i class="fas fa-gem" data-tooltip="Emmy"></i></a> <!-- Emmy Icon -->
+                    <a href="../Project/cannesPage.html"><i class="fas fa-star" data-tooltip="Cannes"></i></a> <!-- Cannes Icon -->
                 </div>
             </div>
         </div>
