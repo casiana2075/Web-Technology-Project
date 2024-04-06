@@ -1,0 +1,210 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color:  #ffffff;;
+    background-repeat: auto;
+    background-size: cover;
+    height: 100vh;
+    overflow-x: hidden;
+}
+.row-padding{padding:0 8px}
+.hover-opacity-off:hover{opacity:1}
+
+.text-container{
+    display: grid;
+    background-color: rgb(0, 0, 0);
+    height: 300px;
+    background-image: url("resources/cover.png");
+    background-size: contain; 
+    background-position: top; 
+    background-repeat: no-repeat;
+    
+}
+.container{
+    display: grid;
+}
+.text-container h1 {
+    font-size: 100px; 
+}
+.centrat {
+    text-align: center;
+    margin-top: 0px;
+    font-size: 24px;
+    color: white;
+}
+
+
+.top-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.top-menu div {
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.top-menu div:hover {
+    background-color: #7c8388;
+}
+
+.top-menu div i {
+    font-size: 24px;
+}
+
+.back-button {
+    background-image: url('resources/search.png'); 
+    background-size: contain; 
+    background-repeat: no-repeat;
+    width: 10px; 
+    height: 10px; 
+    cursor: pointer;}
+
+.home-button {
+    background-image: url('resources/home.png'); 
+    background-size: contain;
+    background-repeat: no-repeat; 
+    width: 10px; 
+    height: 10px; 
+    cursor: pointer; 
+}
+
+.account-button {
+    background-image: url('resources/account.png'); 
+    background-size: contain;
+    background-repeat: no-repeat; 
+    width: 10px; 
+    height: 10px;
+    cursor: pointer; 
+}
+
+.filler {
+    height: 80px;
+}
+
+.actorsLine {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin: calc(20px + 10px) auto 0;
+}
+
+.actorCircle {
+    display: grid;
+    width: 175px; 
+    height: 175px; 
+    border-radius: 20px;    
+    background-color: black;    
+    margin: 20px auto 0;
+    background-size: cover; 
+    background-position: center; 
+    background-image: url('resources/reset.png');
+}
+
+.angelina{
+    background-image: url('resources/actors/angelinaJolie.jpg');
+}
+
+.leo{
+    background-image: url('resources/actors/leoDicaprio.jpeg');
+}
+
+.brad{
+    background-image: url('resources/actors/bradPitt.jpg');
+}
+
+.kate{
+    background-image: url('resources/actors/kateWinslet.jpeg');
+}
+
+.cillian{
+    background-image: url('resources/actors/cillianMurphy.jpg');
+}
+
+.zendaya{
+    background-image: url('resources/actors/zendaya.jpg');
+}
+
+.johnny{
+    background-image: url('resources/actors/johnnyDepp.jpg');
+}
+
+.emma{
+    background-image: url('resources/actors/emmaStone.jpg');
+}
+
+.robert{
+    background-image: url('resources/actors/robertDowney.jpg');
+}
+
+.sandra{
+    background-image: url('resources/actors/sandraBulock.jpg');
+}
+
+.more{
+    position: absolute;
+    opacity: 0.5;
+    margin-top: 40px;
+    width: 100%;
+    height: 25px;
+    justify-content: center;
+    background-color: #929292;
+    color:#000000;
+    text-shadow: #ffffff;
+    font-size: 20px;
+    text-align: center;
+    display: grid;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.more :hover{
+    opacity: 0.8;
+}
+
+a{
+    text-decoration: none;
+}
+
+
+@media screen and (max-width: 767px) {
+
+    .actorCircle {
+        width: 120px;
+        height: 120px;
+        border-radius: 15px;
+        margin: 10px auto;
+    }
+ 
+    .actors-table tr {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); 
+       
+    }
+
+}
+  
+@media screen and (min-width: 768px) {
+   .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        margin: calc(20px + 10px) auto 0;
+    }
+    .container .actorCircle {
+        width: calc(175px - 20px); 
+    }
+}

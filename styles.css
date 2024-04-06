@@ -4,11 +4,10 @@
 }
 
 body {
-    background-color:  #e0dddd;;
+    background-color:  #ffffff;;
     background-repeat: auto;
     background-size: cover;
     height: 100vh;
-    /* overflow-y: hidden; */
 }
 .row-padding{padding:0 8px}
 .hover-opacity-off:hover{opacity:1}
@@ -16,15 +15,15 @@ body {
 .text-container{
     display: grid;
     background-color: rgb(0, 0, 0);
-    height: 350px;
-    background-image: url("cover.png");
+    height: 300px;
+    background-image: url("resources/cover.png");
     background-size: contain; 
     background-position: top; 
     background-repeat: no-repeat;
     
 }
 .text-container h1 {
-    font-size: 100px; /* Mărimea textului */
+    font-size: 100px; 
 }
 .centrat {
     text-align: center;
@@ -34,12 +33,10 @@ body {
 }
 
 .container {
+    display: grid;
     max-width: 800px;
-    margin: 0 auto;
+    margin: auto;
     padding: 20px;
-    display: flex;
-    align-items: center; /* Aliniaza continutul pe axa verticala */
-    justify-content: space-between; /* Aseaza continutul la marginea stanga si dreapta */
 }
 
 .oscarContainer{
@@ -51,7 +48,7 @@ body {
     width: 600px;
     height: 500px;
     border-radius: 10px;
-    background-image: url("oscar.png");
+    background-image: url("resources/oscar.png");
     background-repeat: no-repeat;
     background-size: 20%;
     background-position: bottom left;
@@ -65,6 +62,23 @@ body {
 .oscarContainer p{
     color: antiquewhite;
    position: relative;
+   margin-left: 50px;
+   margin-right: 50px;
+}
+
+.paragraphContainer{
+    max-width: 600px;
+    left:100px;
+    right: inherit;
+    position: relative;
+    width: 500px;
+}
+
+.oscarContainer .paragraphContainer p{
+    color: antiquewhite;
+    position: relative;
+    margin-left: 50px;
+    margin-right: 50px;  
 }
 
 .oscarContainer:hover{
@@ -76,11 +90,11 @@ body {
     max-width: 600px;
     right: 50px;
     position: absolute;
-    background-color: #1a1b1c; /* Culoarea de fundal a containerului suplimentar */
-    border-radius: 10px; /* Rotunjirea marginilor containerului */
-    width: 600px; /* Lățimea containerului */
-    height: 500px; /* Înălțimea containerului */
-    background-image: url(emmy.png);
+    background-color: #1a1b1c; 
+    border-radius: 10px; 
+    width: 600px; 
+    height: 500px; 
+    background-image: url(resources/emmy.png);
     background-repeat: no-repeat;
     background-size: 40%;
     background-position: bottom right;
@@ -90,27 +104,84 @@ body {
     font-size: 50px;
     color: antiquewhite;
     text-align: center;
+
 }
 .emmyContainer p{
     color: antiquewhite;
    position: relative;
+   margin-left: 50px;
+   margin-right: 50px;
+}
+.emmyContainer .paragraphContainer{
+    max-width: 600px;
+    left:0px;
+    position: relative;
+    width: 500px;
 }
 
+.emmyContainer .paragraphContainer p{
+    color: antiquewhite;
+    position: relative;
+    margin-left: 50px;
+    margin-right: 10px;
+
+    
+}
+
+.emmyContainer:hover{
+
+    opacity: 0.8;
+}
 
 .cannesContainer{
     max-width: 600px;
     background-color: #1a1b1c;
     left: 50px;
     right: inherit;
+    top:500px;
     position: relative;
     width: 600px;
     height: 500px;
     border-radius: 10px;
-    background-image: url("cannes.png");
+    background-image: url("resources/cannes.png");
     background-repeat: no-repeat;
     background-size: 20%;
     background-position: bottom left;
 }
+
+.cannesContainer:hover{
+    opacity: 0.8;
+    }
+
+.cannesContainer h1{
+    font-size: 50px;
+    color: antiquewhite;
+    text-align: center;}
+
+.cannesContainer p{
+    color: antiquewhite;
+   position: relative;
+   margin-left: 50px;
+   margin-right: 50px;
+}
+
+.paragraphContainer{
+    max-width: 600px;
+    left:100px;
+    right: inherit;
+    position: relative;
+    width: 500px;
+}
+
+.cannesContainer .paragraphContainer p{
+    color: antiquewhite;
+    position: relative;
+    margin-left: 50px;
+    margin-right: 50px;
+
+    
+}
+
 
 .top-menu {
     display: flex;
@@ -120,6 +191,8 @@ body {
     background-color: #ffffff;
     padding: 10px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 .top-menu div {
@@ -137,7 +210,7 @@ body {
 }
 
 .back-button {
-    background-image: url('search.png'); 
+    background-image: url('resources/search.png'); 
     background-size: contain; 
     background-repeat: no-repeat;
     width: 10px; 
@@ -145,7 +218,7 @@ body {
     cursor: pointer;}
 
 .home-button {
-    background-image: url('home.png'); 
+    background-image: url('resources/home.png'); 
     background-size: contain;
     background-repeat: no-repeat; 
     width: 10px; 
@@ -154,12 +227,13 @@ body {
 }
 
 .account-button {
-    background-image: url('account.png'); 
+    background-image: url('resources/account.png'); 
     background-size: contain;
     background-repeat: no-repeat; 
     width: 10px; 
     height: 10px;
-    cursor: pointer; }
+    cursor: pointer; 
+}
 
 .logo-container {
     display: flex;
@@ -167,17 +241,55 @@ body {
     flex-wrap: wrap;
 }
 
-.logoNetflix, .logoDisney {
-    position: relative;
-    left: 500px;
-    top: initial;
-    transform: initial;
-    margin: 50px auto;
+
+
+.logoActors1 {
+    position: absolute;
+    top: 400px; 
+    background-color: #1a1b1c;
+    border-radius: 50%;
+    width: 350px;
+    height: 350px;
+    transition: opacity 0.3s ease;
+    background-image: url('resources/oscarWinner.jpg');
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-position: center;
+    left: calc(100% - 600px);
 }
 
+.logoActors2 {
+    position: absolute; 
+    top: 950px; 
+    background-color: #1a1b1c;
+    border-radius: 50%;
+    width: 350px;
+    height: 350px;
+    transition: opacity 0.3s ease;
+    background-image: url('resources/emmyWinner.jpg');
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-position: center;
+   left: calc(50% - 600px);    
+}
 
-.logoNetflix {
-    background-image: url('evan-peters.jpg');
+.logoActors3 {
+    position: relative;
+    top: 35px; 
+    background-color: #1a1b1c;
+    border-radius: 50%;
+    width: 350px;
+    height: 350px;
+    transition: opacity 0.3s ease;
+    background-image: url('resources/cannesWinner.jpeg');
+    background-size: 350px;
+    background-repeat: no-repeat;
+    background-position: center;
+    left: calc(575px); 
+}
+
+.logoActors {
+    background-image: url('resources/evan-peters.jpg');
     opacity: 1;
     transition: opacity 0.3s ease;
     background-size: 300px;
@@ -197,36 +309,115 @@ body {
     justify-content: center;
     background-color: black;
 }
-.caption {
-    margin-top: 10px;
-    color: white;
-    font-size: 18px;
+
+.logoCaption {
+    text-align: center;
+    margin-top: 355px; 
+    color: rgb(255, 255, 255);
+    background-color: #c9a538;
+    font-size: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
-.logoDisney {
-    background-image: url('leo-dicaprio.jpg');
-    background-size: 300px;
-    background-color: rgb(0, 0, 0);
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 50%;
-    left: 30%;
-    top: 70%;
-    width: 300px;
-    height: 300px;
-    transform: translate(-50%, -50%);
+.filler {
+    height: 80px;
 }
 
-.logoNetflix:hover, .logoDisney:hover{
-    opacity: 0.9;
-   
+.actorsLine {
+    display: flex;
+    justify-content: space-between; 
+    width: 90%; 
+    margin: 5px auto; 
 }
-@media (min-width: 768px) {
-    .logoNetflix {
-        left: 35%;
+
+.actorCircle {
+    width: 150px; 
+    height: 150px; 
+    border-radius: 50%;     
+    background-color: black;    
+    margin-top: 50px;
+    background-size: cover; 
+    background-position: center; 
+}
+
+.angelina{
+    background-image: url('resources/actors/angelinaJolie.jpg');
+}
+
+.leo{
+    background-image: url('resources/actors/leoDicaprio.jpeg');
+}
+
+.brad{
+    background-image: url('resources/actors/bradPitt.jpg');
+}
+
+.kate{
+    background-image: url('resources/actors/kateWinslet.jpeg');
+}
+
+.cillian{
+    background-image: url('resources/actors/cillianMurphy.jpg');
+}
+
+.zendaya{
+    background-image: url('resources/actors/zendaya.jpg');
+}
+
+.johnny{
+    background-image: url('resources/actors/johnnyDepp.jpg');
+}
+
+.emma{
+    background-image: url('resources/actors/emmaStone.jpg');
+}
+
+.robert{
+    background-image: url('resources/actors/robertDowney.jpg');
+}
+
+.sandra{
+    background-image: url('resources/actors/sandraBulock.jpg');
+}
+
+.more{
+    position: absolute;
+    opacity: 0.5;
+    margin-top: 40px;
+    width: 100%;
+    height: 25px;
+    justify-content: center;
+    background-color: #929292;
+    color:#000000;
+    text-shadow: #ffffff;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.more :hover{
+    opacity: 0.8;
+}
+
+a{
+    text-decoration: none;
+}
+
+@media (max-width: 767px) {
+    .actorsContainer {
+        flex-direction: column; 
+    }
+    .logoActors1,
+    .logoActors2,
+    .logoActors3,
+    .oscarContainer,
+    .emmyContainer,
+    .cannesContainer {
+        margin-bottom: 20px; 
     }
 
-    .logoDisney {
-        left: 75%;
-    }
+
 }
+
