@@ -7,8 +7,10 @@
 body {
     background-color:  #ffffff;;
     background-repeat: auto;
+    font-family: Arial, Helvetica, sans-serif;
     background-size: cover;
     height: 100vh;
+    text-shadow: #000000;
 }
 .row-padding{padding:0 8px}
 .hover-opacity-off:hover{opacity:1}
@@ -305,6 +307,7 @@ body {
     color: rgb(255, 255, 255);
     background-color: #c9a538;
     font-size: 20px;
+    text-shadow: #000000;
     border-radius: 10px;
     padding: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
