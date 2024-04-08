@@ -16,14 +16,16 @@ body {
 .hover-opacity-off:hover{opacity:1}
 
 .text-container{
-    display: grid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(0, 0, 0);
-    min-height: 300px; 
+    min-height: 300px;
     background-image: url("resources/cover.png");
-    background-size: contain; 
-    background-position: top; 
+    background-size: contain;
+    background-position: top;
     background-repeat: no-repeat;
-    
+    transition: all 0.3s ease; 
 }
 .text-container h1 {
     font-size: 100px; 
@@ -83,6 +85,7 @@ body {
     position: relative;
     margin-left: 50px;
     margin-right: 50px;  
+    overflow: hidden;
 }
 
 .oscarContainer:hover{
@@ -224,7 +227,7 @@ body {
     cursor: pointer;}
 
 .home-button {
-    background-image: url('resources/home.png'); 
+    background-image: url('Resources/home.png'); 
     background-size: contain;
     background-repeat: no-repeat; 
     width: 10px; 
@@ -311,7 +314,7 @@ body {
     border-radius: 10px;
     padding: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+   padding: 10px;
 }
 
 .filler {
@@ -387,7 +390,7 @@ body {
     text-shadow: #ffffff;
     font-size: 20px;
     text-align: center;
-
+   padding: 10px;
     display: flex;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -415,13 +418,17 @@ a{
         border-radius: 0;
         height: auto;
         background-position: center;
+        font-size: smaller;
     }
-
-    .logoActors1,
+    .logoActors3,
     .logoActors2,
-    .logoActors3 {
-        width: 100%;
-        border-radius: 50%;
+    .logoActors1{
+        width: auto;
+        height: auto;
+    }
+    .logoCaption{
+        font-size: smaller;
+
     }
 
     .cannesContainer {
@@ -432,6 +439,7 @@ a{
     .logoActors2,
     .logoActors3 {
         top: 20px;
+    border-radius: 50%;
     }
 
     .logoActors2 {
@@ -448,10 +456,13 @@ a{
         display: grid;
         grid-template-columns: repeat(4, 1fr); 
        }
-       
+ 
 }
 
 @media (max-width: 767px) {
+    .text-container{
+        min-height: 100px;
+    }
     .logoActors1,
     .oscarContainer,
     .logoActors2,
@@ -468,11 +479,7 @@ a{
         height: auto;
         background-position: center;
     }
-
-    .logoActors1, .logoActors2, .logoActors3{
-        border-radius: 50%;
-
-    }
+    
     .actorsLine {
      display: grid;
      grid-template-columns: repeat(2, 1fr); 
@@ -493,6 +500,7 @@ a{
     .logoActors2,
     .logoActors3 {
         top: 20px;
+        border-radius: 50%;
     }
 
     .logoActors2 {

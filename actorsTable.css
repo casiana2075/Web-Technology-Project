@@ -14,13 +14,16 @@ body {
 .hover-opacity-off:hover{opacity:1}
 
 .text-container{
-    display: grid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(0, 0, 0);
-    height: 300px;
+    min-height: 300px;
     background-image: url("resources/cover.png");
-    background-size: contain; 
-    background-position: top; 
+    background-size: contain;
+    background-position: top;
     background-repeat: no-repeat;
+    transition: all 0.3s ease; 
     
 }
 .container{
@@ -192,6 +195,9 @@ a{
         grid-template-columns: repeat(4, 1fr); 
        
     }
+    .text-container{
+        min-height: 100px;
+    }
 
 }
   
@@ -207,4 +213,5 @@ a{
     .container .actorCircle {
         width: calc(175px - 20px); 
     }
+
 }
