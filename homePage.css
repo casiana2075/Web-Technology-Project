@@ -85,6 +85,7 @@ body {
     position: relative;
     margin-left: 50px;
     margin-right: 50px;  
+    overflow: hidden;
 }
 
 .oscarContainer:hover{
@@ -313,7 +314,7 @@ body {
     border-radius: 10px;
     padding: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+   padding: 10px;
 }
 
 .filler {
@@ -389,7 +390,7 @@ body {
     text-shadow: #ffffff;
     font-size: 20px;
     text-align: center;
-
+   padding: 10px;
     display: flex;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -417,11 +418,17 @@ a{
         border-radius: 0;
         height: auto;
         background-position: center;
+        font-size: smaller;
     }
-    .logoActors1 {
-        width: 50%; /* Redu lățimea imaginii pentru ecrane mai mici */
-        height: auto; /* Asigură aspectul proporțional al imaginii */
-        top: 100px; /* Redu spațiul de sus pentru a ajusta poziționarea */
+    .logoActors3,
+    .logoActors2,
+    .logoActors1{
+        width: auto;
+        height: auto;
+    }
+    .logoCaption{
+        font-size: smaller;
+
     }
 
     .cannesContainer {
@@ -432,7 +439,6 @@ a{
     .logoActors2,
     .logoActors3 {
         top: 20px;
-        
     border-radius: 50%;
     }
 
@@ -450,7 +456,7 @@ a{
         display: grid;
         grid-template-columns: repeat(4, 1fr); 
        }
-       
+ 
 }
 
 @media (max-width: 767px) {
