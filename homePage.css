@@ -224,7 +224,7 @@ body {
     cursor: pointer;}
 
 .home-button {
-    background-image: url('resources/home.png'); 
+    background-image: url('Resources/home.png'); 
     background-size: contain;
     background-repeat: no-repeat; 
     width: 10px; 
