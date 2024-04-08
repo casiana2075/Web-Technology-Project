@@ -212,7 +212,6 @@ body {
 .back-button {
     background-image: url('resources/search.png'); 
     background-size: contain; 
-    background-repeat: no-repeat;
     width: 10px; 
     height: 10px; 
     cursor: pointer;}
@@ -220,7 +219,6 @@ body {
 .home-button {
     background-image: url('resources/home.png'); 
     background-size: contain;
-    background-repeat: no-repeat; 
     width: 10px; 
     height: 10px; 
     cursor: pointer; 
@@ -229,7 +227,6 @@ body {
 .account-button {
     background-image: url('resources/account.png'); 
     background-size: contain;
-    background-repeat: no-repeat; 
     width: 10px; 
     height: 10px;
     cursor: pointer; 
