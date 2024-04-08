@@ -16,14 +16,16 @@ body {
 .hover-opacity-off:hover{opacity:1}
 
 .text-container{
-    display: grid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(0, 0, 0);
-    min-height: 300px; 
+    min-height: 300px;
     background-image: url("resources/cover.png");
-    background-size: contain; 
-    background-position: top; 
+    background-size: contain;
+    background-position: top;
     background-repeat: no-repeat;
-    
+    transition: all 0.3s ease; 
 }
 .text-container h1 {
     font-size: 100px; 
@@ -416,12 +418,10 @@ a{
         height: auto;
         background-position: center;
     }
-
-    .logoActors1,
-    .logoActors2,
-    .logoActors3 {
-        width: 100%;
-        border-radius: 50%;
+    .logoActors1 {
+        width: 50%; /* Redu lățimea imaginii pentru ecrane mai mici */
+        height: auto; /* Asigură aspectul proporțional al imaginii */
+        top: 100px; /* Redu spațiul de sus pentru a ajusta poziționarea */
     }
 
     .cannesContainer {
@@ -432,6 +432,8 @@ a{
     .logoActors2,
     .logoActors3 {
         top: 20px;
+        
+    border-radius: 50%;
     }
 
     .logoActors2 {
@@ -452,6 +454,9 @@ a{
 }
 
 @media (max-width: 767px) {
+    .text-container{
+        min-height: 100px;
+    }
     .logoActors1,
     .oscarContainer,
     .logoActors2,
@@ -468,11 +473,7 @@ a{
         height: auto;
         background-position: center;
     }
-
-    .logoActors1, .logoActors2, .logoActors3{
-        border-radius: 50%;
-
-    }
+    
     .actorsLine {
      display: grid;
      grid-template-columns: repeat(2, 1fr); 
@@ -493,6 +494,7 @@ a{
     .logoActors2,
     .logoActors3 {
         top: 20px;
+        border-radius: 50%;
     }
 
     .logoActors2 {
