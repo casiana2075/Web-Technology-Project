@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +16,7 @@ body {
 .text-container{
     display: grid;
     background-color: rgb(0, 0, 0);
-    height: 300px;
+    min-height: 300px; 
     background-image: url("resources/cover.png");
     background-size: contain; 
     background-position: top; 
@@ -43,7 +44,7 @@ body {
     max-width: 600px;
     background-color: #1a1b1c;
     left: 50px;
-    right: inherit;
+    right: auto;
     position: relative;
     width: 600px;
     height: 500px;
@@ -52,6 +53,7 @@ body {
     background-repeat: no-repeat;
     background-size: 20%;
     background-position: bottom left;
+    margin-bottom: 20px;
 }
 
 .oscarContainer h1{
@@ -147,6 +149,7 @@ body {
     background-repeat: no-repeat;
     background-size: 20%;
     background-position: bottom left;
+    margin-bottom: 20px;
 }
 
 .cannesContainer:hover{
@@ -192,6 +195,7 @@ body {
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
 
 }
 
@@ -286,22 +290,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     left: calc(575px); 
-}
-
-.logoActors {
-    background-image: url('resources/evan-peters.jpg');
-    opacity: 1;
-    transition: opacity 0.3s ease;
-    background-size: 300px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: rgb(0, 0, 0);
-    border-radius: 50%;
-    left: 100%;
-    top: 70%;
-    width: 300px;
-    height: 300px;
-    transform: translate(-50%, -50%);
+    z-index: -1;
 }
 
 .actorsContainer{
@@ -317,6 +306,7 @@ body {
     background-color: #c9a538;
     font-size: 20px;
     border-radius: 10px;
+    padding: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
@@ -337,7 +327,7 @@ body {
     height: 150px; 
     border-radius: 50%;     
     background-color: black;    
-    margin-top: 50px;
+    margin-top: 80px;
     background-size: cover; 
     background-position: center; 
 }
@@ -394,6 +384,7 @@ body {
     text-shadow: #ffffff;
     font-size: 20px;
     text-align: center;
+
     display: flex;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -403,21 +394,110 @@ body {
 
 a{
     text-decoration: none;
+
+}
+@media (max-width: 1323px) {
+    .logoActors1,
+    .oscarContainer,
+    .logoActors2,
+    .emmyContainer,
+    .logoActors3,
+    .cannesContainer {
+        width: 100%;
+        max-width: none;
+        left: auto;
+        right: auto;
+        position: relative;
+        margin-top: 20px;
+        border-radius: 0;
+        height: auto;
+        background-position: center;
+    }
+
+    .logoActors1,
+    .logoActors2,
+    .logoActors3 {
+        width: 100%;
+        border-radius: 50%;
+    }
+
+    .cannesContainer {
+        top: 20px;
+    }
+
+    .logoActors1,
+    .logoActors2,
+    .logoActors3 {
+        top: 20px;
+    }
+
+    .logoActors2 {
+        order: 2;
+    }
+
+    .logoActors3 {
+        order: 3;
+    }
+    .actorCircle {
+        width: calc(175px - 20px); 
+    }
+    .actorsLine {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); 
+       }
+       
 }
 
 @media (max-width: 767px) {
-    .actorsContainer {
-        flex-direction: column; 
+    .logoActors1,
+    .oscarContainer,
+    .logoActors2,
+    .emmyContainer,
+    .logoActors3,
+    .cannesContainer {
+        width: 100%;
+        max-width: none;
+        left: auto;
+        right: auto;
+        position: relative;
+        margin-top: 20px;
+        border-radius: 0;
+        height: auto;
+        background-position: center;
+    }
+
+    .logoActors1, .logoActors2, .logoActors3{
+        border-radius: 50%;
+
+    }
+    .actorsLine {
+     display: grid;
+     grid-template-columns: repeat(2, 1fr); 
+    }
+    
+    .cannesContainer {
+        width: 100%;
+        max-width: none;
+        left: auto;
+        right: auto;
+        position: relative;
+        margin-top: 20px;
+        border-radius: 0;
+        height: auto;
+        background-position: center;
     }
     .logoActors1,
     .logoActors2,
-    .logoActors3,
-    .oscarContainer,
-    .emmyContainer,
-    .cannesContainer {
-        margin-bottom: 20px; 
+    .logoActors3 {
+        top: 20px;
     }
 
+    .logoActors2 {
+        order: 2;
+    }
 
-}
+    .logoActors3 {
+        order: 3;
+    }
 
+} 
