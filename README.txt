@@ -1,0 +1,1 @@
+Flaticon pt png-uri la butoane
