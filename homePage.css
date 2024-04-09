@@ -5,8 +5,7 @@
 }
 
 body {
-    background-color:  #ffffff;;
-    background-repeat: auto;
+    background-color:  #ffffff;
     font-family: Arial, Helvetica, sans-serif;
     background-size: cover;
     height: 100vh;
@@ -16,6 +15,9 @@ body {
 .row-padding{padding:0 8px}
 .hover-opacity-off:hover{opacity:1}
 
+.p{
+   margin-bottom: 50px; 
+}
 .text-container{
     display: flex;
     justify-content: center;
@@ -283,11 +285,10 @@ body {
     text-align: center;
     margin-top: 355px; 
     color: rgb(255, 255, 255);
-    background-color: #c9a538;
+    background-color: #b08400;
     font-size: 20px;
     text-shadow: #000000;
     border-radius: 10px;
-    padding: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
    padding: 10px;
 }
@@ -382,11 +383,11 @@ a{
         min-height: 180px;
     }
     .top-menu {
-        padding: 10px;
+        padding: 5px;
     }
 
     .top-menu div {
-        padding: px;
+        padding: 5px;
     }
 
     .top-menu div i {
@@ -401,15 +402,15 @@ a{
     .logoActors3,
     .cannesContainer {
         width: 100%;
-        max-width: none;
+        margin: auto;
         left: auto;
         right: auto;
         position: relative;
         margin-top: 20px;
-        border-radius: 0;
+        border-radius: 20px;
         height: auto;
         background-position: center;
-        font-size: medium;
+        font-size: large;
     }
     .logoActors3,
     .logoActors2,
@@ -418,7 +419,7 @@ a{
         height: auto;
     }
     .logoCaption{
-        font-size: medium;
+        font-size: large;
 
     }
 
@@ -475,12 +476,11 @@ a{
     .logoActors3,
     .cannesContainer {
         width: 100%;
-        max-width: none;
         left: auto;
         right: auto;
         position: relative;
         margin-top: 20px;
-        border-radius: 0;
+        border-radius: 20px;
         height: auto;
         background-position: center;
     }
@@ -492,12 +492,12 @@ a{
     
     .cannesContainer {
         width: 100%;
-        max-width: none;
+        margin: auto;
         left: auto;
         right: auto;
         position: relative;
         margin-top: 20px;
-        border-radius: 0;
+        border-radius: 20px;
         height: auto;
         background-position: center;
     }
