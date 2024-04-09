@@ -39,6 +39,7 @@ body {
     color: white;
 }
 
+
 .top-menu {
     display: flex;
     justify-content: space-between;
@@ -55,6 +56,8 @@ body {
     background-color: transparent;
     padding: 10px;
     border-radius: 50%;
+    width: 30px;
+    height: 30px; 
 }
 
 .top-menu div:hover {
@@ -69,6 +72,7 @@ body {
     width: 30px;
     height: 30px; 
 }
+
 
 .back-button {
     background-image: url('Resources/search.png'); 
