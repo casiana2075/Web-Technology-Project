@@ -39,7 +39,6 @@ body {
     color: white;
 }
 
-
 .top-menu {
     display: flex;
     justify-content: space-between;
@@ -64,10 +63,15 @@ body {
 
 .top-menu div i {
     font-size: 24px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    width: 30px;
+    height: 30px; 
 }
 
 .back-button {
-    background-image: url('resources/search.png'); 
+    background-image: url('Resources/search.png'); 
     background-size: contain; 
     background-repeat: no-repeat;
     width: 10px; 
@@ -75,7 +79,7 @@ body {
     cursor: pointer;}
 
 .home-button {
-    background-image: url('resources/home.png'); 
+    background-image: url('Resources/home.png'); 
     background-size: contain;
     background-repeat: no-repeat; 
     width: 10px; 
@@ -84,7 +88,7 @@ body {
 }
 
 .account-button {
-    background-image: url('resources/account.png'); 
+    background-image: url('Resources/account.png'); 
     background-size: contain;
     background-repeat: no-repeat; 
     width: 10px; 
@@ -117,64 +121,6 @@ body {
     background-image: url('resources/reset.png');
 }
 
-.angelina{
-    background-image: url('resources/actors/angelinaJolie.jpg');
-}
-
-.leo{
-    background-image: url('resources/actors/leoDicaprio.jpeg');
-}
-
-.brad{
-    background-image: url('resources/actors/bradPitt.jpg');
-}
-
-.kate{
-    background-image: url('resources/actors/kateWinslet.jpeg');
-}
-
-.cillian{
-    background-image: url('resources/actors/cillianMurphy.jpg');
-}
-
-.zendaya{
-    background-image: url('resources/actors/zendaya.jpg');
-}
-
-.johnny{
-    background-image: url('resources/actors/johnnyDepp.jpg');
-}
-
-.emma{
-    background-image: url('resources/actors/emmaStone.jpg');
-}
-
-.robert{
-    background-image: url('resources/actors/robertDowney.jpg');
-}
-
-.sandra{
-    background-image: url('resources/actors/sandraBulock.jpg');
-}
-
-.more{
-    position: absolute;
-    opacity: 0.5;
-    margin-top: 40px;
-    width: 100%;
-    height: 25px;
-    justify-content: center;
-    background-color: #929292;
-    color:#000000;
-    text-shadow: #ffffff;
-    font-size: 20px;
-    text-align: center;
-    display: grid;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.more :hover{
-    opacity: 0.8;
-}
 
 a{
     text-decoration: none;
@@ -196,9 +142,8 @@ a{
        
     }
     .text-container{
-        min-height: 100px;
+        min-height: 130px;
     }
-
 }
   
 @media screen and (min-width: 768px) {
@@ -213,5 +158,5 @@ a{
     .container .actorCircle {
         width: calc(175px - 20px); 
     }
-
+  
 }
