@@ -354,30 +354,39 @@ body {
     background-image: url('resources/actors/sandraBulock.jpg');
 }
 
-.more{
+.more {
     position: absolute;
-    opacity: 0.5;
+    opacity: 0.9;
     margin-top: 40px;
-    width: 100%;
+    width: 20%;
     height: 25px;
+    border-radius: 10px;
     justify-content: center;
-    background-color: #929292;
-    color:#000000;
+    align-items: center;
+    background-color: #b3b3b3;
+    color: #b79191;
     text-shadow: #ffffff;
     font-size: 20px;
     text-align: center;
-   padding: 10px;
+    padding: 10px;
     display: flex;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    left: 50%;
+    transform: translateX(-50%);
 }
-.more :hover{
-    opacity: 0.8;
+
+.more:hover {
+    opacity: 0.7;
 }
+
 
 a{
     text-decoration: none;
+    color: #1a1b1c;
+    font-family: Arial, Helvetica, sans-serif;
 
 }
+
 @media (max-width: 1323px) {
     .text-container{
         min-height: 180px;
