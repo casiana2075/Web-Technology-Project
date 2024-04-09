@@ -216,10 +216,10 @@ body {
 .top-menu div i {
     font-size: 24px;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    width: 30px; /* Set width */
-    height: 30px; /* Set height */
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
 }
 
 .logo-container {
@@ -383,6 +383,19 @@ a{
     .text-container{
         min-height: 180px;
     }
+    .top-menu {
+        padding: 10px;
+    }
+
+    .top-menu div {
+        padding: px;
+    }
+
+    .top-menu div i {
+        font-size: 20px;
+        width: 25px;
+        height: 25px;
+    }
     .logoActors1,
     .oscarContainer,
     .logoActors2,
@@ -440,6 +453,19 @@ a{
 }
 
 @media (max-width: 767px) {
+    .top-menu {
+        padding: 5px;
+    }
+
+    .top-menu div {
+        padding: 5px;
+    }
+
+    .top-menu div i {
+        font-size: 20px;
+        width: 25px;
+        height: 25px;
+    }
     .text-container{
         min-height: 130px;
     }
