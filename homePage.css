@@ -11,6 +11,7 @@ body {
     background-size: cover;
     height: 100vh;
     text-shadow: #000000;
+    overflow-x: hidden;
 }
 .row-padding{padding:0 8px}
 .hover-opacity-off:hover{opacity:1}
