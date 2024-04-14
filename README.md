@@ -232,8 +232,6 @@
                 <li>Utilizatorii care nu sunt autentificați pot să vizualizeze "AcVis", "Actor Profile", "Statistics" dar nu pot adăuga actori în lista de favorite fără a fi înregistrati
                 </li>
                 Ambele tipuri de utilizatori se pot bucura de seria de funcționalități oferite de aplicație. Aceștia pot filtra rezultatele, pot caută rezultate, pot descarca statistici in diferite formate.
-
-
             </ul>
         </section>
         <section id="operating-environment">
@@ -242,7 +240,9 @@
                 Produsul dezvoltat poate fi utilizat pe orice dispozitiv cu un browser web care suportă HTML5, CSS și
                 JavaScript.
             </p>
+           
         </section>
+    </ul>
         <section id="documentation">
             <h4>2.5 Documentația pentru utilizator</h4>
             <p>
