@@ -75,13 +75,6 @@
                         <li><a href="#administrator-3">4.3.3 Condiții de funcționare</a></li>
                     </ul>
                 </li>
-                <li><a href="#logout">4.4 Secțiunea Logout</a>
-                    <ul>
-                        <li><a href="#logout-1">4.4.1 Descriere și generalități</a></li>
-                        <li><a href="#logout-2">4.4.2 Actualizarea informațiilor</a></li>
-                        <li><a href="#logout-3">4.4.3 Condiții de funcționare</a></li>
-                    </ul>
-                </li>
                 <li><a href="#other">4.5 Alte funcționalități </a>
                     <ul>
                         <li><a href="#other-1">4.5.1 Descriere și generalități</a></li>
