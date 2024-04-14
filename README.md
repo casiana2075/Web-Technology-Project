@@ -155,12 +155,12 @@
         <section id="audience">
             <h4>1.3 Publicul țintă</h4>
             <p>
-               
                 Acest document este destinat tuturor fanilor filmelor, serialelor și actorilor, indiferent de nivelul lor de cunoștințe tehnologice.
                 Aceștia pot consulta secțiunile de <b>Interfeța utilizatorului</b> și <b>Caracteristici ale sistemului</b>
                 pentru a
                 obține o mai bună înțelegere a ceea ce oferă aplicația.
             </p>
+        </ul>
         </section>
         <section id="product-scope">
             <h4>1.4 Scopul Produsului</h4>
@@ -172,7 +172,7 @@
         <section id="references">
             <h4>1.5 Bibliografie</h4>
             <ul>
-                <li>Buraga Sabin-Corneliu, Site-ul Tehnologii Web, FII UAIC</li>
+                <li>Panu Andrei, Site-ul Tehnologii Web, FII UAIC</li>
                 <li>H Rick. IEEE-Template - GitHub</li>
             </ul>
         </section>
