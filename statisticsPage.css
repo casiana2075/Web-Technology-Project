@@ -69,6 +69,26 @@
             margin: 10px 0;
         }
 
+        .download-button {
+            border-radius: 50%;
+            border: none;
+            background-color: #1a1b1c;
+            color: white;
+            padding: 10px 10px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            outline: none;
+        }
+        
+        .download-button:hover {
+            background-color: #3a4754;
+        }
+        
+        .download-button i {
+            margin-right: 5px;
+        }
+
         .movies {
             margin-top: 20px;
         }
@@ -102,23 +122,6 @@
             filter: hue-rotate(180deg);
         }
 
-        .add-to-favorites {
-            margin-top: 10px;
-        }
-
-        .add-to-favorites button {
-            padding: 10px;
-            font-size: 24px;
-            background-color: transparent;
-            color: #1a1b1c;
-            border: none;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .add-to-favorites button:hover {
-            color: rgb(255, 0, 0);
-        }
         a{
             text-decoration: none;
             color: black;
