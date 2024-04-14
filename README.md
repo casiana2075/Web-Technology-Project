@@ -240,9 +240,8 @@
                 Produsul dezvoltat poate fi utilizat pe orice dispozitiv cu un browser web care suportă HTML5, CSS și
                 JavaScript.
             </p>
-           
+        </ul>
         </section>
-    </ul>
         <section id="documentation">
             <h4>2.5 Documentația pentru utilizator</h4>
             <p>
