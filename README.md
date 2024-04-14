@@ -75,13 +75,6 @@
                         <li><a href="#administrator-3">4.3.3 Condiții de funcționare</a></li>
                     </ul>
                 </li>
-                <li><a href="#other">4.5 Alte funcționalități </a>
-                    <ul>
-                        <li><a href="#other-1">4.5.1 Descriere și generalități</a></li>
-                        <li><a href="#other-2">4.5.2 Actualizarea informațiilor</a></li>
-                        <li><a href="#other-3">4.5.3 Condiții de funcționare</a></li>
-                    </ul>
-                </li>
             </ul>
         </li>
         <li><a href="#non-functional">5.Funcționalități pentru protecție și securitate</a>
