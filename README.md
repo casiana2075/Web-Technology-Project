@@ -321,12 +321,11 @@
                 <li style="list-style: none">
                     <ul>
                         <li>Pagina conține lista de actori favoriți ai utilizatorului, iar prin apăsarea pe poza actorului, utilizatorul va fi redirectionat pe pagina <b>Actor Profile</b> a actorului in cauza.</li>
-                        <li>De asemenea, utilizatorul poate accesa pagina principală, sau se poate intoarce la pagina anterioară.
-                        </li>
-
+                        <li>De asemenea, utilizatorul poate accesa pagina principală, sau se poate intoarce la pagina anterioară.</li>
                     </ul>
                 </li>
             </ul>
+        </section>
             <section id="hardware-interface">
                 <h4>3.2 Interfața Hardware</h4>
                 <p>
