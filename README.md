@@ -1,8 +1,3 @@
-# Web-Technology-Project
-
-Group: 2B4\
--Golache Denisa-Ioana\
--Maxim Casiana\ 
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -132,8 +127,6 @@ Group: 2B4\
                             <a href="mailto:casiana2075@gmail.com" property="schema:email">casiana2075@gmail.com</a>
                         </li>
                     </ul>
-       
-            </span>
         </section>
     </div>
     <section id="introduction">
