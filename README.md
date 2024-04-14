@@ -440,8 +440,6 @@
                         </li>
                     </ul>
                 </section>
-                
-            </section>
             <section id="non-functional">
                 <h3>5. Funcționalități pentru protecție și securitate</h3>
                 <section id="safety">
