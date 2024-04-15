@@ -254,7 +254,7 @@
                 <li style="list-style: none">
                     <ul>
                         <li>Pagina are rolul de a realiza autentificarea utilizatorilor la AcVis.</li>
-                        <li>Pentru a se autentifica, utilizatorul trebuie să completeze câmpurile de "username" și
+                        <li>Pentru a se loga, utilizatorul trebuie să completeze câmpurile de "username" și
                             "parolă" cu
                             credențiale <b>valide</b>, urmând să acționeze butonul <b>Login</b>.
                         </li>
@@ -262,6 +262,7 @@
                             accesarea pagini de
                             înregistrare, ce se face prin apăsarea butonului <b>Register</b>.
                         </li>
+                        <img src="./resources/LoginScreenshot.png" alt="Login Page">
                     </ul>
                 </li>
                 <li id="signup-page"><b>Register</b></li>
