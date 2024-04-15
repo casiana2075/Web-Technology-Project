@@ -281,20 +281,23 @@
                             butonul
                             <b>Login</b> pentru a reveni la meniul de autentificare.
                         </li>
+                        <img src="./resources/RegisterScreenshot.png" alt="Login Page">
                     </ul>
                 </li>
-                <li id="home-page"><b>AcVis</b></li>
+                <li id="home-page"><b>HomePage</b></li>
                 <li style="list-style: none">
                     <ul>
                         <li>Pagina are rolul de prezenta câteva seriale/filme și actori relevanti. Aceste informații vor fi adăugate pe baza statisticilor. De asemenea, utilizatorul poate accesa paginile de <b>Statistics</b> și <b>Actor Profile</b> apasând pe informațiile sau pe poza fiecarui actor/film/serial
                         Utilizatorul poate vizualiza o listă de actori ordonați alfabetic iar dacă vrea să vadă mai mulți actori acesta poate apăsa butonul <b>MORE</b> și va mai primi în continuare o listă de actori ce se va încarca in cadrul aceleași pagini.   
                         </li>
+                        <img src="./resources/HomePageScreenshot.png" alt="Login Page">
                     </ul>
                 </li>
                 <li id="learning"><b>Statistics</b></li>
                 <li style="list-style: none">
                     <ul>
                         <li>Pagina oferă oportunitatea utilizatorilor de a vizualiza statistici in diferite formate ( CSV, WebP si SVG). De asemenea, utilizatorul poate accesa pagina principală, sau se poate intoarce la pagina anterioară. </li>
+                        <img src="./resources/StatisticsScreenshot.png" alt="Login Page">
                     </ul>
                 </li>
                 <li id="rules"><b>Actor Profile</b></li>
@@ -303,6 +306,7 @@
                         <li>Pagina conține informații relevante despre actorul selectat și filmele/seialele pentru care a fost nominalizat. Prin apasarea butonului in formă de inimă, actorul poate fi adăugat în lista de favorite a utilizatorului, doar dacă acesta este autentificat
                             De asemenea, utilizatorul poate accesa pagina principală, sau se poate intoarce la pagina anterioară.
                         </li>
+                        <img src="./resources/ActorProfileScreenshot.png" alt="Login Page">
                     </ul>
                 <li id="signs"><b>Favorites</b></li>
                 <li style="list-style: none">
@@ -310,6 +314,7 @@
                         <li>Pagina conține lista de actori favoriți ai utilizatorului, iar prin apăsarea pe poza actorului, utilizatorul va fi redirectionat pe pagina <b>Actor Profile</b> a actorului in cauza.</li>
                         <li>De asemenea, utilizatorul poate accesa pagina principală, sau se poate intoarce la pagina anterioară.</li>
                     </ul>
+                    <img src="./resources/FavoritesScreenshot.png" alt="Login Page">
                 </li>
             </ul>
         </section>
