@@ -22,7 +22,7 @@ body {
     align-items: center;
     background-color: rgb(0, 0, 0);
     min-height: 300px;
-    background-image: url("resources/actorsSmart.png");
+    background-image: url("../resources/actorsSmart.png");
     background-size: contain;
     background-position: top;
     background-repeat: no-repeat;
@@ -172,7 +172,7 @@ body {
     width: 600px;
     height: 500px;
     border-radius: 10px;
-    background-image: url("resources/joker.png");
+    background-image: url("../resources/joker.png");
     background-repeat: no-repeat;
     background-size: 80%;
     background-position:bottom;
@@ -241,7 +241,7 @@ text-decoration: none;
     border-radius: 10px; 
     width: 600px; 
     height: 500px; 
-    background-image: url(resources/walkingDead.png);
+    background-image: url(../resources/walkingDead.png);
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: bottom;
@@ -305,7 +305,7 @@ text-decoration: none;
     width: 600px;
     height: 500px;
     border-radius: 10px;
-    background-image: url("resources/strangerThings.png");
+    background-image: url("../resources/strangerThings.png");
     background-repeat: no-repeat;
     background-size: 80%;
     background-position: bottom center;
@@ -361,7 +361,7 @@ text-decoration: none;
     width: 350px;
     height: 350px;
     transition: opacity 0.3s ease;
-    background-image: url('resources/oscarWinner.jpg');
+    background-image: url('../resources/oscarWinner.jpg');
     background-size: cover;
     background-position: center;
     left: calc(100% - 600px);
@@ -375,7 +375,7 @@ text-decoration: none;
     width: 350px;
     height: 350px;
     transition: opacity 0.3s ease;
-    background-image: url('resources/emmyWinner.jpg');
+    background-image: url('../resources/emmyWinner.jpg');
     background-size: cover;
     background-position: center;
    left: calc(50% - 600px);    
@@ -389,7 +389,7 @@ text-decoration: none;
     width: 350px;
     height: 350px;
     transition: opacity 0.3s ease;
-    background-image: url('resources/cannesWinner.jpeg');
+    background-image: url('../resources/cannesWinner.jpeg');
     background-size: cover;
     background-position: center;
     left: calc(575px); 
@@ -457,7 +457,7 @@ text-decoration: none;
     height: 150px; 
     border-radius: 20px;     
     background-color: black;  
-    background-image: url('Resources/reset.png');  
+    background-image: url('../resources/reset.png');  
     margin-top: 80px;
     background-size: cover; 
     background-position: center; 
@@ -469,43 +469,43 @@ text-decoration: none;
 }
 
 .angelina{
-    background-image: url('resources/actors/angelinaJolie.jpg');
+    background-image: url('../resources/actors/angelinaJolie.jpg');
 }
 
 .leo{
-    background-image: url('resources/actors/leoDicaprio.jpeg');
+    background-image: url('../resources/actors/leoDicaprio.jpeg');
 }
 
 .brad{
-    background-image: url('resources/actors/bradPitt.jpg');
+    background-image: url('../resources/actors/bradPitt.jpg');
 }
 
 .kate{
-    background-image: url('resources/actors/kateWinslet.jpeg');
+    background-image: url('../resources/actors/kateWinslet.jpeg');
 }
 
 .cillian{
-    background-image: url('resources/actors/cillianMurphy.jpg');
+    background-image: url('../resources/actors/cillianMurphy.jpg');
 }
 
 .zendaya{
-    background-image: url('resources/actors/zendaya.jpg');
+    background-image: url('../resources/actors/zendaya.jpg');
 }
 
 .johnny{
-    background-image: url('resources/actors/johnnyDepp.jpg');
+    background-image: url('../resources/actors/johnnyDepp.jpg');
 }
 
 .emma{
-    background-image: url('resources/actors/emmaStone.jpg');
+    background-image: url('../resources/actors/emmaStone.jpg');
 }
 
 .robert{
-    background-image: url('resources/actors/robertDowney.jpg');
+    background-image: url('../resources/actors/robertDowney.jpg');
 }
 
 .sandra{
-    background-image: url('resources/actors/sandraBulock.jpg');
+    background-image: url('../resources/actors/sandraBulock.jpg');
 }
 
 
