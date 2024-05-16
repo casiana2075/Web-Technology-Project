@@ -6,22 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="actorProfile.css"> 
-    <link rel="icon" href="../Project/Resources/icon.png" type="image/png">
+    <link rel="icon" href="resources/icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <title>Actor Profile</title>
 </head>
 
 <body>
     <div class="container">
         <div class="top-menu">
-            <div class="back-button"><i class="fas fa-arrow-left"></i></div>
-            <div class="home-button"><i class="fas fa-home"></i></div>
-            <div class="account-button"><a href="../Project/login.html"><i class="fas fa-user"></i></a></div>
+            <div class="back-button" id="backButton"><i class="fas fa-arrow-left"></i></div>
+            <div class="home-button"><a href="homePage.html"><i class="fas fa-home"></i></a></div>
+            <div class="account-button"><a href="login.html"><i class="fas fa-user"></i></a></div>
         </div>
         <div class="profile">
-            <img src="../Project/Resources/actorProfile.png" alt="Actor Profile">
+            <img src="resources/actorProfile.png" alt="Actor Profile">
             <div class="profile-info">
-                <h1>Lorem Ipsum</h1>
+                <h1>[Actor's name] Profile</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis
                     at mi vel tristique. Maecenas tempus interdum mi, eget efficitur nulla.
                     Nunc id orci tristique, porttitor ipsum sed, mollis purus. Nulla vulputate
@@ -30,10 +35,7 @@
                     venenatis elit id tempor. Proin ac risus ipsum.Nullam metus eros, vehicula vel augue non, pulvinar
                     commodo turpis.</p>
                 <div class="awards-icons">
-                    <i class="fas fa-heart" data-tooltip="Add To Favorite"></i> <!-- Favorite Icon -->
-                    <a href="../Project/oscarPage.html"><i class="fas fa-trophy" data-tooltip="Oscar"></i></a> <!-- Oscar Icon -->
-                    <a href="../Project/emmyPage.html"><i class="fas fa-gem" data-tooltip="Emmy"></i></a> <!-- Emmy Icon -->
-                    <a href="../Project/cannesPage.html"><i class="fas fa-star" data-tooltip="Cannes"></i></a> <!-- Cannes Icon -->
+                   <a href="favoritesActors.html"><i class="fas fa-heart" data-tooltip="Add To Favorite"></i></a>  
                 </div>
             </div>
         </div>
@@ -55,6 +57,8 @@
             </ul>
         </div>
     </div>
+
+    <script src="backButton.js"></script>
 </body>
 
 </html>
