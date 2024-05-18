@@ -7,13 +7,7 @@ import querystring from 'querystring';
 const { Pool } = pkg;
 
 // Create a connection to db
-const pool = new Pool({
-    host: 'localhost',
-    user: 'postgres', 
-    password: 'STUDENT',
-    database: 'AcVisDb',
-    port: 5432,
-});
+const pool = require('../config/db');
 
 // handle requests
 const requestHandler = async (req, res) => {

@@ -4,13 +4,7 @@ const querystring = require('querystring');
 const { Pool } = require('pg');
 
 // Create a connection to db
-const pool = new Pool({
-    host: 'localhost',
-    user: 'postgres', 
-    password: 'STUDENT',
-    database: 'AcVisDb',
-    port: 5432,
-});
+const pool = require('../config/db');
 
 const server = http.createServer((req, res) => {
     if (req.method === 'POST' && url.parse(req.url).pathname === '/login') {
