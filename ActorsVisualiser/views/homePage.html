@@ -217,6 +217,29 @@
     <script src="/public/js/moreButton.js" defer type="module"></script>
     <script type="module" src="/public/js/filter.js"></script>
     <script type="module" src="/public/js/homePage.js"></script>
+    <script >
+        let searchBar = document.querySelector('.search-button input');
+        
+  
+        searchBar.addEventListener('input', function() {
+       
+            let searchTerm = this.value.toLowerCase();
+        
+            let containers = document.querySelectorAll('.container');
+       
+            containers.forEach(function(container) {
+         t
+                let containerText = container.textContent.toLowerCase();
+        
+                if (containerText.includes(searchTerm)) {
+                  
+                    container.style.display = '';
+                } else {
+                 
+                    container.style.display = 'none';
+                }
+            });
+        });</script>
 </body>
 
 </html>

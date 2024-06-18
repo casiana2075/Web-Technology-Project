@@ -1,25 +1,30 @@
-import http from 'http';
-import url from 'url';
+import fetch from 'node-fetch';
 
-const server = http.createServer((req, res) => {
+async function handleStatisticsPage(req, res) {
     if (req.method === 'GET') {
-        const filteredItems = JSON.parse(localStorage.getItem('filteredItems'));
-        console.log('filteredItems:', filteredItems);
+        try {
+            const response = await fetch('http://localhost:3000/api/awardsInfo/filter');
+            const filteredItems = await response.json();
+            console.log('filteredItems:', filteredItems);
 
-        if (filteredItems) {
-            let responseText = '';
+            if (filteredItems) {
+                let responseText = '';
 
-            filteredItems.forEach(item => {
-                responseText += `${item.full_name} (${item.show}) - ${item.category}\n`;
-            });
+                filteredItems.forEach(item => {
+                    responseText += `${item.full_name} (${item.show}) - ${item.category}\n`;
+                });
 
-            res.end(responseText);
-        } else {
-            res.end('No filtered items found in localStorage.');
+                res.end(responseText);
+            } else {
+                res.end('No filtered items found.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            res.end('Error fetching filtered items.');
         }
     } else {
         res.end('Invalid request');
     }
-});
+}
 
-server.listen(3000, () => console.log('Server running on port 3000'));
+export default handleStatisticsPage;

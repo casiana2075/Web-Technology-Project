@@ -25,7 +25,7 @@ async function handleHomePage(req, res) {
         } else {
             fs.readFile(path.join(__dirname,'..','..','views', 'homePage.html'), (err, data) => {
                 if (err) {
-                    console.error(err); // Log the error to help with debugging
+                    console.error(err); 
                     res.writeHead(500, {'Content-Type': 'text/plain'});
                     res.end('Internal Server Error');
                 } else {
