@@ -1,0 +1,2 @@
+aici ar trebui sa am cod html dinamic care se leaga de js si modifica pagina, adica cand dau pe un buton sa mi dauca din back si bd datele si sa modifice stara 
+paginii
