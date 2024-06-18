@@ -1,40 +1,59 @@
-import express from 'express';
+import http from 'http';
+import url from 'url';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
-import pool from './config/db.js';
-
-const app = express();
-const port = 3000;
+import { dirname } from 'path';
+import handleHomePage from './public/js/homePage.js';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
+const server = http.createServer((req, res) => {
+    const parsedUrl = url.parse(req.url, true);
+    const pathname = parsedUrl.pathname;
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'homePage.html'));
-});
-
-app.get('/api/awardsInfo', async (req, res) => {
-    const query = req.query;
-
-    if (query.category) {
-        try {
-            const { rows } = await pool.query('SELECT * FROM "awardsInfo" WHERE category = $1', [query.category]);
-            res.json(rows);
-        } catch (err) {
-            console.error('Database query error:', err);
-            res.status(500).send('Internal Server Error');
+    switch (true) {
+        case pathname === '/':
+        case pathname === '/api/awardsInfo':
+            handleHomePage(req, res);
+            break;
+        case pathname.startsWith('/public/css/'):
+            const cssPath = path.join(__dirname, pathname);
+            fs.readFile(cssPath, (err, data) => {
+                if (err) {
+                    console.error(err);
+                    res.writeHead(500, {'Content-Type': 'text/plain'});
+                    res.end('Internal Server Error');
+                } else {
+                    res.writeHead(200, {'Content-Type': 'text/css'});
+                    res.end(data);
+                }
+            });
+            break;
+            case pathname.startsWith('/public/resources/'):
+    const imagePath = path.join(__dirname, pathname);
+    fs.readFile(imagePath, (err, data) => {
+        if (err) {
+            console.error(err);
+            res.writeHead(500, {'Content-Type': 'text/plain'});
+            res.end('Internal Server Error');
+        } else {
+            res.writeHead(200, {'Content-Type': 'image/jpeg'});
+            res.end(data);
         }
-    } else {
-        res.status(404).send('Not Found');
+    });
+    break;
+    case pathname.startsWith('/views/statiscticsPage.html'):
+        default:
+            res.writeHead(404);
+            res.end('Not found');
+            break;
     }
 });
 
-app.get('/statisticsPage.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'statisticsPage.html'));
-});
+const port = 3000;
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
 });

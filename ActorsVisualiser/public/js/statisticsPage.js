@@ -1,17 +1,25 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const filteredItems = JSON.parse(localStorage.getItem('filteredItems'));
-    console.log('filteredItems:', filteredItems);
+import http from 'http';
+import url from 'url';
 
-    if (filteredItems) {
-        const moviesContainer = document.querySelector('.movies ul');
-        moviesContainer.innerHTML = '';
+const server = http.createServer((req, res) => {
+    if (req.method === 'GET') {
+        const filteredItems = JSON.parse(localStorage.getItem('filteredItems'));
+        console.log('filteredItems:', filteredItems);
 
-        filteredItems.forEach(item => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${item.full_name} (${item.show}) - ${item.category}`;
-            moviesContainer.appendChild(listItem);
-        });
+        if (filteredItems) {
+            let responseText = '';
+
+            filteredItems.forEach(item => {
+                responseText += `${item.full_name} (${item.show}) - ${item.category}\n`;
+            });
+
+            res.end(responseText);
+        } else {
+            res.end('No filtered items found in localStorage.');
+        }
     } else {
-        console.log('No filtered items found in localStorage.');
+        res.end('Invalid request');
     }
 });
+
+server.listen(3000, () => console.log('Server running on port 3000'));
