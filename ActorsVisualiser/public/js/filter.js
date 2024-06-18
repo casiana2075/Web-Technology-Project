@@ -1,26 +1,18 @@
-export function filterCategory(category) {
+/*export async function filterCategory(category) {
     console.log(`Filtering category: ${category}`);
 
-    fetch(`http://localhost:3000/api/awardsInfo?category=${encodeURIComponent(category)}`)
-        .then(response => response.json())
-        .then(data => {
-            localStorage.setItem('filteredItems', JSON.stringify(data));
-            window.location.href = 'statisticsPage.html';
-        })
-        .catch(error => console.error('Error fetching data:', error));
-        
-}
-window.filterCategory = filterCategory;
+    const response = await fetch(`http://localhost:3000/api/awardsInfo?category=${encodeURIComponent(category)}`);
+    const data = await response.json();
 
-/* de refacut */
- function fiterYear(year) {
+    return data;
+}
+
+export async function filterYear(year) {
     console.log(`Filtering year: ${year}`);
 
-    fetch(`http://localhost:3000/api/awardsInfo?year=${encodeURIComponent(year)}`)
-        .then(response => response.json())
-        .then(data => {
-            localStorage.setItem('filteredItems', JSON.stringify(data));
-            window.location.href = 'statisticsPage.html';
-        })
-        .catch(error => console.error('Error fetching data:', error));
-    }
+    const response = await fetch(`http://localhost:3000/api/awardsInfo?year=${encodeURIComponent(year)}`);
+    const data = await response.json();
+
+    return data;
+}
+*/

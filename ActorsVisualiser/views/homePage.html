@@ -16,7 +16,8 @@
     <link rel="icon" href="../resources/homePageIcon.png" type="image/png">
     <link rel="photos" href="../public/resources">
     <script src="../public/js/filter.js" defer></script>
-    <script src="../public/js/homePage.js" defer></script>
+    <script src="./App/homePage.js" defer></script>
+    <script src="/public/js/getMovieDetails.js" defer></script>
 </head>
 
 <body>
@@ -214,9 +215,10 @@
     <div class="filler"></div>
     <div class="filler1"></div>
 
-    <script src="/public/js/moreButton.js" defer type="module"></script>
-    <script type="module" src="/public/js/filter.js"></script>
-    <script type="module" src="/public/js/homePage.js"></script>
+    <script src="../public/js/moreButton.js"> </script>
+    <script src="/public/js/homePage.js" defer></script>
+    <script src="/public/js/moreButton.js" defer></script>
+    <script type="module" src="/public/js/getMovieDetails.js"></script>
     <script >
         let searchBar = document.querySelector('.search-button input');
         
@@ -239,7 +241,71 @@
                     container.style.display = 'none';
                 }
             });
-        });</script>
+        });
+        const movieName = 'The Walking Dead';
+
+fetch(`https://api.themoviedb.org/3/search/movie?api_key=524b8acb224e3bc712c2c9b11ddeca4e&query=${encodeURIComponent(movieName)}`)
+.then(response => response.json())
+.then(data => {
+    if (data.results && data.results.length > 0) {
+        const movieTitle = data.results[0].title;
+        const movieOverview = data.results[0].overview;
+
+        const movieContainer = document.querySelector('.movie2Container');
+
+        movieContainer.innerHTML = `
+            <h1>${movieTitle}</h1>
+            <p>${movieOverview}</p>
+        `;
+    } else {
+        console.log('Filmul nu a fost găsit');
+    }
+})
+.catch(error => console.error('Error:', error));
+
+const movieName1 = 'Joker';
+
+fetch(`https://api.themoviedb.org/3/search/movie?api_key=524b8acb224e3bc712c2c9b11ddeca4e&query=${encodeURIComponent(movieName1)}`)
+.then(response => response.json())
+.then(data => {
+    if (data.results && data.results.length > 0) {
+        const movieTitle = data.results[0].title;
+        const movieOverview = data.results[0].overview;
+
+        const movieContainer = document.querySelector('.movie1Container');
+
+        movieContainer.innerHTML = `
+            <h1>${movieTitle}</h1>
+            <p>${movieOverview}</p>
+        `;
+    } else {
+        console.log('Filmul nu a fost găsit');
+    }
+})
+.catch(error => console.error('Error:', error));
+
+
+const movieName3 = 'Stranger Things';
+
+fetch(`https://api.themoviedb.org/3/search/movie?api_key=524b8acb224e3bc712c2c9b11ddeca4e&query=${encodeURIComponent(movieName3)}`)
+.then(response => response.json())
+.then(data => {
+    if (data.results && data.results.length > 0) {
+        const movieTitle = data.results[0].title;
+        const movieOverview = data.results[0].overview;
+
+        const movieContainer = document.querySelector('.movie3Container');
+
+        movieContainer.innerHTML = `
+            <h1>${movieTitle}</h1>
+            <p>${movieOverview}</p>
+        `;
+    } else {
+        console.log('Filmul nu a fost găsit');
+    }
+})
+.catch(error => console.error('Error:', error));
+    </script>
 </body>
 
 </html>

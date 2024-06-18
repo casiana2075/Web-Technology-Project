@@ -4,9 +4,11 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import handleHomePage from './public/js/homePage.js';
+
+import handleHomePage from './App/homePage.js';
+
 // import other handlers here
-import handleStatisticsPage from './public/js/statisticsPage.js';
+//import handleStatisticsPage from './App/statisticsPage.js';
 // import handleActorProfile from './public/js/actorProfile.js';
 // import handleFavoritesActors from './public/js/favoritesActors.js';
 // import handleRegister from './public/js/register.js';
@@ -20,13 +22,12 @@ const server = http.createServer((req, res) => {
     const pathname = parsedUrl.pathname;
 
     switch (true) {
-        case pathname === '/api/home':
-            case pathname === '/api/gettingCategory':
+        case pathname === '/home':
                 handleHomePage(req, res);
                 break;
-            case pathname === '/api/statistics':
-                handleStatisticsPage(req, res);
-                break;
+       /* case pathname === '/statistics':
+            handleStatisticsPage(req, res);
+                break;*/
         case pathname.startsWith('/public/css/'):
             const cssPath = path.join(__dirname, pathname);
             fs.readFile(cssPath, (err, data) => {
@@ -53,6 +54,20 @@ const server = http.createServer((req, res) => {
                 }
             });
             break;
+        /*    
+            case pathname.startsWith('/public/js/'):
+    const jsPath = path.join(__dirname, pathname);
+    fs.readFile(jsPath, (err, data) => {
+        if (err) {
+            console.error(err);
+            res.writeHead(500, {'Content-Type': 'text/plain'});
+            res.end('Internal Server Error');
+        } else {
+            res.writeHead(200, {'Content-Type': 'application/javascript'});
+            res.end(data);
+        }
+    });
+    break;*/
         default:
             res.writeHead(404);
             res.end('Not found');
@@ -63,5 +78,5 @@ const server = http.createServer((req, res) => {
 const port = 3000;
 
 server.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}/api/home`);
+    console.log(`Server running at http://localhost:${port}/home`);
 });
