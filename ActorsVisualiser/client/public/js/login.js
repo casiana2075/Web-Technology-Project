@@ -1,5 +1,9 @@
 
 
+if (document.cookie.includes('username')) {
+    window.location.href = 'homePage.html';
+}
+
 document.getElementById('login-form').addEventListener('submit', event => {
 
     event.preventDefault();
@@ -16,6 +20,9 @@ document.getElementById('login-form').addEventListener('submit', event => {
         body: JSON.stringify({ username, password })
     }).then(response => {
         if (response.status === 200) {
+            let date = new Date();
+            date.setMonth(date.getMonth() + 1);
+            document.cookie = `username=${username}; expires=${date.toUTCString()}; path=/`;
             window.location.href = 'homePage.html';
         } else {
             alert('Invalid username or password');
