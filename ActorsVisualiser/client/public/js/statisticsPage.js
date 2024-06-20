@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         let responseTextWithImages = '';
         let responseTextWithoutImages = '';
         let displayedActors = {};
+        
     
         let response;
         if (category) {
@@ -49,6 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
 
+            
             resultsContainer.innerHTML += responseTextWithImages + responseTextWithoutImages;
             start += increment;
         }
@@ -79,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const button = document.createElement('button');
                         button.textContent = year.year;
                         button.classList.add('category-button');
-                        button.addEventListener('click', () => loadImages(false, year.year, true));
+                        button.addEventListener('click', () => loadImages(year.year, true));
                         yearsContainer.appendChild(button);
                     }
                 });

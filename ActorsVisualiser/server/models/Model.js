@@ -124,7 +124,9 @@ function getSeriesCategories() {
             }
         });
     });
-}function getAwardsInfo(category) {
+}
+
+function getAwardsInfo(category) {
     console.log("Model!");
     console.log("Category:", category);
 
