@@ -51,7 +51,6 @@ body {
 }
 
 
-
 .top-menu {
     display: flex;
     justify-content: space-between;
@@ -61,34 +60,27 @@ body {
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
-
 .top-menu div {
     background-color: transparent;
-    align-items: center;
     padding: 10px;
     border-radius: 20px;
 }
-
-.top-menu .home-button,
 .top-menu .search-button,
+.top-menu .home-button,
 .top-menu .account-button {
     background-color: transparent;
     padding: 10px;
     border-radius: 50%;
     display: flex;
-    align-items: center;
-    justify-content: center; 
 }
-
-
 .top-menu div:hover {
     background-color: #7c8388;
-    align-items: center;
 }
-
-
+.top-menu .filter-button div :hover {
+    background-color: #7c8388;
+    border: 1px;
+}
 .top-menu div i {
     font-size: 24px;
     display: flex;
@@ -99,31 +91,41 @@ body {
     color: black;
 }
 
-
-.back-button {
-    background-image: url('../resources/search.png'); 
-    background-size: contain; 
-    background-repeat: no-repeat;
-    width: 10px; 
-    height: 10px; 
-    cursor: pointer;}
-
-.home-button {
-    background-image: url('../resources/home.png'); 
-    background-size: contain;
-    background-repeat: no-repeat; 
-    width: 10px; 
-    height: 10px; 
-    cursor: pointer; 
+.account-button {
+    cursor: pointer;
+    position: relative;
 }
 
-.account-button {
-    background-image: url('../resources/account.png'); 
-    background-size: contain;
-    background-repeat: no-repeat; 
-    width: 10px; 
-    height: 10px;
-    cursor: pointer; 
+.accountBox {
+    display: none;
+    position: absolute;
+    right: 0; 
+    padding: 20px;
+    width: 100px;
+    z-index: 200;
+    background-color: transparent;
+}
+
+.accountBox ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.accountBox li {
+    border: 1px solid #7c8388;
+    margin-top: -1px;
+    background-color: #ffffff;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+    display: block;
+    border-radius: 20px;
+}
+
+.account-button:hover .accountBox {
+    display: block;
 }
 
 .filler {
@@ -157,7 +159,7 @@ a{
     position: absolute;
     left: auto;
     padding: 10px;
-    width: auto;
+    width: 1000;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;

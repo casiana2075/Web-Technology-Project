@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -16,6 +15,7 @@ body {
 .p{
    margin-bottom: 50px; 
 }
+
 .text-container{
     display: flex;
     justify-content: center;
@@ -31,6 +31,7 @@ body {
 .text-container h1 {
     font-size: 100px; 
 }
+
 .centrat {
     text-align: center;
     margin-top: 0px;
@@ -45,7 +46,6 @@ body {
     padding: 20px;
 }
 
-
 .top-menu {
     display: flex;
     justify-content: space-between;
@@ -55,15 +55,12 @@ body {
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
-
 .top-menu div {
     background-color: transparent;
     padding: 10px;
     border-radius: 20px;
 }
-
 .top-menu .filter-button,
 .top-menu .search-button,
 .top-menu .account-button {
@@ -72,17 +69,13 @@ body {
     border-radius: 50%;
     display: flex;
 }
-
-
 .top-menu div:hover {
     background-color: #7c8388;
 }
-
 .top-menu .filter-button div :hover {
     background-color: #7c8388;
     border: 1px;
 }
-
 .top-menu div i {
     font-size: 24px;
     display: flex;
@@ -93,12 +86,9 @@ body {
     color: black;
 }
 
-
-
 .filter-button{
     cursor:pointer;
 }
-
 .filterBox{
     display: none;
     position: absolute;
@@ -112,7 +102,6 @@ body {
     padding: 0;
     margin: 0;
 }
-
 .filterBox li {
     border: 1px solid #7c8388;
     margin-top: -1px; 
@@ -125,8 +114,6 @@ body {
     border-radius: 20px;
    
 }
-
-
 .filter-button:hover .filterBox {
     display: block;
 }
@@ -136,7 +123,8 @@ body {
     position: absolute;
     right: auto;
     padding: 10px;
-    width: auto;
+    width: 400px;
+    height: 50px; 
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -148,8 +136,9 @@ body {
 .searchBox input[type="text"] {
     width: calc(100% - 20px); 
     padding: 5px;
+    height: 25px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 15px;
 
 }
 .search-button:hover .searchBox {
@@ -163,15 +152,21 @@ body {
 }
 
 
-.accountBox{
+.account-button {
+    cursor: pointer;
+    position: relative;
+}
+
+.accountBox {
     display: none;
     position: absolute;
-    right : 1%;
+    right: 0;
     padding: 20px;
     width: 200px;
     z-index: 100;
     background-color: transparent;
 }
+
 .accountBox ul {
     list-style-type: none;
     padding: 0;
@@ -180,15 +175,14 @@ body {
 
 .accountBox li {
     border: 1px solid #7c8388;
-    margin-top: -1px; 
-    background-color: #ffffff; 
+    margin-top: -1px;
+    background-color: #ffffff;
     padding: 12px;
-    text-decoration: none; 
-    font-size: 15px; 
-    color: rgb(0, 0, 0); 
-    display: block; 
+    text-decoration: none;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+    display: block;
     border-radius: 20px;
-   
 }
 
 .account-button:hover .accountBox {

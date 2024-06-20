@@ -33,6 +33,7 @@ document.getElementById('register-form').addEventListener('submit', event => {
                 errorMessage.style.color = 'red';
                 errorMessage.style.fontSize = '14px';
                 errorMessage.style.fontWeight = 'bold';
+                errorMessage.classList.add('fade-in');
                 
                 errorDiv.innerHTML = '';
                 errorDiv.appendChild(errorMessage);
