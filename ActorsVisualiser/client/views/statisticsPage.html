@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/statisticsPage.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/statisticsPage.css">
+    <link rel="icon" href="../public/resources/statisticIcon.png" type="image/png">
+    <script src="../public/js/filter.js" defer></script>
+    <script src="../public/js/statisticsPage.js" defer></script>
+    <title>Statistics</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-menu">
+            <div class="back-button" id="backButton"><i class="fas fa-arrow-left"></i></div>
+            <div class="home-button"><a href="homePage.html"><i class="fas fa-home"></i></a></div>
+            <div class="account-button"><a href="login.html"><i class="fas fa-user"></i></a></div>
+        </div>
+        <div class="profile">
+            <img src="../public/resources/loading.png" alt="Loading Profile">
+            <div class="profile-info">
+                <h1>Statistics</h1>
+                <!-- ... rest of the profile-info content ... -->
+                <div class="categories">
+                    <!-- The category buttons will be added here by the JavaScript code -->
+                </div>
+            </div>
+        </div>
+        <div class="movies">
+            <h2>Movies</h2>
+            <ul>
+                <!-- The actor images and information will be added here by the JavaScript code -->
+            </ul>
+        </div>
+    </div>
+    <script src="../public/js/backButton.js"></script>
+    <script>
+        const filteredItems = JSON.parse(sessionStorage.getItem('filteredItems'));
+        </script>
+
+<button id="moreButton">More</button>
+</body>
+
+</html>
