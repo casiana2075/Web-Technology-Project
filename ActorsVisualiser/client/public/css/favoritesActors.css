@@ -4,13 +4,17 @@
 }
 
 body {
-    background-color:  #ffffff;;
+    background-color:  rgb(255, 255, 255);
     background-size: cover;
     height: 100vh;
     overflow-x: hidden;
 }
 .row-padding{padding:0 8px}
 .hover-opacity-off:hover{opacity:1}
+
+.p{
+   margin-bottom: 50px; 
+}
 
 .text-container{
     display: flex;
@@ -23,26 +27,11 @@ body {
     background-position: top;
     background-repeat: no-repeat;
     transition: all 0.3s ease; 
-    
-}
-.favorites{
-    display: flex;
-    background-color: #b08400;
-    justify-content: center;
-    color: white;
-    font-size: 20px;
-    border-radius: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-
-}
-.container{
-    display: grid;
-  margin: auto;
 }
 .text-container h1 {
     font-size: 100px; 
 }
+
 .centrat {
     text-align: center;
     margin-top: 0px;
@@ -50,6 +39,12 @@ body {
     color: white;
 }
 
+.container {
+    display: grid;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
 
 .top-menu {
     display: flex;
@@ -66,8 +61,8 @@ body {
     padding: 10px;
     border-radius: 20px;
 }
+.top-menu .filter-button,
 .top-menu .search-button,
-.top-menu .home-button,
 .top-menu .account-button {
     background-color: transparent;
     padding: 10px;
@@ -90,6 +85,7 @@ body {
     height: 30px;
     color: black;
 }
+
 
 .account-button {
     cursor: pointer;
@@ -128,6 +124,18 @@ body {
     display: block;
 }
 
+.favorites{
+    display: flex;
+    background-color: #a78623;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    border-radius: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
 .filler {
     height: 80px;
 }
@@ -157,28 +165,29 @@ a{
 .searchBox {
     display: none;
     position: absolute;
-    left: auto;
+   
     padding: 10px;
-    width: 1000;
+    width: 400px;
+    height: 50px; 
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
     align-items: center; 
     justify-content: center; 
-    top:auto;
+    top: auto;
 }
 
 .searchBox input[type="text"] {
     width: calc(100% - 20px); 
     padding: 5px;
+    height: 25px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 15px;
 
 }
-
 .search-button:hover .searchBox {
     display: flex;
-    left: 100px;
+    left: 50%;
     transform: translateX(-50%); 
 }
 .searchBox ul {
@@ -189,10 +198,22 @@ a{
 @media screen and  (max-width: 767px) {
 
     .top-menu {
-        font-size: 0.8em; 
-        padding: 1px;
-       
+        padding: 5px;
     }
+
+    .top-menu div {
+        padding: 5px;
+    }
+
+    .top-menu div i {
+        font-size: 20px;
+        width: 25px;
+        height: 25px;
+    }
+    .text-container{
+        min-height: 130px;
+    }
+
     .actorCircle {
         width: 120px;
         height: 120px;
@@ -205,23 +226,32 @@ a{
         grid-template-columns: repeat(4, 1fr); 
        
     }
-    .text-container{
-        min-height: 130px;
-    }
-    .container {
-        grid-template-columns: repeat(1, 1fr); 
-    }
+
 }
   
-@media screen and (min-width: 768px) {
-   .container {
+@media screen and (max-width: 1323px) {
+    .text-container{
+        min-height: 180px;
+    }
+    .top-menu {
+        padding: 5px;
+    }
+
+    .top-menu div {
+        padding: 5px;
+    }
+
+    .top-menu div i {
+        font-size: 20px;
+        width: 25px;
+        height: 25px;
+    }
+    .container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
         gap: 50px;
-        margin-bottom: 30px; 
         justify-content: center;
-        align-items: center;
-        margin: calc(20px + 10px) auto 0;
+        align-items: center; 
     }
     .container .actorCircle {
         display: grid;

@@ -556,46 +556,6 @@ text-decoration: none;
     max-width: 1600px;
 }
 
-.angelina{
-    background-image: url('../resources/actors/angelinaJolie.jpg');
-}
-
-.leo{
-    background-image: url('../resources/actors/leoDicaprio.jpeg');
-}
-
-.brad{
-    background-image: url('../resources/actors/bradPitt.jpg');
-}
-
-.kate{
-    background-image: url('../resources/actors/kateWinslet.jpeg');
-}
-
-.cillian{
-    background-image: url('../resources/actors/cillianMurphy.jpg');
-}
-
-.zendaya{
-    background-image: url('../resources/actors/zendaya.jpg');
-}
-
-.johnny{
-    background-image: url('../resources/actors/johnnyDepp.jpg');
-}
-
-.emma{
-    background-image: url('../resources/actors/emmaStone.jpg');
-}
-
-.robert{
-    background-image: url('../resources/actors/robertDowney.jpg');
-}
-
-.sandra{
-    background-image: url('../resources/actors/sandraBulock.jpg');
-}
-
 .more {
     position: absolute;
     opacity: 0.9;

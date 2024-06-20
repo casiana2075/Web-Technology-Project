@@ -23,7 +23,13 @@
         <div class="top-menu">
             <div class="back-button" id="backButton"><i class="fas fa-arrow-left"></i></div>
             <div class="home-button"><a href="homePage.html"><i class="fas fa-home"></i></a></div>
-            <div class="account-button"><a href="login.html"><i class="fas fa-user"></i></a></div>
+            <div class="account-button"><i class="fas fa-user"></i>
+                <div id="accountBox" class="accountBox">
+                    <a style ="display: none;" href="login.html" id="login"><ul><li>Login</li></ul></a>
+                    <a style="display: none;" href="register.html" id="register"><ul><li>Register</li></ul></a>
+                    <a style="display : none;" id="logout" onclick="logoutUser()"><ul><li>Logout</li></ul></a>
+                </div>
+            </div>
         </div>
         <div class="profile">
             <img src="../public/resources/loading.png" alt="Loading Profile">
@@ -52,6 +58,8 @@
         </script>
 
 <button id="moreButton">More</button>
+
+<script src="../public/js/logout.js"></script>
 </body>
 
 </html>
