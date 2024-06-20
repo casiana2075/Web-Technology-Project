@@ -32,6 +32,50 @@ function checkUser(username, password){
     });
 
 }
+function getUserByEmail(email){
+    console.log("Model!");
+    console.log(email);
+
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM users WHERE email = $1' , [email], (err, res) => {
+        if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows[0]);
+            }
+        });
+    });
+}
+
+function getUserByUsername(username){
+    console.log("Model!");
+    console.log(username);
+
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM users WHERE username = $1' , [username], (err, res) => {
+        if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows[0]);
+            }
+        });
+    });
+}
+
+function createUser(username, password, email){
+    console.log("Model!");
+    console.log(username, password, email);
+
+    return new Promise((resolve, reject) => {
+        pool.query('INSERT INTO users (username, password, email) VALUES ($1, $2, $3) RETURNING *', [username, password, email], (err, res) => {
+        if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows[0]);
+            }
+        });
+    });
+}
 function getCategories() {
     console.log("Model!");
 
@@ -80,30 +124,19 @@ function getSeriesCategories() {
             }
         });
     });
-}
-
-function getAwardsInfo(category, year, isSeriesFilter = false) {
+}function getAwardsInfo(category) {
     console.log("Model!");
     console.log("Category:", category);
-    console.log("Year:", year);
-    console.log("Is Series Filter:", isSeriesFilter);
 
     return new Promise((resolve, reject) => {
         let query = 'SELECT * FROM "awardsInfo" WHERE 1=1';
         const params = [];
-        if (isSeriesFilter) {
-            query += ' AND LOWER(category) LIKE \'%\' || $' + (params.length + 1) + ' || \'%\'';
-            params.push('series');
-        }else if (category) {
-            params.push(category);
-            query += ' AND TRIM(category) = $' + params.length;
-        }
-
-            if (year) {
-                params.push(year);
-                query += ' AND TRIM(year) = $' + params.length;
-            }
         
+        if (category) {
+            category = decodeURIComponent(category);
+            params.push('%' + category.toLowerCase() + '%');
+            query += ' AND LOWER(category) LIKE $' + params.length;
+        }
 
         console.log('Executing query:', query);
         console.log('With parameters:', params);
@@ -119,11 +152,12 @@ function getAwardsInfo(category, year, isSeriesFilter = false) {
         });
     });
 }
-
-
 module.exports = {
     findAll,
     checkUser,
+    getUserByEmail,
+    getUserByUsername,
+    createUser,
     getCategories,
     getYears,
     getSeriesCategories,

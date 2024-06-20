@@ -26,11 +26,10 @@
         <div class="top-menu">
             <div class="filter-button"><i class="fas fa-filter"></i>
                 <div id="filterBox" class="filterBox">
-                    <a href="statisticsPage.html"><ul><li>Awards</li></ul></a>
-                    <a href="statisticsPage.html"><ul><li>Movies</li></ul></a>
-                    <a href="statisticsPage.html"><ul><li>TV Series</li></ul></a>
-                    <a href="statisticsPage.html"><ul><li>Category</li></ul></a>
-                   
+                    <a href="statisticsPage.html?filter=year"><ul><li>Edition</li></ul></a>
+                    <a href="statisticsPage.html?filter=movies"><ul><li>Movies</li></ul></a>
+                    <a href="statisticsPage.html?filter=tv-series"><ul><li>TV Series</li></ul></a>
+                    <a href="statisticsPage.html?filter=category"><ul><li>Category</li></ul></a>
                 </div>
             </div>
             <div class="search-button"><i class="fas fa-search"></i>
@@ -38,7 +37,13 @@
                     <input type="text" placeholder="Search...">
                 </div>
             </div>
-            <div class="account-button"><a href="login.html"><i class="fas fa-user"></i></a></div>
+            <div class="account-button"><i class="fas fa-user"></i>
+                <div id="accountBox" class="accountBox">
+                    <a style ="display: none;" href="login.html" id="login"><ul><li>Login</li></ul></a>
+                    <a style="display: none;" href="register.html" id="register"><ul><li>Register</li></ul></a>
+                    <a style="display : none;" id="logout" onclick="logoutUser()"><ul><li>Logout</li></ul></a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="container logoActors1" id="logoActors1">

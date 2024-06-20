@@ -1,29 +1,32 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const categoriesResponse = await fetch('http://localhost:3001/api/categories');
-    const categories = await categoriesResponse.json();
-    const categoriesContainer = document.getElementById('categories');
+    const filter = sessionStorage.getItem('filter');
+    if (filter === 'category') {
+        const categoriesResponse = await fetch('http://localhost:3001/api/categories');
+        const categories = await categoriesResponse.json();
+        const categoriesContainer = document.getElementById('categories');
 
-    if (categoriesContainer) {
-        categories.forEach(category => {
-            const button = document.createElement('button');
-            button.classList.add('filter-category');
-            button.innerText = category;
-            categoriesContainer.appendChild(button);
-        });
-    }
+        if (categoriesContainer) {
+            categories.forEach(category => {
+                const button = document.createElement('button');
+                button.classList.add('filter-category');
+                button.innerText = category;
+                categoriesContainer.appendChild(button);
+            });
+        }
+    } else if (filter === 'edition') {
+        const yearsResponse = await fetch('http://localhost:3001/api/years');
+        const years = await yearsResponse.json();
+        const yearsContainer = document.getElementById('years');
 
-    const yearsResponse = await fetch('http://localhost:3001/api/years');
-    const years = await yearsResponse.json();
-    const yearsContainer = document.getElementById('years');
-
-    if (yearsContainer) {
-        years.forEach(year => {
-            const button = document.createElement('button');
-            button.classList.add('filter-year');
-            button.innerText = year;
-            yearsContainer.appendChild(button);
-        });
-    }
+        if (yearsContainer) {
+            years.forEach(year => {
+                const button = document.createElement('button');
+                button.classList.add('filter-year');
+                button.innerText = year;
+                yearsContainer.appendChild(button);
+            });
+        }
+    } 
 
     const updateStatisticsPage = (data) => {
         console.log('Updating statistics page with data:', data);

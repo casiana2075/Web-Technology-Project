@@ -13,11 +13,14 @@ const router = (req,res) => {
         controller.login(req,res);
     console.log("Login!");
 
+    } else if (req.url === '/api/users' && req.method === 'POST') {
+
+        controller.register(req,res);
+        
     }else  if (req.url.startsWith('/api/awardsInfo') && req.method === 'GET') {
         const url = new URL(req.url, `http://${req.headers.host}`);
         const category = url.searchParams.get('category');
-        const year = url.searchParams.get('year');
-        
+        const year = url.searchParams.get('year');     
          controller.getAwardsInfo(req, res, category, year);
     } else if (req.url === '/api/categories' && req.method === 'GET') {
         controller.getCategories(req, res);

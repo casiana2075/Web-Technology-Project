@@ -161,7 +161,20 @@
             color: black; 
             border: 2px solid #b08400;
         }
-
+        .years {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            height: 100px; /* Adjust this value to show the number of buttons you want */
+            overflow: hidden;
+            transition: height 0.5s ease-in-out; /* Optional: add a transition for a smooth height change */
+        }
+        
+        .years .category-button {
+            flex: 1 0 20%;
+            margin: 5px;
+            box-sizing: border-box;
+        }
         #moreButton {
             background-color:#b08400;
             border: none;
