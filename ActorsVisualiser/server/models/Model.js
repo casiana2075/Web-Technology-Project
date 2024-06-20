@@ -30,8 +30,8 @@ function checkUser(username, password){
             }
         });
     });
-}
 
+}
 function getUserByEmail(email){
     console.log("Model!");
     console.log(email);
@@ -76,11 +76,90 @@ function createUser(username, password, email){
         });
     });
 }
+function getCategories() {
+    console.log("Model!");
 
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT DISTINCT category FROM "awardsInfo"', (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows);
+            }
+        });
+    });
+}
+
+function getYears() {
+    console.log("Model!");
+
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT DISTINCT year FROM "awardsInfo"', (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows);
+            }
+        });
+    });
+}
+
+function getSeriesCategories() {
+    console.log("Fetching categories containing 'series'");
+
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM "awardsInfo" WHERE LOWER(category) LIKE $1';
+        const params = ['%series%'];
+
+        console.log('Executing query:', query);
+        console.log('With parameters:', params);
+
+        pool.query(query, params, (err, res) => {
+            if (err) {
+                console.error('Error executing query:', err);
+                reject(err);
+            } else {
+                console.log('Query results:', res.rows);
+                resolve(res.rows);
+            }
+        });
+    });
+}function getAwardsInfo(category) {
+    console.log("Model!");
+    console.log("Category:", category);
+
+    return new Promise((resolve, reject) => {
+        let query = 'SELECT * FROM "awardsInfo" WHERE 1=1';
+        const params = [];
+        
+        if (category) {
+            category = decodeURIComponent(category);
+            params.push('%' + category.toLowerCase() + '%');
+            query += ' AND LOWER(category) LIKE $' + params.length;
+        }
+
+        console.log('Executing query:', query);
+        console.log('With parameters:', params);
+
+        pool.query(query, params, (err, res) => {
+            if (err) {
+                console.error('Error executing query:', err);
+                reject(err);
+            } else {
+                console.log('Query results:', res.rows);
+                resolve(res.rows);
+            }
+        });
+    });
+}
 module.exports = {
     findAll,
     checkUser,
     getUserByEmail,
     getUserByUsername,
-    createUser
+    createUser,
+    getCategories,
+    getYears,
+    getSeriesCategories,
+    getAwardsInfo
 };

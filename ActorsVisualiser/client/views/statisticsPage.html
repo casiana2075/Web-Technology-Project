@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../public/css/statisticsPage.css">
     <link rel="icon" href="../public/resources/statisticIcon.png" type="image/png">
     <script src="../public/js/filter.js" defer></script>
-    <script src="App/statisticsPage.js" defer></script>
+    <script src="../public/js/statisticsPage.js" defer></script>
     <title>Statistics</title>
 </head>
 
@@ -29,43 +29,29 @@
             <img src="../public/resources/loading.png" alt="Loading Profile">
             <div class="profile-info">
                 <h1>Statistics</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis 
-                    at mi vel tristique. Maecenas tempus interdum mi, eget efficitur nulla. 
-                    Nunc id orci tristique, porttitor ipsum sed, mollis purus. Nulla vulputate
-                    orci ut tincidunt lacinia. Proin at faucibus turpis. Donec nec erat 
-                    rhoncus, venenatis metus sit amet, fringilla purus. Sed tincidunt 
-                    venenatis elit id tempor. Proin ac risus ipsum.Nullam metus eros, vehicula vel augue non, pulvinar commodo turpis.
-                </p>
-                <div class="download-icons">
-                    <button id="csvButton" class="download-button"><i class="fas fa-download" data-tooltip="Download as CSV"></i> CSV</button>
-                    <button id="webpButton" class="download-button"><i class="fas fa-download" data-tooltip="Download as WebP"></i> WebP</button>
-                    <button id="svgButton" class="download-button"><i class="fas fa-download" data-tooltip="Download as SVG"></i> SVG</button>
+                <!-- ... rest of the profile-info content ... -->
+                <div class="categories">
+                    <!-- The category buttons will be added here by the JavaScript code -->
                 </div>
+                <div class="years">
+                    <!-- The year buttons will be added here by the JavaScript code -->
+                </div>
+                
             </div>
         </div>
         <div class="movies">
-            <h2>Movies</h2>
+            <h2>Nominated Actors</h2>
             <ul>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 1"></li>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 2"></li>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 3"></li>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 4"></li>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 5"></li>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 6"></li>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 7"></li>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 8"></li>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 9"></li>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 10"></li>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 11"></li>
-                <li><img src="https://via.placeholder.com/200x280" alt="Movie 12"></li>
+                <!-- The actor images and information will be added here by the JavaScript code -->
             </ul>
         </div>
     </div>
-
     <script src="../public/js/backButton.js"></script>
     <script>
         const filteredItems = JSON.parse(sessionStorage.getItem('filteredItems'));
         </script>
+
+<button id="moreButton">More</button>
 </body>
 
 </html>
