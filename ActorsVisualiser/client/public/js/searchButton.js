@@ -1,35 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
     let searchBar = document.querySelector('.search-button input');
 
-    searchBar.addEventListener('input', function() {
-        let searchTerm = this.value.toLowerCase();
-        let containers = document.querySelectorAll('.container');
-
-        containers.forEach(function(container) {
-            let containerText = container.textContent.toLowerCase();
-            if (containerText.includes(searchTerm)) {
-                container.style.display = '';
-            } else {
-                container.style.display = 'none';
-            }
-        });
-    });
-
     searchBar.addEventListener('keypress', function(event) {
         if (event.keyCode === 13) {
             let searchTerm = this.value.toLowerCase();
             let containers = document.querySelectorAll('.container');
+            let found = false;
 
-            for (let i = 0; i < containers.length; i++) {
-                let container = containers[i];
-                let containerText = container.textContent.toLowerCase();
-                if (containerText.includes(searchTerm)) {
-                    let link = container.querySelector('a');
-                    if (link) {
-                        window.location.href = link.href;
-                        break;
+            containers.forEach(function(container) {
+                if (!found) {
+                    let containerText = container.innerText.toLowerCase();
+                    if (containerText.includes(searchTerm)) {
+                        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        found = true;
+                    } else {
+                        let actorNames = container.querySelectorAll('.actorName, .infoBox');
+                        actorNames.forEach(function(actorName) {
+                            let originalDisplay = actorName.style.display;
+                            actorName.style.display = 'block'; 
+                            if (actorName.innerText.toLowerCase().includes(searchTerm)) {
+                                actorName.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                found = true;
+                            }
+                            actorName.style.display = originalDisplay; 
+                        });
                     }
                 }
+            });
+
+            if (!found) {
+                alert('No matches found');
             }
         }
     });

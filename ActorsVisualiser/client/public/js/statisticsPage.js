@@ -1,9 +1,53 @@
-function generateChart(chart, newData) {
+function generateTvSeriesChart(chart, newData) {
+    if (!chart || !chart.data) {
+        console.error("Chart or chart data is not defined");
+        return;
+    }
+
+    const tvSeriesData = {};
     newData.forEach(item => {
-        if (!chart.data.labels.includes(item.show)) {
+        if (!tvSeriesData[item.show]) {
+            tvSeriesData[item.show] = { actorCount: 0, wonCount: 0 };
+        }
+        tvSeriesData[item.show].actorCount += 1;
+        if (item.won) {
+            tvSeriesData[item.show].wonCount += 1;
+        }
+    });
+
+    Object.keys(tvSeriesData).forEach(show => {
+        const actorCount = tvSeriesData[show].actorCount;
+        const wonCount = tvSeriesData[show].wonCount;
+        const labelIndex = chart.data.labels.indexOf(show);
+
+        if (labelIndex === -1) {
+            chart.data.labels.push(show);
+            chart.data.datasets[0].data.push(actorCount);
+            chart.data.datasets[1].data.push(wonCount);
+        } else {
+            chart.data.datasets[0].data[labelIndex] = actorCount;
+            chart.data.datasets[1].data[labelIndex] = wonCount;
+        }
+    });
+    chart.update();
+}
+
+function generateChart(chart, newData) {
+    if (!chart || !chart.data) {
+        console.error("Chart or chart data is not defined");
+        return;
+    }
+
+    newData.forEach(item => {
+        const labelIndex = chart.data.labels.indexOf(item.show);
+
+        if (labelIndex === -1) {
             chart.data.labels.push(item.show);
             chart.data.datasets[0].data.push(item.actorCount);
             chart.data.datasets[1].data.push(item.wonCount);
+        } else {
+            chart.data.datasets[0].data[labelIndex] = item.actorCount;
+            chart.data.datasets[1].data[labelIndex] = item.wonCount;
         }
     });
     chart.update();
@@ -48,14 +92,16 @@ function exportCSV(charts) {
     csvRows.push(headers.join(','));
 
     charts.forEach(chart => {
-        chart.data.labels.forEach((label, index) => {
-            const row = [
-                label,
-                chart.data.datasets[0].data[index],
-                chart.data.datasets[1].data[index]
-            ];
-            csvRows.push(row.join(','));
-        });
+        if (chart && chart.data) {
+            chart.data.labels.forEach((label, index) => {
+                const row = [
+                    label,
+                    chart.data.datasets[0].data[index],
+                    chart.data.datasets[1].data[index]
+                ];
+                csvRows.push(row.join(','));
+            });
+        }
     });
 
     const csvData = new Blob([csvRows.join('\n')], { type: 'text/csv' });
@@ -95,22 +141,24 @@ function exportWebP(charts) {
 function exportSVG(charts) {
     const svgRows = [];
     charts.forEach((chart, index) => {
-        const svgUrl = chart.toBase64Image('image/svg+xml', 1);
-        fetch(svgUrl)
-            .then(res => res.text())
-            .then(data => {
-                svgRows.push(data);
-                if (index === charts.length - 1) {
-                    const blob = new Blob(svgRows, { type: 'image/svg+xml' });
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = `all_charts.svg`;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                }
-            });
+        if (chart) {
+            const svgUrl = chart.toBase64Image('image/svg+xml', 1);
+            fetch(svgUrl)
+                .then(res => res.text())
+                .then(data => {
+                    svgRows.push(data);
+                    if (index === charts.length - 1) {
+                        const blob = new Blob(svgRows, { type: 'image/svg+xml' });
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `all_charts.svg`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }
+                });
+        }
     });
 }
 
@@ -165,67 +213,110 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             let chartData = [];
 
-            for (let i = start; i < start + increment && i < filteredItems.length; i++) {
-                const item = filteredItems[i];
-                const showName = item.show || '';
-
-                if (showName && !displayedShows.has(showName)) {
-                    console.log('Fetching show info for:', showName);
-                    const tmdbShowResponse = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=524b8acb224e3bc712c2c9b11ddeca4e&query=${encodeURIComponent(showName)}`);
-                    const tmdbShowData = await tmdbShowResponse.json();
-                    console.log('tmdbShowData:', tmdbShowData);
-
-                    if (tmdbShowData.results && tmdbShowData.results.length > 0) {
-                        const showInfo = tmdbShowData.results[0];
-                        const showImageUrl = showInfo.poster_path ? "https://image.tmdb.org/t/p/w500" + showInfo.poster_path : '';
-
-                        responseText += `<div class="show-container"><img class="fade show-image" src="${showImageUrl}" alt="${showName}"><p class="show-title">${showName}</p><div class="actors-container">`;
-                        displayedShows.add(showName);
-
-                        const actors = filteredItems.filter(item => item.show === showName);
-                        console.log('Actors for show:', showName, actors);
-
+            if (filter === 'tv-series') {
+                console.log('Generating charts for TV series');
+                for (const item of filteredItems) {
+                    const showName = item.show || 'Unknown';
+                    if (!displayedShows.has(showName)) {
+                        const actors = filteredItems.filter(i => i.show === showName);
                         const wonCount = actors.filter(actor => actor.won).length;
                         chartData.push({ show: showName, actorCount: actors.length, wonCount: wonCount });
+                        displayedShows.add(showName);
 
-                        for (const actor of actors) {
-                            if (displayedActors.has(actor.full_name)) {
-                                continue;
+                        let showImageUrl = '';
+                        try {
+                            const tmdbShowResponse = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=524b8acb224e3bc712c2c9b11ddeca4e&query=${encodeURIComponent(showName)}`);
+                            const tmdbShowData = await tmdbShowResponse.json();
+                            if (tmdbShowData.results && tmdbShowData.results.length > 0) {
+                                showImageUrl = tmdbShowData.results[0].poster_path ? "https://image.tmdb.org/t/p/w500" + tmdbShowData.results[0].poster_path : '';
                             }
-                            console.log('Fetching actor info for:', actor.full_name);
-                            const tmdbActorResponse = await fetch(`https://api.themoviedb.org/3/search/person?api_key=524b8acb224e3bc712c2c9b11ddeca4e&query=${encodeURIComponent(actor.full_name)}`);
-                            const tmdbActorData = await tmdbActorResponse.json();
-                            console.log('tmdbActorData:', tmdbActorData);
-
-                            if (tmdbActorData.results && tmdbActorData.results.length > 0) {
-                                const actorInfo = tmdbActorData.results[0];
-                                const actorImageUrl = actorInfo.profile_path ? "https://image.tmdb.org/t/p/w500" + actorInfo.profile_path : '';
-                                const actorPageUrl = `actorProfile.html?id=${actorInfo.id}`;
-
-                                if (actorImageUrl) {
-                                    responseText += `<div class="actor-item"><a href="${actorPageUrl}"><img class="fade actor-image" src="${actorImageUrl}" alt="${actorInfo.name}"></a><p class="actor-name">${actorInfo.name}</p></div>`;
-                                } else {
-                                    responseText += `<div class="actor-item"><p class="actor-name">${actorInfo.name}</p></div>`;
-                                }
-                                displayedActors.add(actor.full_name);
-                            } else {
-                                console.log('No actors found for:', actor.full_name);
-                            }
+                        } catch (error) {
+                            console.error('Error fetching show image:', error);
                         }
 
+                        responseText += `<div class="show-container"><img class="show-image" src="${showImageUrl}" alt="${showName}"><h3>${showName}</h3><div class="actors-container">`;
+                        for (const actor of actors) {
+                            let actorImageUrl = '';
+                            try {
+                                const tmdbActorResponse = await fetch(`https://api.themoviedb.org/3/search/person?api_key=524b8acb224e3bc712c2c9b11ddeca4e&query=${encodeURIComponent(actor.full_name)}`);
+                                const tmdbActorData = await tmdbActorResponse.json();
+                                if (tmdbActorData.results && tmdbActorData.results.length > 0) {
+                                    actorImageUrl = tmdbActorData.results[0].profile_path ? "https://image.tmdb.org/t/p/w500" + tmdbActorData.results[0].profile_path : '';
+                                }
+                            } catch (error) {
+                                console.error('Error fetching actor image:', error);
+                            }
+
+                            responseText += `<div class="actor-item"><img class="actor-image" src="${actorImageUrl}" alt="${actor.full_name}"><p>${actor.full_name}</p></div>`;
+                        }
                         responseText += `</div></div>`;
-                    } else {
-                        console.log('No show found for:', showName);
                     }
                 }
+                generateTvSeriesChart(barChart, chartData);
+                generateTvSeriesChart(lineChart, chartData);
+                generateTvSeriesChart(pieChart, chartData);
+            } else {
+                for (let i = start; i < start + increment && i < filteredItems.length; i++) {
+                    const item = filteredItems[i];
+                    const showName = item.show || '';
+
+                    if (showName && !displayedShows.has(showName)) {
+                        console.log('Fetching show info for:', showName);
+                        const tmdbShowResponse = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=524b8acb224e3bc712c2c9b11ddeca4e&query=${encodeURIComponent(showName)}`);
+                        const tmdbShowData = await tmdbShowResponse.json();
+                        console.log('tmdbShowData:', tmdbShowData);
+
+                        if (tmdbShowData.results && tmdbShowData.results.length > 0) {
+                            const showInfo = tmdbShowData.results[0];
+                            const showImageUrl = showInfo.poster_path ? "https://image.tmdb.org/t/p/w500" + showInfo.poster_path : '';
+
+                            responseText += `<div class="show-container"><img class="fade show-image" src="${showImageUrl}" alt="${showName}"><p class="show-title">${showName}</p><div class="actors-container">`;
+                            displayedShows.add(showName);
+
+                            const actors = filteredItems.filter(item => item.show === showName);
+                            console.log('Actors for show:', showName, actors);
+
+                            const wonCount = actors.filter(actor => actor.won).length;
+                            chartData.push({ show: showName, actorCount: actors.length, wonCount: wonCount });
+
+                            for (const actor of actors) {
+                                if (displayedActors.has(actor.full_name)) {
+                                    continue;
+                                }
+                                console.log('Fetching actor info for:', actor.full_name);
+                                const tmdbActorResponse = await fetch(`https://api.themoviedb.org/3/search/person?api_key=524b8acb224e3bc712c2c9b11ddeca4e&query=${encodeURIComponent(actor.full_name)}`);
+                                const tmdbActorData = await tmdbActorResponse.json();
+                                console.log('tmdbActorData:', tmdbActorData);
+
+                                if (tmdbActorData.results && tmdbActorData.results.length > 0) {
+                                    const actorInfo = tmdbActorData.results[0];
+                                    const actorImageUrl = actorInfo.profile_path ? "https://image.tmdb.org/t/p/w500" + actorInfo.profile_path : '';
+                                    const actorPageUrl = `actorProfile.html?id=${actorInfo.id}`;
+
+                                    if (actorImageUrl) {
+                                        responseText += `<div class="actor-item"><a href="${actorPageUrl}"><img class="fade actor-image" src="${actorImageUrl}" alt="${actorInfo.name}"></a><p class="actor-name">${actorInfo.name}</p></div>`;
+                                    } else {
+                                        responseText += `<div class="actor-item"><p class="actor-name">${actorInfo.name}</p></div>`;
+                                    }
+                                    displayedActors.add(actor.full_name);
+                                } else {
+                                    console.log('No actors found for:', actor.full_name);
+                                }
+                            }
+
+                            responseText += `</div></div>`;
+                        } else {
+                            console.log('No show found for:', showName);
+                        }
+                    }
+                }
+                generateChart(barChart, chartData);
+                generateChart(lineChart, chartData);
+                generateChart(pieChart, chartData);
             }
 
             resultsContainer.innerHTML += responseText;
             start += increment;
-
-            generateChart(barChart, chartData);
-            generateChart(lineChart, chartData);
-            generateChart(pieChart, chartData);
         }
     };
 
@@ -266,8 +357,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const category = 'MOVIES';
             await loadImages(category, true);
         } else if (filter === 'tv-series') {
-            const category = 'SERIES';
-            await loadImages(category, true);
+            await loadImages(filter, true);
         }
 
         barChart = createChartContext('barChart', 'bar');
@@ -279,11 +369,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const moreButton = document.getElementById('moreButton');
     moreButton.addEventListener('click', () => {
-        const filterValue = urlParams.get('category') || urlParams.get('year');
+        const filterValue = urlParams.get('category') || urlParams.get('year') || 'tv-series';
         loadImages(filterValue);
     });
 
-    const initialFilterValue = urlParams.get('category') || urlParams.get('year');
+    const initialFilterValue = urlParams.get('category') || urlParams.get('year') || 'tv-series';
     if (initialFilterValue) {
         loadImages(initialFilterValue, true);
     }
