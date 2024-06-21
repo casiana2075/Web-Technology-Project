@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (statisticsPage) {
             statisticsPage.innerHTML = '';
             data.forEach(item => {
-                console.log(item); // Log the filtered item
+                console.log(item); 
                 const p = document.createElement('p');
                 p.innerText = JSON.stringify(item, null, 2);
                 statisticsPage.appendChild(p);

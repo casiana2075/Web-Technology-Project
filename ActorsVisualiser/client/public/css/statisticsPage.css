@@ -248,6 +248,75 @@ a{
     color: black; 
     border: 2px solid #b08400;
 }
+.show-container {
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #7c8388;
+    border-radius: 10px;
+    background-color: #2a2b2c;
+    flex: 1 0 30%; 
+    box-sizing: border-box;
+}
+
+.show-image {
+    width: 100%;
+    max-width: 200px; 
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.show-title {
+    font-size: 18px; 
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.actors-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; 
+}
+
+.actor-item {
+    text-align: center;
+    flex: 1 0 30%; 
+}
+
+.actor-image {
+    width: 100%;
+    max-width: 100px; 
+    border-radius: 10px;
+}
+
+.actor-name {
+    color: white;
+    margin-top: 5px; 
+}
+
+.show-container:hover .actors-container {
+    max-height: 800px; 
+    transition: max-height 0.5s ease-in-out;
+}
+
+.actors-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+
+.movies ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    grid-gap: 20px;
+}
 @media screen and (max-width: 480px) {
     .container {
         max-width: 90%;
