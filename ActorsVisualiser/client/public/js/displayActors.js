@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 actorElement.style.backgroundImage = `url('https://image.tmdb.org/t/p/w500${actor.profile_path}')`;
 
                 actorElement.addEventListener('mouseover', () => {
-                    fetch(`https://api.themoviedb.org/3/person/${actor.id}?api_key=524b8acb224e3bc712c2c9b11ddeca4e`)
+                    fetch('https://api.themoviedb.org/3/person/${actor.id}?api_key=524b8acb224e3bc712c2c9b11ddeca4e')
                         .then(response => response.json())
                         .then(actorData => {
                             actorElement.querySelector('.infoBox').textContent = actorData.biography.substring(0, 500) + '...';
@@ -38,6 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAndDisplayPopularActor('logoActors3', 2);
     const apiUrl = 'https://api.themoviedb.org/3/person/popular?api_key=524b8acb224e3bc712c2c9b11ddeca4e';
     let currentPage = 1;
+
+
     function fetchAndDisplayActors(page) {
         fetch(`${apiUrl}&page=${page}`)
             .then(response => response.json())
@@ -57,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     actorDiv.appendChild(actorNameDiv);
     
                     let actorAnchor = document.createElement('a');
-                    actorAnchor.href = "actorProfile.html";
+                    actorAnchor.href = `actorProfile.html?id=${actor.id}`;
                     actorAnchor.appendChild(actorDiv);
     
                     imageContainer.appendChild(actorAnchor);
