@@ -82,23 +82,35 @@ function exportWebP(charts) {
         ctx.drawImage(chart.canvas, chartWidth * index, 0);
     });
 
-    const link = document.createElement('a');
-    link.href = canvas.toDataURL('image/webp', 1);
-    link.download = 'all_charts.webp';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-function exportSVG(charts) {
-    charts.forEach((chart, index) => {
-        const svgUrl = chart.toBase64Image('image/svg+xml', 1);
+    canvas.toBlob(blob => {
         const link = document.createElement('a');
-        link.href = svgUrl;
-        link.download = `chart_data_${index}.svg`;
+        link.href = URL.createObjectURL(blob);
+        link.download = 'all_charts.webp';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    }, 'image/webp');
+}
+
+function exportSVG(charts) {
+    const svgRows = [];
+    charts.forEach((chart, index) => {
+        const svgUrl = chart.toBase64Image('image/svg+xml', 1);
+        fetch(svgUrl)
+            .then(res => res.text())
+            .then(data => {
+                svgRows.push(data);
+                if (index === charts.length - 1) {
+                    const blob = new Blob(svgRows, { type: 'image/svg+xml' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `all_charts.svg`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            });
     });
 }
 
@@ -132,7 +144,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else if (filter === 'category' || filter === 'movies') {
             response = await fetch(`http://localhost:3001/api/awardsInfo?category=${encodeURIComponent(filterValue)}`);
         } else if (filter === 'tv-series') {
-            response = await fetch(`http://localhost:3001/api/seriesCategories`);        }
+            response = await fetch(`http://localhost:3001/api/seriesCategories`);
+        }
 
         if (response) {
             const newItems = await response.json();
