@@ -15,6 +15,8 @@
     <link rel="icon" href="../public/resources/statisticIcon.png" type="image/png">
     <script src="../public/js/filter.js" defer></script>
     <script src="../public/js/statisticsPage.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <title>Statistics</title>
 </head>
 
@@ -25,22 +27,42 @@
             <div class="home-button"><a href="homePage.html"><i class="fas fa-home"></i></a></div>
             <div class="account-button"><i class="fas fa-user"></i>
                 <div id="accountBox" class="accountBox">
-                    <a style ="display: none;" href="login.html" id="login"><ul><li>Login</li></ul></a>
-                    <a style="display: none;" href="register.html" id="register"><ul><li>Register</li></ul></a>
-                    <a style="display : none;" id="logout" onclick="logoutUser()"><ul><li>Logout</li></ul></a>
+                    <a style="display: none;" href="login.html" id="login">
+                        <ul>
+                            <li>Login</li>
+                        </ul>
+                    </a>
+                    <a style="display: none;" href="register.html" id="register">
+                        <ul>
+                            <li>Register</li>
+                        </ul>
+                    </a>
+                    <a style="display : none;" id="logout" onclick="logoutUser()">
+                        <ul>
+                            <li>Logout</li>
+                        </ul>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="profile">
-            <img src="../public/resources/loading.png" alt="Loading Profile">
             <div class="profile-info">
                 <h1>More fields</h1>
                 <div class="categories">
                 </div>
                 <div class="years">
                 </div>
-                
             </div>
+        </div>
+        <div class="chart-controls">
+            <button id="exportCSV" class="export-button export-button-csv">Export CSV</button>
+            <button id="exportCSV" class="export-button export-button-webp">Export WEBP</button>
+            <button id="exportCSV" class="export-button export-button-svg">Export SVG</button>
+        </div>
+        <div class="charts">
+            <canvas id="barChart"></canvas>
+            <canvas id="lineChart"></canvas>
+            <canvas id="pieChart"></canvas>
         </div>
         <div class="movies">
             <h2>Show & Nominated Actors</h2>
@@ -51,11 +73,11 @@
     <script src="../public/js/backButton.js"></script>
     <script>
         const filteredItems = JSON.parse(sessionStorage.getItem('filteredItems'));
-        </script>
+    </script>
 
-<button id="moreButton">More</button>
+    <button id="moreButton">More</button>
 
-<script src="../public/js/logout.js"></script>
+    <script src="../public/js/logout.js"></script>
 </body>
 
 </html>

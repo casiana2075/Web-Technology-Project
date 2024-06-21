@@ -19,7 +19,8 @@ function createTableIfNotExists() {
         category TEXT,
         full_name TEXT,
         show TEXT,
-        won BOOLEAN
+        won BOOLEAN,
+        CONSTRAINT unique_award_entry UNIQUE (year, category, full_name, show)
     );`;
 
     pool.query(createTableQuery, (err, res) => {
@@ -41,7 +42,9 @@ function populateDatabase() {
         .on('end', () => {
             results.forEach(row => {
                 const query = {
-                    text: 'INSERT INTO "awardsInfo" (year, category, full_name, show, won) VALUES ($1, $2, $3, $4, $5)',
+                    text: `INSERT INTO "awardsInfo" (year, category, full_name, show, won) 
+                           VALUES ($1, $2, $3, $4, $5)
+                           ON CONFLICT (year, category, full_name, show) DO NOTHING`,
                     values: [row.year, row.category, row.full_name, row.show, row.won === 'true']
                 };
 
