@@ -125,35 +125,40 @@ function getSeriesCategories() {
         });
     });
 }
-
-function getAwardsInfo(category) {
-    console.log("Model!");
-    console.log("Category:", category);
-
-    return new Promise((resolve, reject) => {
-        let query = 'SELECT * FROM "awardsInfo" WHERE 1=1';
-        const params = [];
-        
-        if (category) {
-            category = decodeURIComponent(category);
-            params.push('%' + category.toLowerCase() + '%');
-            query += ' AND LOWER(category) LIKE $' + params.length;
-        }
-
-        console.log('Executing query:', query);
-        console.log('With parameters:', params);
-
-        pool.query(query, params, (err, res) => {
-            if (err) {
-                console.error('Error executing query:', err);
-                reject(err);
-            } else {
-                console.log('Query results:', res.rows);
-                resolve(res.rows);
+    function getAwardsInfo(category, year) {
+        console.log("Model!");
+        console.log("Category:", category);
+        console.log("Year:", year);
+    
+        return new Promise((resolve, reject) => {
+            let query = 'SELECT * FROM "awardsInfo" WHERE 1=1';
+            const params = [];
+    
+            if (category) {
+                console.log('Category before query:', category); 
+                params.push(`%${category}%`);
+                query += ' AND LOWER(category) LIKE LOWER($' + params.length + ')';
             }
+    
+            if (year) {
+                params.push(year);
+                query += ' AND year = $' + params.length;
+            }
+            console.log('Executing query:', query);
+            console.log('With parameters:', params);
+    
+            pool.query(query, params, (err, res) => {
+                if (err) {
+                    console.error('Error executing query:', err);
+                    reject(err);
+                } else {
+                    console.log('Query results:', res.rows);
+                    resolve(res.rows);
+                }
+            });
         });
-    });
-}
+    }
+ 
 module.exports = {
     findAll,
     checkUser,
