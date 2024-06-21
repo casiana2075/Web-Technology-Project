@@ -160,15 +160,15 @@ function getAwardsInfo(category, year) {
     });
 }
 
-function addActor(name, details, birthdate, deathday, birthplace, knownfor) {
+function addActor(name, details, birthday, deathday, birthplace, knownfor, image) {
     console.log("Model!");
-    console.log( name, details, birthdate,deathday, birthplace, knownfor);
+    console.log(name, details, birthday, deathday, birthplace, knownfor, image);
 
     deathday = deathday === "" ? null : deathday;
 
     return new Promise((resolve, reject) => {
-        pool.query('INSERT INTO "addedActors" ( actorname, details, birthday, deathday, birthplace, knownfor) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [name, details, birthdate, deathday, birthplace, knownfor], (err, res) => {
-        if (err) {
+        pool.query('INSERT INTO "addedActors" (actorname, details, birthday, deathday, birthplace, knownfor, image) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [name, details, birthday, deathday, birthplace, knownfor, image], (err, res) => {
+            if (err) {
                 reject(err);
             } else {
                 resolve(res.rows[0]);
@@ -176,7 +176,21 @@ function addActor(name, details, birthdate, deathday, birthplace, knownfor) {
         });
     });
 }
- 
+
+function findAllActors() {
+    console.log("Model!");
+
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM "addedActors"', (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows);
+            }
+        });
+    });
+}
+
 module.exports = {
     findAll,
     checkUser,
@@ -187,5 +201,6 @@ module.exports = {
     getYears,
     getSeriesCategories,
     getAwardsInfo,
-    addActor
+    addActor,
+    findAllActors
 };

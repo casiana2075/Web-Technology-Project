@@ -1,67 +1,62 @@
 if (!document.cookie.includes('username')) {
-    window.location.href = 'homePage.html';
+  window.location.href = 'homePage.html';
 }
 
-let dropArea = document.getElementById('drop-area')
+let dropArea = document.getElementById('drop-area');
+let fileInput = document.getElementById('fileElem');
+let uploadedFile = null;
 
-;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-  dropArea.addEventListener(eventName, preventDefaults, false)
-})
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  dropArea.addEventListener(eventName, preventDefaults, false);
+});
 
-function preventDefaults (e) {
-  e.preventDefault()
-  e.stopPropagation()
+function preventDefaults(e) {
+  e.preventDefault();
+  e.stopPropagation();
 }
 
-;['dragenter', 'dragover'].forEach(eventName => {
-  dropArea.addEventListener(eventName, highlight, false)
-})
+['dragenter', 'dragover'].forEach(eventName => {
+  dropArea.addEventListener(eventName, highlight, false);
+});
 
-;['dragleave', 'drop'].forEach(eventName => {
-  dropArea.addEventListener(eventName, unhighlight, false)
-})
+['dragleave', 'drop'].forEach(eventName => {
+  dropArea.addEventListener(eventName, unhighlight, false);
+});
 
 function highlight(e) {
-  dropArea.classList.add('highlight')
+  dropArea.classList.add('highlight');
 }
 
 function unhighlight(e) {
-  dropArea.classList.remove('highlight')
+  dropArea.classList.remove('highlight');
 }
 
-dropArea.addEventListener('drop', handleDrop, false)
+dropArea.addEventListener('drop', handleDrop, false);
 
 function handleDrop(e) {
-  let dt = e.dataTransfer
-  let files = dt.files
+  let dt = e.dataTransfer;
+  let files = dt.files;
 
-  handleFiles(files)
+  handleFiles(files);
 }
 
 function handleFiles(files) {
-  ([...files]).forEach(uploadFile)
+  ([...files]).forEach(file => {
+      if (file.type.startsWith('image/')) {
+          uploadedFile = file;
+          let reader = new FileReader();
+          reader.onload = (e) => {
+              document.getElementById('placeholder').src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+      } else {
+          alert("Only image files are allowed!");
+      }
+  });
 }
-
-function uploadFile(file) {
-  let url = 'YOUR_URL_HERE'
-  let xhr = new XMLHttpRequest()
-  let formData = new FormData()
-  xhr.open('POST', url, true)
-  xhr.addEventListener('readystatechange', function(e) {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      // File uploaded successfully
-    }
-    else if (xhr.readyState == 4 && xhr.status != 200) {
-      // Error. Inform the user
-    }
-  })
-  formData.append('file', file)
-  xhr.send(formData)
-}
-
-
 
 document.getElementById('addActorButton').onclick = event => {
+  console.log('Form submitted');
   event.preventDefault();
   const name = document.getElementById('actorName').value;
   const details = document.getElementById('actorDetails').value;
@@ -70,18 +65,25 @@ document.getElementById('addActorButton').onclick = event => {
   const birthplace = document.getElementById('actorPlaceOfBirth').value;
   const knownfor = document.getElementById('actorKnownFor').value;
 
+  let formData = new FormData();
+  formData.append('name', name);
+  formData.append('details', details);
+  formData.append('birthday', birthday);
+  formData.append('deathday', deathday);
+  formData.append('birthplace', birthplace);
+  formData.append('knownfor', knownfor);
 
-  console.log(name, details, birthday, deathday, birthplace, knownfor);
+  if (uploadedFile) {
+      formData.append('image', uploadedFile);
+  }
 
   fetch('http://localhost:3001/api/actors', {
       method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name, details, birthday, deathday, birthplace, knownfor })
+      body: formData
   }).then(response => {
       if (response.status === 200) {
-          //window.reload();
+          // Handle successful response
+          console.log(formData);
       } else {
           response.json().then(data => {
               const errorDiv = document.getElementById('error-message');
@@ -91,10 +93,9 @@ document.getElementById('addActorButton').onclick = event => {
               errorMessage.style.fontSize = '14px';
               errorMessage.style.fontWeight = 'bold';
               errorMessage.classList.add('fade-in');
-              
+
               errorDiv.innerHTML = '';
               errorDiv.appendChild(errorMessage);
-
           });
       }
   });

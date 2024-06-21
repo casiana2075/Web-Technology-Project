@@ -29,16 +29,16 @@
             </div>
         </div>
     </div>
-    <div class="form-container">    
+    <div class="form-container">
         <form id="addActorForm">
             <h1>Add a new actor</h1>
             <div id="drop-area">
                 <form class="my-form">
-                  <img id="placeholder" src="../public/resources/noUploadedImage.png" alt="Upload Image" style="width: 100px; margin: 0 auto;">
-                  <p>Upload Actor Profile image by dragging and dropping onto the dashed region</p>
-                  <p style="color: rgb(94, 94, 94);"> or </p>
-                  <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
-                  <label class="button" for="fileElem">Browse Files</label>
+                    <img id="placeholder" src="../public/resources/noUploadedImage.png" alt="Upload Image" style="width: 100px; margin: 0 auto;">
+                    <p>Upload Actor Profile image by dragging and dropping onto the dashed region</p>
+                    <p style="color: rgb(94, 94, 94);"> or </p>
+                    <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+                    <label class="button" for="fileElem">Browse Files</label>
                 </form>
             </div>
             <input type="text" id="actorName" name="actorName" placeholder="Actor Name" required>
@@ -50,15 +50,14 @@
             <div class="input-container">
                 <label for="actorDeathday">Actor Deathday:</label>
                 <input type="date" id="actorDeathday" name="actorDeathday">
-            </div>    
+            </div>
             <input type="text" id="actorPlaceOfBirth" name="actorPlaceOfBirth" placeholder="Actor Place of Birth" required>
             <input type="text" id="actorKnownFor" name="actorKnownFor" placeholder="Actor Known For" required>
-            <div id="error-message">
-
-            </div>
+            <div id="error-message"></div>
             <input type="submit" id="addActorButton" value="Add Actor">
         </form>
     </div>
+    
 
     <script src="../public/js/backButton.js"></script>
     <script src="../public/js/addActor.js"></script>

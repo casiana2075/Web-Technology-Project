@@ -1,4 +1,3 @@
-
 const Model = require('../models/Model');
 const { getPostData } = require('../utils');
 
@@ -169,18 +168,8 @@ async function getAwardsInfo(req, res) {
     }
 }
 
-async function addActor(req, res) {
+async function addActor(req, res, name, details, birthday, deathday, birthplace, knownfor, image) {
     console.log("Controller!");
-
-    const body = await getPostData(req);
-    const name = JSON.parse(body).name;
-    const details = JSON.parse(body).details;
-    const birthday = JSON.parse(body).birthday;
-    const deathday = JSON.parse(body).deathday;
-    const birthplace = JSON.parse(body).birthplace;
-    const knownfor = JSON.parse(body).knownfor;
-
-    console.log(name, details, birthday, deathday, birthplace, knownfor);
 
     if (!name || !details || !birthday || !birthplace || !knownfor) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -189,19 +178,32 @@ async function addActor(req, res) {
         return;
     }
  
-    const newActor = await Model.addActor(name, details, birthday, deathday, birthplace, knownfor);
+    const newActor = await Model.addActor(name, details, birthday, deathday, birthplace, knownfor, image);
 
     if(newActor){
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({message: "Actor added!"}));
         res.end();
-    }
-    else {
+    } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({message: "Failed to add actor"}));
         res.end();
     }
+}
 
+async function getActors(req, res) {
+    console.log("Controller!");
+
+    try {
+        const actors = await Model.findAllActors();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify(actors));
+        res.end();
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: 'Internal Server Error' }));
+        res.end();
+    }
 }
 
 module.exports = {
@@ -212,5 +214,6 @@ module.exports = {
     getYears,
     getSeriesCategories,
     getAwardsInfo,
-    addActor
+    addActor,
+    getActors
 };

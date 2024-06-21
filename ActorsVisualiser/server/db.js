@@ -38,7 +38,8 @@ function createTablesIfNotExists() {
         birthday DATE NOT NULL,
         deathday DATE,
         birthplace VARCHAR(50) NOT NULL,
-        knownFor VARCHAR(10000) NOT NULL
+        knownFor VARCHAR(10000) NOT NULL,
+        image VARCHAR(1000)
     );`;
 
     pool.query(createAwardsInfoTableQuery, (err, res) => {
