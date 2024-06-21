@@ -18,7 +18,7 @@ const router = (req,res) => {
         controller.register(req,res);
         console.log("Register!");
         
-    }else  if (req.url.startsWith('/api/awardsInfo') && req.method === 'GET') {
+    }else if (req.url.startsWith('/api/awardsInfo') && req.method === 'GET') {
 
         const url = new URL(req.url, `http://${req.headers.host}`);
         const category = url.searchParams.get('category');
