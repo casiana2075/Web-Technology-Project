@@ -169,6 +169,41 @@ async function getAwardsInfo(req, res) {
     }
 }
 
+async function addActor(req, res) {
+    console.log("Controller!");
+
+    const body = await getPostData(req);
+    const name = JSON.parse(body).name;
+    const details = JSON.parse(body).details;
+    const birthday = JSON.parse(body).birthday;
+    const deathday = JSON.parse(body).deathday;
+    const birthplace = JSON.parse(body).birthplace;
+    const knownfor = JSON.parse(body).knownfor;
+
+    console.log(name, details, birthday, deathday, birthplace, knownfor);
+
+    if (!name || !details || !birthday || !birthplace || !knownfor) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({message: "Missing fields"}));
+        res.end();
+        return;
+    }
+ 
+    const newActor = await Model.addActor(name, details, birthday, deathday, birthplace, knownfor);
+
+    if(newActor){
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({message: "Actor added!"}));
+        res.end();
+    }
+    else {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({message: "Failed to add actor"}));
+        res.end();
+    }
+
+}
+
 module.exports = {
     getUsers,
     login,
@@ -176,5 +211,6 @@ module.exports = {
     getCategories,
     getYears,
     getSeriesCategories,
-    getAwardsInfo
+    getAwardsInfo,
+    addActor
 };

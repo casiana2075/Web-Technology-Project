@@ -18,7 +18,7 @@ const router = (req,res) => {
         controller.register(req,res);
         console.log("Register!");
         
-    }else if (req.url.startsWith('/api/awardsInfo') && req.method === 'GET') {
+    } else if (req.url.startsWith('/api/awardsInfo') && req.method === 'GET') {
 
         const url = new URL(req.url, `http://${req.headers.host}`);
         const category = url.searchParams.get('category');
@@ -33,9 +33,14 @@ const router = (req,res) => {
         
         controller.getYears(req, res);
     
-    }else if (req.url.startsWith('/api/seriesCategories') && req.method === 'GET') {
+    } else if (req.url.startsWith('/api/seriesCategories') && req.method === 'GET') {
        
         controller.getSeriesCategories(req, res);
+    
+    } else if(req.url === '/api/actors' && req.method === 'POST') {
+        
+        controller.addActor(req,res);
+        console.log("Add Actor!");
     
     } else{
         res.writeHead(404, { 'Content-Type': 'text/html' });

@@ -76,6 +76,7 @@ function createUser(username, password, email){
         });
     });
 }
+
 function getCategories() {
     console.log("Model!");
 
@@ -125,39 +126,56 @@ function getSeriesCategories() {
         });
     });
 }
-    function getAwardsInfo(category, year) {
-        console.log("Model!");
-        console.log("Category:", category);
-        console.log("Year:", year);
-    
-        return new Promise((resolve, reject) => {
-            let query = 'SELECT * FROM "awardsInfo" WHERE 1=1';
-            const params = [];
-    
-            if (category) {
-                console.log('Category before query:', category); 
-                params.push(`%${category}%`);
-                query += ' AND LOWER(category) LIKE LOWER($' + params.length + ')';
+function getAwardsInfo(category, year) {
+    console.log("Model!");
+    console.log("Category:", category);
+    console.log("Year:", year);
+
+    return new Promise((resolve, reject) => {
+        let query = 'SELECT * FROM "awardsInfo" WHERE 1=1';
+        const params = [];
+
+        if (category) {
+            console.log('Category before query:', category); 
+            params.push(`%${category}%`);
+            query += ' AND LOWER(category) LIKE LOWER($' + params.length + ')';
+        }
+
+        if (year) {
+            params.push(year);
+            query += ' AND year = $' + params.length;
+        }
+        console.log('Executing query:', query);
+        console.log('With parameters:', params);
+
+        pool.query(query, params, (err, res) => {
+            if (err) {
+                console.error('Error executing query:', err);
+                reject(err);
+            } else {
+                console.log('Query results:', res.rows);
+                resolve(res.rows);
             }
-    
-            if (year) {
-                params.push(year);
-                query += ' AND year = $' + params.length;
-            }
-            console.log('Executing query:', query);
-            console.log('With parameters:', params);
-    
-            pool.query(query, params, (err, res) => {
-                if (err) {
-                    console.error('Error executing query:', err);
-                    reject(err);
-                } else {
-                    console.log('Query results:', res.rows);
-                    resolve(res.rows);
-                }
-            });
         });
-    }
+    });
+}
+
+function addActor(name, details, birthdate, deathday, birthplace, knownfor) {
+    console.log("Model!");
+    console.log( name, details, birthdate,deathday, birthplace, knownfor);
+
+    deathday = deathday === "" ? null : deathday;
+
+    return new Promise((resolve, reject) => {
+        pool.query('INSERT INTO "addedActors" ( actorname, details, birthday, deathday, birthplace, knownfor) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [name, details, birthdate, deathday, birthplace, knownfor], (err, res) => {
+        if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows[0]);
+            }
+        });
+    });
+}
  
 module.exports = {
     findAll,
@@ -168,5 +186,6 @@ module.exports = {
     getCategories,
     getYears,
     getSeriesCategories,
-    getAwardsInfo
+    getAwardsInfo,
+    addActor
 };
