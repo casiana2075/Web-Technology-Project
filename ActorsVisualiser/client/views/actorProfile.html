@@ -20,6 +20,7 @@
         <div class="top-menu">
             <div class="back-button" id="backButton"><i class="fas fa-arrow-left"></i></div>
             <div class="home-button"><a href="homePage.html"><i class="fas fa-home"></i></a></div>
+            <div style="display: none;" id="favorites-button"><a href="favoritesActors.html"><i class="fas fa-heart"></i></a></div>
             <div class="account-button"><i class="fas fa-user"></i>
                 <div id="accountBox" class="accountBox">
                     <a style="display: none;" href="login.html" id="login">
@@ -62,7 +63,7 @@
                     <!-- Content will be updated dynamically -->
                 </p>
                 <div class="awards-icons">
-                    <a style="display: none;" href="favoritesActors.html" id="add-to-favorites"><i class="fas fa-heart"
+                    <a style="display: none;" id="add-to-favorites"><i class="fas fa-heart"
                             data-tooltip="Add To Favorite"></i></a>
                     <a style="display: none;" href="addActor.html" id="add-actor"><i class="fas fa-user-plus"
                             data-tooltip="Add Actor"></i></a>
@@ -79,6 +80,7 @@
 
     <script src="../public/js/backButton.js"></script>
     <script src="../public/js/actorProfile.js" defer></script>
+    <script src="../public/js/addToFavorite.js" defer></script>
     <script src="../public/js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>

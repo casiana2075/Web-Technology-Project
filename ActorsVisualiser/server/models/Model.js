@@ -1,4 +1,6 @@
 const pool = require('../db');
+const path = require('path');
+const fs = require('fs');
 
 function findAll(){
 
@@ -178,7 +180,7 @@ function addActor(name, details, birthday, deathday, birthplace, knownfor, image
 }
 
 function findAllActors() {
-    console.log("Model!");
+    console.log("Find all actors Model!");
 
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM "addedActors"', (err, res) => {
@@ -186,6 +188,73 @@ function findAllActors() {
                 reject(err);
             } else {
                 resolve(res.rows);
+            }
+        });
+    });
+}
+
+function findActorById(id){
+    console.log("Find actor by id Model!");
+    console.log(id);
+
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM "addedActors" WHERE id = $1', [id], (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows[0]);
+            }
+        });
+    });
+}
+
+function getImage(imageName, res){
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT COUNT(*) FROM "addedActors" WHERE image=$1', [imageName], function (err, result) {
+            if (err) {
+                reject(err);
+            } else {
+                console.log("Select performed!");
+                console.log(result);
+                if(result.rows[0].count > 0){
+                    const imagePath = path.join(__dirname, '../resources/', imageName);
+                    fs.readFile(imagePath, (err, data) => {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(data);
+                        }
+                    });
+                } else {
+                    resolve(null);
+                }
+            }
+        });
+    });
+}
+
+function addActorToFavourites(userId, actorId) {
+    console.log("Add Actor Model!");
+
+    return new Promise((resolve, reject) => {
+        pool.query('UPDATE "users" SET favorites = array_append(favorites, $1) WHERE userid = $2', [actorId, userId], (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res);
+            }
+        });
+    });
+}
+
+function removeActorFromFavourites(userId, actorId) {
+    console.log("Del Actor Model!");
+    return new Promise((resolve, reject) => {
+        pool.query('UPDATE "users" SET favorites = array_remove(favorites, $1) WHERE userid = $2', [actorId, userId], (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res);
             }
         });
     });
@@ -202,5 +271,9 @@ module.exports = {
     getSeriesCategories,
     getAwardsInfo,
     addActor,
-    findAllActors
+    findAllActors, 
+    findActorById,
+    getImage,
+    addActorToFavourites,
+    removeActorFromFavourites
 };

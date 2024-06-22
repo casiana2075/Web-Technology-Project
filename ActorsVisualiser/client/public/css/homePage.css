@@ -16,6 +16,13 @@ body {
    margin-bottom: 50px; 
 }
 
+h1{
+    font-size: 50px;
+    color: rgb(43, 43, 43);
+    text-align: center;
+
+}
+
 .text-container{
     display: flex;
     justify-content: center;
@@ -388,10 +395,11 @@ text-decoration: none;
     width: 350px;
     height: 350px;
     transition: opacity 0.3s ease;
-    background-image: url('../resources/oscarWinner.jpg');
     background-size: cover;
     background-position: center;
-    left: calc(100% - 600px);
+    left: calc(100% - 550px);
+    transform: translateY(10%); 
+    
 }
 
 .logoActors2 {
@@ -402,10 +410,9 @@ text-decoration: none;
     width: 350px;
     height: 350px;
     transition: opacity 0.3s ease;
-    background-image: url('../resources/emmyWinner.jpg');
     background-size: cover;
     background-position: center;
-   left: calc(50% - 600px);    
+    left: calc(50% - 600px);    
 }
 
 .logoActors3 {
@@ -416,7 +423,6 @@ text-decoration: none;
     width: 350px;
     height: 350px;
     transition: opacity 0.3s ease;
-    background-image: url('../resources/cannesWinner.jpeg');
     background-size: cover;
     background-position: center;
     left: calc(345px); 

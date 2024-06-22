@@ -8,6 +8,7 @@ const register = document.getElementById('register');
 const logout = document.getElementById('logout');
 const addActor = document.getElementById('add-actor');
 const addToFavorites = document.getElementById('add-to-favorites');
+const favoriteButton = document.getElementById('favorites-button');
 
 if (document.cookie.includes('username')) {
     console.log('User is logged in');
@@ -16,6 +17,7 @@ if (document.cookie.includes('username')) {
     logout.style.display = '';
     addActor.style.display = '';
     addToFavorites.style.display = '';
+    favoriteButton.style.display = '';
 
 } else {
     login.style.display = '';
@@ -23,4 +25,5 @@ if (document.cookie.includes('username')) {
     logout.style.display = 'none';
     addActor.style.display = 'none';
     addToFavorites.style.display = 'none';
+    favoriteButton.style.display = 'none';
 }

@@ -40,10 +40,10 @@ const router = (req, res) => {
                 const deathday = fields.deathday[0];
                 const birthplace = fields.birthplace[0];
                 const knownfor = fields.knownfor[0];
-                const file = files.image[0]; // Assume the file input name is 'image' ?
+                const file = files.image[0];
                 const tempPath = file.path;
                 const fileName = `${Date.now()}-${file.originalFilename}`;
-                const targetPath = path.join(__dirname, '../../client/public/resources/', fileName);
+                const targetPath = path.join(__dirname, '../resources/', fileName);
                 fs.rename(tempPath, targetPath, async (err) => {
                     if (err) {
                         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -59,6 +59,17 @@ const router = (req, res) => {
         });
     } else if (req.url === '/api/actors' && req.method === 'GET') {
         controller.getActors(req, res);
+    } else if (req.url.startsWith('/api/actors/') && req.method === 'GET') {
+        const id = req.url.split('/').pop();
+        controller.getActorById(req, res, id);
+    } else if(req.url.match(/^\/api\/resources\/images\/([a-zA-Z0-9-_.(){}[\]!@#$%^&~]+)\.(jpg|jpeg|png|gif)$/) && req.method === 'GET'){
+
+        controller.getImage(req, res, req.url.split('/')[4]);
+
+    } else if (req.url === '/api/users/addActorToFavourites' && req.method === 'POST') {
+        controller.addActorToFavourites(req, res);
+    } else if (req.url === '/api/users/removeActorFromFavourites' && req.method === 'POST') {
+        controller.removeActorFromFavourites(req, res);
     } else {
         res.writeHead(404, { 'Content-Type': 'text/html' });
         res.write('<h1>Page not found</h1>');

@@ -5,27 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01df3716-539a-4a67-8a5c-caa568cc48cc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/public/css/actorProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/actorProfile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/actorProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/actorProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/displayActors.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/displayActors.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/AwardsActors.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/actors/angelinaJolie.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/actors/bradPitt.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/actors/cillianMurphy.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/actors/emmaStone.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/actors/johnnyDepp.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/actors/kateWinslet.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/actors/leoDicaprio.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/actors/robertDowney.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/actors/sandraBulock.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/actors/zendaya.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/cannesWinner.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/emmyWinner.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/oscarWinner.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/strangerThings.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/resources/walkingDead.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/actorProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/actorProfile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/homePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/homePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/homePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/homePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/logout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/resources/1719012461002-Florin_Piersic_2014_Romania_stamp_(crop).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/controllers/Controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/controllers/Controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/models/Model.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/models/Model.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/routes/Router.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/routes/Router.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,9 +21,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2i9vHUcnpJc8skBz2ykw8x4YuNi" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -50,7 +35,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "casiana",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/casia/OneDrive/Documente/GitHub/Web-Technology-Project/ActorsVisualiser/client"
+    "last_opened_file_path": "C:/Users/casia/OneDrive/Documente/GitHub/Web-Technology-Project/ActorsVisualiser"
   }
 }]]></component>
   <component name="SharedIndexes">

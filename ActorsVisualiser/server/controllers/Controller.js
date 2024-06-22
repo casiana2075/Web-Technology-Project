@@ -206,6 +206,94 @@ async function getActors(req, res) {
     }
 }
 
+async function getActorById( req, res, id) {
+    console.log("Controller!");
+
+    try {
+        const actor = await Model.findActorById(id);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify(actor));
+        res.end();
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: 'Internal Server Error' }));
+        res.end();
+    }
+}
+
+async function getImage(req, res, imageName) {
+
+    try {
+        const image = await Model.getImage(imageName, res);
+
+        if (image.length === 0) {
+            res.writeHead(404, { 'Content-Type': 'application/json' })
+            res.end(JSON.stringify({ message: "Image not found!" }));
+        } else {
+
+            res.writeHead(200, { 'Content-Type': 'image/jpg' })
+            res.end(image)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+async function addActorToFavourites(req, res) {
+    console.log("add to fav Controller!");
+
+    const body = await getPostData(req);
+    const username = JSON.parse(body).username;
+    const actorId = JSON.parse(body).actorId;
+
+    const user = await Model.getUserByUsername(username);
+    if (!user) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({message: "User not found"}));
+        res.end();
+        return;
+    }
+
+    try {
+        await Model.addActorToFavourites(user.userid, actorId);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({message: "Actor added to favourites!"}));
+        res.end();
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: 'Internal Server Error' }));
+        res.end();
+    }
+}
+
+async function removeActorFromFavourites(req, res) {
+    console.log("Controller!");
+
+    const body = await getPostData(req);
+    const username = JSON.parse(body).username;
+    const actorId = JSON.parse(body).actorId;
+
+    const user = await Model.getUserByUsername(username);
+    if (!user) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({message: "User not found"}));
+        res.end();
+        return;
+    }
+
+    try {
+        await Model.removeActorFromFavourites(user.userid, actorId);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({message: "Actor removed from favourites!"}));
+        res.end();
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: 'Internal Server Error' }));
+        res.end();
+    }
+}
+
 module.exports = {
     getUsers,
     login,
@@ -215,5 +303,9 @@ module.exports = {
     getSeriesCategories,
     getAwardsInfo,
     addActor,
-    getActors
+    getActors, 
+    getActorById,
+    getImage,
+    addActorToFavourites,
+    removeActorFromFavourites
 };
