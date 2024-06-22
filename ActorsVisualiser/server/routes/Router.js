@@ -37,7 +37,10 @@ const router = (req,res) => {
        
         controller.getSeriesCategories(req, res);
     
-    } else{
+    } else if(req.url === '/api/getActors' && req.method === 'GET'){
+            
+            controller.getActors(req, res);
+    }else{
         res.writeHead(404, { 'Content-Type': 'text/html' });
         res.write('<h1>Page not found</h1>');
         res.end();

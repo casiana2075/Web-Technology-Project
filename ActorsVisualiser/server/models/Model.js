@@ -104,6 +104,20 @@ function getYears() {
     });
 }
 
+function getActors() {
+    console.log("Model!");
+     return new Promise((resolve, reject) =>{
+     pool.query('SELECT DISTINCT full_name FROM "awardsInfo"', (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows);
+            }
+        });
+     }
+    );
+}
+
 function getSeriesCategories() {
     console.log("Fetching categories containing 'series'");
 
@@ -167,6 +181,7 @@ module.exports = {
     createUser,
     getCategories,
     getYears,
+    getActors,
     getSeriesCategories,
     getAwardsInfo
 };

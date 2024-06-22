@@ -142,6 +142,21 @@ async function getSeriesCategories(req, res) {
     }
 }
 
+async function getActors(req, res) {
+    console.log("Fetching actors!");
+
+    try {
+        const actors = await Model.getActors();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify(actors));
+        res.end();
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: 'Internal Server Error' }));
+        res.end();
+    }
+}
+
 async function getAwardsInfo(req, res) {
     const url = new URL(req.url, `http://${req.headers.host}`);
     const category = url.searchParams.get('category');
@@ -175,6 +190,7 @@ module.exports = {
     register,
     getCategories,
     getYears,
+    getActors,
     getSeriesCategories,
     getAwardsInfo
 };
