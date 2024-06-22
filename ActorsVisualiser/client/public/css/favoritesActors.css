@@ -4,19 +4,25 @@
 }
 
 body {
-    background-color:  rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
     background-size: cover;
     height: 100vh;
     overflow-x: hidden;
 }
-.row-padding{padding:0 8px}
-.hover-opacity-off:hover{opacity:1}
 
-.p{
-   margin-bottom: 50px; 
+.row-padding {
+    padding: 0 8px;
 }
 
-.text-container{
+.hover-opacity-off:hover {
+    opacity: 1;
+}
+
+.p {
+    margin-bottom: 50px;
+}
+
+.text-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,10 +32,11 @@ body {
     background-size: contain;
     background-position: top;
     background-repeat: no-repeat;
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
 }
+
 .text-container h1 {
-    font-size: 100px; 
+    font-size: 100px;
 }
 
 .centrat {
@@ -41,6 +48,8 @@ body {
 
 .container {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    gap: 20px;
     max-width: 800px;
     margin: auto;
     padding: 20px;
@@ -56,11 +65,13 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .top-menu div {
     background-color: transparent;
     padding: 10px;
     border-radius: 20px;
 }
+
 .top-menu .filter-button,
 .top-menu .search-button,
 .top-menu .account-button {
@@ -69,13 +80,16 @@ body {
     border-radius: 50%;
     display: flex;
 }
+
 .top-menu div:hover {
     background-color: #7c8388;
 }
+
 .top-menu .filter-button div :hover {
     background-color: #7c8388;
     border: 1px;
 }
+
 .top-menu div i {
     font-size: 24px;
     display: flex;
@@ -86,7 +100,6 @@ body {
     color: black;
 }
 
-
 .account-button {
     cursor: pointer;
     position: relative;
@@ -95,7 +108,7 @@ body {
 .accountBox {
     display: none;
     position: absolute;
-    right: 0; 
+    right: 0;
     padding: 20px;
     width: 100px;
     z-index: 200;
@@ -124,79 +137,73 @@ body {
     display: block;
 }
 
-.favorites{
+.favorites {
     display: flex;
     background-color: #a78623;
     justify-content: center;
     color: white;
+    width: 70%;
     font-size: 20px;
     border-radius: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-
+    margin-left: 15%;
+    
 }
 
 .filler {
     height: 80px;
 }
 
-
 .actorCircle {
     display: grid;
-    width: 175px; 
-    height: 175px; 
-    border-radius: 20px;    
-    background-color: black;    
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto    ;
-    background-size: cover; 
-    background-position: center; 
+    width: 175px;
+    height: 175px;
+    border-radius: 20px;
+    background-color: black;
+    margin: auto;
+    background-size: cover;
+    background-position: center;
     background-image: url('../resources/reset.png');
 }
 
-
-a{
+a {
     text-decoration: none;
     color: #1a1b1c;
 }
 
-
 .searchBox {
     display: none;
     position: absolute;
-   
     padding: 10px;
     width: 400px;
-    height: 50px; 
+    height: 50px;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
-    align-items: center; 
-    justify-content: center; 
+    align-items: center;
+    justify-content: center;
     top: auto;
 }
 
 .searchBox input[type="text"] {
-    width: calc(100% - 20px); 
+    width: calc(100% - 20px);
     padding: 5px;
     height: 25px;
     border: 1px solid #ccc;
     border-radius: 15px;
-
 }
+
 .search-button:hover .searchBox {
     display: flex;
     left: 50%;
-    transform: translateX(-50%); 
+    transform: translateX(-50%);
 }
+
 .searchBox ul {
-    max-height: 200px; 
+    max-height: 200px;
     overflow-y: auto;
 }
 
-@media screen and  (max-width: 767px) {
-
+@media screen and (max-width: 767px) {
     .top-menu {
         padding: 5px;
     }
@@ -210,7 +217,8 @@ a{
         width: 25px;
         height: 25px;
     }
-    .text-container{
+
+    .text-container {
         min-height: 130px;
     }
 
@@ -220,19 +228,18 @@ a{
         border-radius: 15px;
         margin: 10px auto;
     }
- 
-    .actors-table tr {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); 
-       
-    }
 
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
 }
-  
+
 @media screen and (max-width: 1323px) {
-    .text-container{
+    .text-container {
         min-height: 180px;
     }
+
     .top-menu {
         padding: 5px;
     }
@@ -246,21 +253,15 @@ a{
         width: 25px;
         height: 25px;
     }
+
     .container {
-        display: grid;
         grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-        gap: 50px;
-        justify-content: center;
-        align-items: center; 
+        gap: 20px;
     }
-    .container .actorCircle {
-        display: grid;
-        width: calc(175px - 20px); 
-        width: 90%; 
-        height: 175px; 
-        border-radius: 20px; 
-        margin: 0 auto; 
-        background-size: cover;
+
+    .actorCircle {
+        width: calc(175px - 20px);
+        height: 175px;
+        border-radius: 20px;
     }
-    
 }

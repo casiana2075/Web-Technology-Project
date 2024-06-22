@@ -42,6 +42,11 @@ fetch(`https://api.themoviedb.org/3/person/${actorId}/movie_credits?api_key=524b
                     movieTitle.style.color = 'white';
                     movieElement.appendChild(movieTitle);
 
+                    movieElement.addEventListener('click', () => {
+                        const query = encodeURIComponent(movie.title);
+                        window.open(`https://www.google.com/search?q=${query}`, '_blank');
+                    });
+
                     actorsMovies.appendChild(movieElement);
                 }
             });
