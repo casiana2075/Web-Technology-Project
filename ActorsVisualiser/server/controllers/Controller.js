@@ -220,6 +220,20 @@ async function getActors(req, res) {
         res.end();
     }
 }
+async function getActorsFromDb(req, res) {
+    console.log("Fetching actors!");
+
+    try {
+        const actors = await Model.getActorsFromDb();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify(actors));
+        res.end();
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: 'Internal Server Error' }));
+        res.end();
+    }
+}
 
 async function getActorById( req, res, id) {
     console.log("get actor by id Controller!");
@@ -334,7 +348,7 @@ module.exports = {
     getSeriesCategories,
     getAwardsInfo,
     addActor,
-    getActors, 
+    getActorsFromDb, 
     getActorById,
     getImage,
     addActorToFavourites,

@@ -107,7 +107,7 @@ function getYears() {
     });
 }
 
-function getActors() {
+function getActorsFromDb() {
     console.log("Model!");
      return new Promise((resolve, reject) =>{
      pool.query('SELECT DISTINCT full_name FROM "awardsInfo"', (err, res) => {
@@ -120,6 +120,7 @@ function getActors() {
      }
     );
 }
+
 
 function getSeriesCategories() {
     console.log("Fetching categories containing 'series'");
@@ -294,7 +295,7 @@ module.exports = {
     createUser,
     getCategories,
     getYears,
-    getActors,
+    getActorsFromDb,
     getSeriesCategories,
     getAwardsInfo,
     addActor,

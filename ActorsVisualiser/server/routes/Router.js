@@ -25,7 +25,10 @@ const router = (req, res) => {
         controller.getYears(req, res);
     } else if (req.url.startsWith('/api/seriesCategories') && req.method === 'GET') {
         controller.getSeriesCategories(req, res);
-    } else if (req.url === '/api/actors' && req.method === 'POST') {
+    } else if (req.url.startsWith('/api/getActorsFromDb') && req.method === 'GET') {
+        controller. getActorsFromDb(req, res);
+    } 
+    else if (req.url === '/api/actors' && req.method === 'POST') {
         const form = new multiparty.Form();
         form.parse(req, async (err, fields, files) => {
             if (err) {

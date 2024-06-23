@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const apiKey = '524b8acb224e3bc712c2c9b11ddeca4e';
     const apiUrl = `https://api.themoviedb.org/3/person/popular?api_key=${apiKey}`;
-    const localApiUrl = 'http://localhost:3001/api/getActors';
+    const localApiUrl = 'http://localhost:3001/api/getActorsFromDb';
+    const localApi= 'http://localhost:3001/api/actors';
     const placeholderImage = '../resources/placeholder.jpg';
     let currentPage = 1;
     let allActorsData = [];
@@ -79,7 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         actorDiv.appendChild(actorNameDiv);
 
                         let actorAnchor = document.createElement('a');
-                        actorAnchor.href = `actorProfile.html?id=${actor.id}`;
+                        actorAnchor.href = `actorProfile.html?id=tmdb-${actor.id}`;
+                        console.log(`Generated URL: actorProfile.html?id=tmdb-${actor.id}`);
                         actorAnchor.appendChild(actorDiv);
 
                         imageContainer.appendChild(actorAnchor);
@@ -96,6 +98,50 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error(error));
     }
     fetchAndDisplayActors(currentPage);
+
+    
+
+    function fetchAndDisplayLocalActors() {
+        // Fetch actors from local API
+        fetch(localApi)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                let imageContainer = document.querySelector('.actorsTable .actorsLine');
+
+               data.forEach((actor) => {
+                   console.log(actor);
+                   let actorDiv = document.createElement('div');
+                   actorDiv.classList.add('actorCircle');
+
+                   if(actor.image === undefined || actor.image === null || actor.image === "") {
+                       actorDiv.style.backgroundImage = 'url("https://via.placeholder.com/200x450?text=No+Image+Available")';
+                   } else {
+                   let imageUrl = `http://localhost:3001/api/resources/images/${actor.image}`;
+                   actorDiv.style.backgroundImage = `url('${imageUrl}')`;
+                   }
+
+                   actorDiv.style.backgroundSize = 'cover';
+                   actorDiv.style.backgroundPosition = 'center';
+
+                    let actorNameDiv = document.createElement('div');
+                    actorNameDiv.textContent = actor.actorname;
+                    actorNameDiv.classList.add('actorName');
+                    actorDiv.appendChild(actorNameDiv);
+
+                    let actorAnchor = document.createElement('a');
+                    actorAnchor.href = `actorProfile.html?id=local-${actor.id}&name=${encodeURIComponent(actor.actorname)}`;
+                    console.log(`Generated URL: actorProfile.html?id=local-${actor.id}&name=${encodeURIComponent(actor.actorname)}`);
+                    actorAnchor.appendChild(actorDiv);
+
+                    imageContainer.appendChild(actorAnchor);
+                });
+            })
+            .catch(error => console.error(error));
+    }
+    fetchAndDisplayLocalActors();
+
+
 
     const moreButton = document.getElementById("moreButton");
     if (moreButton) {
@@ -176,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     })
                     .catch(error => console.error('Error fetching actors:', error));
+              
             } else {
                 recommendationsDiv.innerHTML = '';
                 recommendationsDiv.style.display = 'none';
@@ -188,7 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let actorName = event.target.getAttribute('data-actor-name');
                 searchTmdbForActor(actorName).then(actor => {
                     if (actor) {
-                        window.location.href = `actorProfile.html?id=${actor.id}`;
+                        console.log('Found actor:', actor);
+                        window.location.href = `actorProfile.html?id=tmdb-${actor.id}`;
                     } else {
                         alert('Actor not found in TMDB');
                     }
