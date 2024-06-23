@@ -370,7 +370,6 @@ body {
     width: 350px;
     height: 350px;
     transition: opacity 0.3s ease;
-    background-image: url('../resources/oscarWinner.jpg');
     background-size: cover;
     background-position: center;
     left: calc(100% - 600px);
@@ -384,7 +383,6 @@ body {
     width: 350px;
     height: 350px;
     transition: opacity 0.3s ease;
-    background-image: url('../resources/emmyWinner.jpg');
     background-size: cover;
     background-position: center;
     left: calc(50% - 600px);
@@ -398,7 +396,6 @@ body {
     width: 350px;
     height: 350px;
     transition: opacity 0.3s ease;
-    background-image: url('../resources/cannesWinner.jpeg');
     background-size: cover;
     background-position: center;
     left: calc(345px);
@@ -644,6 +641,33 @@ a {
 }
 
 
+.newsContainer {
+    position: relative;
+    text-align: center;
+    margin-top: 150px;
+}
+
+.newsContainer a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.newsContainer .newsCaption {
+    background-color: #1a1b1c;
+    border-radius: 10px;
+    padding: 20px;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.newsContainer .newsCaption h2 {
+    font-size: 24px;
+}
+
+.newsContainer .newsCaption:hover {
+    background-color: #333;
+}
 
 @media (max-width: 1323px) {
     .text-container {

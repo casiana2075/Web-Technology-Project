@@ -1,6 +1,8 @@
 const pool = require('../db');
 const path = require('path');
 const fs = require('fs');
+const { JSDOM } = require('jsdom');
+const http = require('http');
 
 function findAll(){
 
@@ -291,6 +293,66 @@ function getUserFavoritesActors(username) {
     });
 }
 
+
+function fetchHTML(url) {
+    return new Promise((resolve, reject) => {
+        http.get(url, (res) => {
+            let data = '';
+            res.on('data', (chunk) => { data += chunk; });
+            res.on('end', () => { resolve(data); });
+        }).on('error', (err) => { reject(err); });
+    });
+}
+
+function fetchNewsArticles(actorName) {
+    const newsUrl = `http://www.google.com/search?q=${encodeURIComponent(actorName)}+news`;
+    return fetchHTML(newsUrl)
+        .then(html => {
+            const dom = new JSDOM(html);
+            const document = dom.window.document;
+
+            const excludedKeywords = ['produs', 'hărți', 'află mai multe', 'conectează-te'];
+
+            const articles = Array.from(document.querySelectorAll('a')).map(article => {
+                return {
+                    title: article.textContent.trim(),
+                    link: article.href
+                };
+            });
+
+            const newsArticles = articles.filter(article => 
+                article.link.includes('/url?') &&
+                article.title.toLowerCase().includes(actorName.toLowerCase()) &&
+                !excludedKeywords.some(keyword => article.title.toLowerCase().includes(keyword))
+            ).map(article => {
+                return {
+                    title: article.title,
+                    link: cleanURL(article.link)
+                };
+            });
+
+            console.log('Extracted articles:', newsArticles);
+
+            return newsArticles;
+        })
+        .catch(error => {
+            console.error('Error fetching news:', error);
+            return [];
+        });
+}
+
+function cleanURL(url) {
+    try {
+        if (url.includes('/url?q=')) {
+            const urlObj = new URL(url, 'http://127.0.0.1:5500'); 
+            return urlObj.searchParams.get('q');
+        }
+    } catch (e) {
+        console.error('Invalid URL:', url);
+    }
+    return url;
+}
+
 module.exports = {
     findAll,
     checkUser,
@@ -308,5 +370,7 @@ module.exports = {
     getImage,
     addActorToFavourites,
     removeActorFromFavourites,
-    getUserFavoritesActors
+    getUserFavoritesActors,
+    fetchNewsArticles,
+    fetchHTML
 };
