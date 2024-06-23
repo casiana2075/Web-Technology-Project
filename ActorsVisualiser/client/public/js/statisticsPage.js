@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             displayedShows.clear();
             displayedActors.clear();
             allChartData = [];
+            resetCharts([barChart, lineChart, pieChart]); // Reset the charts
         }
         const resultsContainer = document.querySelector('.movies ul');
         if (resetStart) {
@@ -49,6 +50,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             filteredItems = filteredItems.concat(filteredNewItems);
             console.log('filteredItems:', filteredItems);
+
+            if (filteredItems.length === 0) {
+                resultsContainer.innerHTML = '<p>Sorry, no data.</p>';
+                return;
+            }
 
             let chartData = [];
             let showNames = [];
@@ -118,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const actorInfo = actorDataMap.get(actor.full_name);
                         if (actorInfo) {
                             const actorImageUrl = actorInfo.profile_path ? "https://image.tmdb.org/t/p/w500" + actorInfo.profile_path : '';
-                            const actorPageUrl = `actorProfile.html?id=${actorInfo.id}`;
+                            const actorPageUrl = `actorProfile.html?id=tmdb-${actorInfo.id}`;
                             if (actorImageUrl) {
                                 responseText += `<div class="actor-item"><a href="${actorPageUrl}"><img class="fade actor-image" src="${actorImageUrl}" alt="${actorInfo.name}"></a><p class="actor-name">${actorInfo.name}</p></div>`;
                             } else {
@@ -144,6 +150,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             resultsContainer.innerHTML += responseText;
             start += increment;
         }
+    };
+
+    const resetCharts = (charts) => {
+        charts.forEach(chart => {
+            if (chart) {
+                chart.data.labels = [];
+                chart.data.datasets.forEach(dataset => {
+                    dataset.data = [];
+                });
+                chart.update();
+            }
+        });
     };
 
     try {
@@ -208,7 +226,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function generateTvSeriesChart(chart, newData) {
     if (!chart || !chart.data) {
-     //   console.error("Chart or chart data is not defined");
         return;
     }
 
@@ -352,6 +369,7 @@ function exportWebP(charts) {
         document.body.removeChild(link);
     }, 'image/webp');
 }
+
 function exportSVG(charts, svgWidth = 300, svgHeight = 300) {
     const svgContents = [];
     let completedRequests = 0;

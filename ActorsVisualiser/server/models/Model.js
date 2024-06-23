@@ -97,7 +97,12 @@ function getYears() {
     console.log("Model!");
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT DISTINCT year FROM "awardsInfo"', (err, res) => {
+        const query = `
+            SELECT year FROM (
+                SELECT DISTINCT year FROM "awardsInfo" WHERE year IS NOT NULL
+            ) AS distinct_years ORDER BY LENGTH(year) DESC
+        `;
+        pool.query(query, (err, res) => {
             if (err) {
                 reject(err);
             } else {
@@ -106,7 +111,6 @@ function getYears() {
         });
     });
 }
-
 function getActorsFromDb() {
     console.log("Model!");
      return new Promise((resolve, reject) =>{

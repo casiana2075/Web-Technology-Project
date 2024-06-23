@@ -211,6 +211,17 @@ a {
     text-decoration: none;
 }
 
+.highlight {
+    border: 5px solid rgb(231, 231, 148);
+    animation: highlight-animation 1s ease-in-out;
+}
+
+@keyframes highlight-animation {
+    from { background-color: rgb(231, 231, 148); }
+    to { background-color: transparent; }
+}
+
+
 @media screen and (max-width: 767px) {
     .top-menu {
         padding: 5px;

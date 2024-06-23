@@ -25,7 +25,7 @@ const router = (req, res) => {
         controller.getYears(req, res);
     } else if (req.url.startsWith('/api/seriesCategories') && req.method === 'GET') {
         controller.getSeriesCategories(req, res);
-    } else if (req.url.startsWith('/api/getActorsFromDb') && req.method === 'GET') {
+    } else if (req.url.startsWith('/api/actorsFromDb') && req.method === 'GET') {
         controller. getActorsFromDb(req, res);
     } 
     else if (req.url === '/api/actors' && req.method === 'POST') {
