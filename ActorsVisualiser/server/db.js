@@ -12,8 +12,8 @@ const pool = new Pool({
     port: 5432,
 });
 
-function createTableIfNotExists() {
-    const createTableQuery = `
+function createTablesIfNotExists() {
+    const createAwardsInfoTableQuery = `
     CREATE TABLE IF NOT EXISTS "awardsInfo" (
         year TEXT,
         category TEXT,
@@ -23,12 +23,49 @@ function createTableIfNotExists() {
         CONSTRAINT unique_award_entry UNIQUE (year, category, full_name, show)
     );`;
 
-    pool.query(createTableQuery, (err, res) => {
+    const createUsersTableQuery = `
+    CREATE TABLE IF NOT EXISTS "users" (
+        userid SERIAL PRIMARY KEY,
+        username VARCHAR(50) NOT NULL,
+        password VARCHAR(50) NOT NULL,
+        email VARCHAR(50) NOT NULL,
+        favorites TEXT[] UNIQUE
+    );`; 
+
+    const createAddedActorsTableQuery = `
+    CREATE TABLE IF NOT EXISTS "addedActors" (
+        id SERIAL PRIMARY KEY,
+        actorName VARCHAR(50) NOT NULL,
+        details VARCHAR(10000) NOT NULL,
+        birthday DATE NOT NULL,
+        deathday DATE,
+        birthplace VARCHAR(50) NOT NULL,
+        knownFor VARCHAR(10000) NOT NULL,
+        image VARCHAR(1000)
+    );`;
+
+    pool.query(createAwardsInfoTableQuery, (err, res) => {
         if (err) {
-            console.error('Error creating table', err.stack);
+            console.error('Error creating awardsInfo table', err.stack);
         } else {
-            console.log('Table created or already exists');
+            console.log('Table awardsInfo created or already exists');
             populateDatabase();
+        }
+    });
+
+    pool.query(createUsersTableQuery, (err, res) => {
+        if (err) {
+            console.error('Error creating  users table', err.stack);
+        } else {
+            console.log('Table users created or already exists');
+        }
+    });
+
+    pool.query(createAddedActorsTableQuery, (err, res) => {
+        if (err) {
+            console.error('Error creating addedActors table', err.stack);
+        } else {
+            console.log('Table addedActors created or already exists');
         }
     });
 }
@@ -52,7 +89,7 @@ function populateDatabase() {
                     if (err) {
                         console.error('Error executing query', err.stack);
                     } else {
-                 //       console.log('Row inserted');
+                        //console.log('Query executed successfully');
                     }
                 });
             });
@@ -62,7 +99,7 @@ function populateDatabase() {
 pool.connect((err, client, done) => {
     if (err) throw err;
     console.log('Connected to the database');
-    createTableIfNotExists();
+    createTablesIfNotExists();
     done();
 });
 

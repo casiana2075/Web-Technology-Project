@@ -3,10 +3,6 @@ if (document.cookie.includes('username')) {
     window.location.href = 'homePage.html';
 }
 
-if (document.cookie.includes('username')) {
-    window.location.href = 'homePage.html';
-}
-
 document.getElementById('login-form').addEventListener('submit', event => {
     event.preventDefault();
 
