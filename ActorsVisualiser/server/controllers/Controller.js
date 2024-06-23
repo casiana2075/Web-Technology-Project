@@ -207,7 +207,7 @@ async function getActors(req, res) {
 }
 
 async function getActorById( req, res, id) {
-    console.log("Controller!");
+    console.log("get actor by id Controller!");
 
     try {
         const actor = await Model.findActorById(id);
@@ -294,6 +294,21 @@ async function removeActorFromFavourites(req, res) {
     }
 }
 
+async function getUserFavoritesActors(req, res, username) {
+    console.log(" get fav Controller!");
+
+    try {
+        const favorites = await Model.getUserFavoritesActors(username);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify(favorites));
+        res.end();
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: 'Internal Server Error' }));
+        res.end();
+    }
+}
+
 module.exports = {
     getUsers,
     login,
@@ -307,5 +322,6 @@ module.exports = {
     getActorById,
     getImage,
     addActorToFavourites,
-    removeActorFromFavourites
+    removeActorFromFavourites,
+    getUserFavoritesActors
 };

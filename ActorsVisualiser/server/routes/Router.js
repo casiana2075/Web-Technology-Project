@@ -70,7 +70,11 @@ const router = (req, res) => {
         controller.addActorToFavourites(req, res);
     } else if (req.url === '/api/users/removeActorFromFavourites' && req.method === 'POST') {
         controller.removeActorFromFavourites(req, res);
-    } else {
+    } else if (req.url.startsWith('/api/favorites/user/') && req.method === 'GET') {
+         const username = req.url.split('/').pop();
+         console.log(username);
+         controller.getUserFavoritesActors(req, res, username);
+     } else {
         res.writeHead(404, { 'Content-Type': 'text/html' });
         res.write('<h1>Page not found</h1>');
         res.end();

@@ -195,7 +195,6 @@ function findAllActors() {
 
 function findActorById(id){
     console.log("Find actor by id Model!");
-    console.log(id);
 
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM "addedActors" WHERE id = $1', [id], (err, res) => {
@@ -214,8 +213,6 @@ function getImage(imageName, res){
             if (err) {
                 reject(err);
             } else {
-                console.log("Select performed!");
-                console.log(result);
                 if(result.rows[0].count > 0){
                     const imagePath = path.join(__dirname, '../resources/', imageName);
                     fs.readFile(imagePath, (err, data) => {
@@ -260,6 +257,21 @@ function removeActorFromFavourites(userId, actorId) {
     });
 }
 
+function getUserFavoritesActors(username) {
+    console.log("get fav Model!");
+
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT favorites FROM "users" WHERE username = $1', [username], (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                console.log(res.rows[0].favorites);
+                resolve(res.rows[0].favorites);
+            }
+        });
+    });
+}
+
 module.exports = {
     findAll,
     checkUser,
@@ -275,5 +287,6 @@ module.exports = {
     findActorById,
     getImage,
     addActorToFavourites,
-    removeActorFromFavourites
+    removeActorFromFavourites,
+    getUserFavoritesActors
 };
