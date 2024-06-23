@@ -28,36 +28,58 @@ const router = (req, res) => {
     } else if (req.url.startsWith('/api/actorsFromDb') && req.method === 'GET') {
         controller. getActorsFromDb(req, res);
     } 
-    else if (req.url === '/api/actors' && req.method === 'POST') {
+    else if (req.url === '/api/actors' && req.method === 'POST') { 
         const form = new multiparty.Form();
         form.parse(req, async (err, fields, files) => {
             if (err) {
                 res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: err.message }));
+                res.end(JSON.stringify({ message: "Error parsing form data. Please try again." }));
                 return;
             }
             try {
+                const requiredFields = ['name', 'details', 'birthday', 'birthplace', 'knownfor'];
+                for (const field of requiredFields) {
+                    if (!fields[field] || fields[field].length === 0 || fields[field][0].trim() === '') {
+                        res.writeHead(400, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ message: `${field} required.` }));
+                        return;
+                    }
+                }
+    
                 const name = fields.name[0];
                 const details = fields.details[0];
                 const birthday = fields.birthday[0];
-                const deathday = fields.deathday[0];
+                const deathday = fields.deathday ? fields.deathday[0] : null;
                 const birthplace = fields.birthplace[0];
                 const knownfor = fields.knownfor[0];
-                const file = files.image[0];
-                const tempPath = file.path;
-                const fileName = `${Date.now()}-${file.originalFilename}`;
-                const targetPath = path.join(__dirname, '../resources/', fileName);
-                fs.rename(tempPath, targetPath, async (err) => {
-                    if (err) {
-                        res.writeHead(500, { 'Content-Type': 'application/json' });
-                        res.end(JSON.stringify({ message: err.message }));
+    
+                let fileName;
+                if (files.image && files.image[0]) {
+                    const file = files.image[0];
+                    const validFormats = ['.jpg', 'jpeg', '.png', '.gif'];
+                    const fileExtension = path.extname(file.originalFilename).toLowerCase();
+                    if (!validFormats.includes(fileExtension)) {
+                        res.writeHead(400, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ message: "Invalid file format. Only jpg, jpeg, png and gif formats are allowed." }));
                         return;
                     }
-                    await controller.addActor(req, res, name, details, birthday, deathday, birthplace, knownfor, fileName);
-                });
+                    const tempPath = file.path;
+                    fileName = `${Date.now()}-${file.originalFilename}`;
+                    const targetPath = path.join(__dirname, '../resources/', fileName);
+                    fs.rename(tempPath, targetPath, async (err) => {
+                        if (err) {
+                            res.writeHead(500, { 'Content-Type': 'application/json' });
+                            res.end(JSON.stringify({ message: "Failed to save the uploaded file. Please try again." }));
+                            return;
+                        }
+                        await controller.addActor(req, res, name, details, birthday, deathday, birthplace, knownfor, fileName);
+                    });
+                } else {
+                    await controller.addActor(req, res, name, details, birthday, deathday, birthplace, knownfor, null);
+                }
             } catch (error) {
                 res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: error.message }));
+                res.end(JSON.stringify({ message: "An unexpected error occurred. Please try again later." }));
             }
         });
     } else if (req.url === '/api/actors' && req.method === 'GET') {

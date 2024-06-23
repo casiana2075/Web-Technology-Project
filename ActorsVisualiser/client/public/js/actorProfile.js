@@ -16,8 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 document.getElementById('actor-name').textContent = data.actorname;
                 document.getElementById('actor-details').textContent = data.details || 'Sorry, no biography available for this actor for now.';
-                document.getElementById('actor-profile-birthday').textContent = `Birthday: ${data.birthday || 'N/A'}`;
-                document.getElementById('actor-profile-deathday').textContent = `Deathday: ${data.deathday || 'N/A'}`;
+                const birthday = data.birthday ? new Date(data.birthday).toISOString().split('T')[0] : 'N/A';
+                document.getElementById('actor-profile-birthday').textContent = `Birthday: ${birthday}`;
+                const deathday = data.deathday ? new Date(data.deathday).toISOString().split('T')[0] : 'N/A';
+                document.getElementById('actor-profile-deathday').textContent = `Deathday: ${deathday}`;
                 document.getElementById('actor-profile-department').textContent = `Known for: ${data.knownfor || 'N/A'}`;
                 document.getElementById('actor-profile-birthplace').textContent = `Place of Birth: ${data.birthplace || 'N/A'}`;
             })

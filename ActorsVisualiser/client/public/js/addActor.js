@@ -42,16 +42,16 @@ function handleDrop(e) {
 
 function handleFiles(files) {
   ([...files]).forEach(file => {
-      if (file.type.startsWith('image/')) {
-          uploadedFile = file;
-          let reader = new FileReader();
-          reader.onload = (e) => {
-              document.getElementById('placeholder').src = e.target.result;
-          };
-          reader.readAsDataURL(file);
-      } else {
-          alert("Only image files are allowed!");
-      }
+    if (file.type.startsWith('image/')) {
+      uploadedFile = file;
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        document.getElementById('placeholder').src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert("Only image files are allowed!");
+    }
   });
 }
 
@@ -74,29 +74,41 @@ document.getElementById('addActorButton').onclick = event => {
   formData.append('knownfor', knownfor);
 
   if (uploadedFile) {
-      formData.append('image', uploadedFile);
+    formData.append('image', uploadedFile);
   }
 
   fetch('http://localhost:3001/api/actors', {
-      method: 'POST',
-      body: formData
+    method: 'POST',
+    body: formData
   }).then(response => {
-      if (response.status === 200) {
-          // Handle successful response
-          console.log(formData);
-      } else {
-          response.json().then(data => {
-              const errorDiv = document.getElementById('error-message');
-              const errorMessage = document.createElement('p');
-              errorMessage.textContent = data.message;
-              errorMessage.style.color = 'red';
-              errorMessage.style.fontSize = '14px';
-              errorMessage.style.fontWeight = 'bold';
-              errorMessage.classList.add('fade-in');
+    if (response.status === 200) {
+      const successDiv = document.getElementById('success-message');
+      const successMessage = document.createElement('p');
+      successMessage.textContent = 'Actor added successfully!';
+      successMessage.style.color = 'green';
+      successMessage.style.fontSize = '14px';
+      successMessage.style.fontWeight = 'bold';
+      successMessage.classList.add('fade-in');
 
-              errorDiv.innerHTML = '';
-              errorDiv.appendChild(errorMessage);
-          });
-      }
+      successDiv.innerHTML = '';
+      successDiv.appendChild(successMessage);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } else {
+      response.json().then(data => {
+        const errorDiv = document.getElementById('error-message');
+        const errorMessage = document.createElement('p');
+        errorMessage.textContent = data.message;
+        errorMessage.style.color = 'red';
+        errorMessage.style.fontSize = '14px';
+        errorMessage.style.fontWeight = 'bold';
+        errorMessage.classList.add('fade-in');
+
+        errorDiv.innerHTML = '';
+        errorDiv.appendChild(errorMessage);
+      });
+    }
   });
 };
