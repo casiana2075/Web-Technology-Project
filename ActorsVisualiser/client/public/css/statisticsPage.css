@@ -325,7 +325,7 @@ a{
 }
 
 .export-button {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50; 
     border: none;
     color: white;
     padding: 15px 32px;
@@ -354,6 +354,18 @@ a{
 .charts canvas {
     max-width: 400px;
     max-height: 200px;
+}
+
+.statistics .charts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.statistics .charts canvas {
+    max-width: 400px;
+    max-height: 300px;
+    margin-bottom: 20px;
 }
 
 @media screen and (max-width: 480px) {

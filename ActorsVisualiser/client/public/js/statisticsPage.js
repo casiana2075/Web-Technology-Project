@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     let start = 0;
-    const increment = 3;
+    const increment = 10;
     let filteredItems = [];
     const urlParams = new URLSearchParams(window.location.search);
     const filter = urlParams.get('filter');
@@ -10,23 +10,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     let allChartData = [];
     const tmdbApiKey = '524b8acb224e3bc712c2c9b11ddeca4e';
 
-    const loadImages = async (filterValue, resetStart = false) => {
+    const loadImages = async (filterValue, resetStart = false, isBackgroundLoad = false) => {
         if (resetStart) {
             start = 0;
             filteredItems = [];
             displayedShows.clear();
             displayedActors.clear();
             allChartData = [];
-            resetCharts([barChart, lineChart, pieChart]); // Reset the charts
+            resetCharts([barChart, lineChart, pieChart]);
         }
         const resultsContainer = document.querySelector('.movies ul');
         if (resetStart) {
             resultsContainer.innerHTML = '';
         }
 
-        let responseText = '';
         let response;
-
         if (filter === 'year') {
             response = await fetch(`http://localhost:3001/api/awardsInfo?year=${encodeURIComponent(filterValue)}`);
         } else if (filter === 'category' || filter === 'movies') {
@@ -49,109 +47,126 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             filteredItems = filteredItems.concat(filteredNewItems);
-            console.log('filteredItems:', filteredItems);
 
             if (filteredItems.length === 0) {
                 resultsContainer.innerHTML = '<p>Sorry, no data.</p>';
                 return;
             }
 
-            let chartData = [];
-            let showNames = [];
-            let actorNames = [];
-
-            for (let i = start; i < start + increment && i < filteredItems.length; i++) {
-                const item = filteredItems[i];
-                const showName = item.show || '';
-
-                if (showName && !displayedShows.has(showName)) {
-                    showNames.push(showName);
-                    displayedShows.add(showName);
-
-                    const actors = filteredItems.filter(item => item.show === showName);
-                    actors.forEach(actor => {
-                        if (!displayedActors.has(actor.full_name)) {
-                            actorNames.push(actor.full_name);
-                            displayedActors.add(actor.full_name);
-                        }
-                    });
-                }
-            }
-
-            const showPromises = showNames.map(showName =>
-                fetch(`https://api.themoviedb.org/3/search/tv?api_key=${tmdbApiKey}&query=${encodeURIComponent(showName)}`)
-                    .then(response => response.json())
-            );
-
-            const actorPromises = actorNames.map(actorName =>
-                fetch(`https://api.themoviedb.org/3/search/person?api_key=${tmdbApiKey}&query=${encodeURIComponent(actorName)}`)
-                    .then(response => response.json())
-            );
-
-            const showResults = await Promise.all(showPromises);
-            const actorResults = await Promise.all(actorPromises);
-
-            let showDataMap = new Map();
-            let actorDataMap = new Map();
-
-            showResults.forEach((showResult, index) => {
-                if (showResult.results && showResult.results.length > 0) {
-                    showDataMap.set(showNames[index], showResult.results[0]);
-                }
-            });
-
-            actorResults.forEach((actorResult, index) => {
-                if (actorResult.results && actorResult.results.length > 0) {
-                    actorDataMap.set(actorNames[index], actorResult.results[0]);
-                }
-            });
-
-            for (let i = start; i < start + increment && i < filteredItems.length; i++) {
-                const item = filteredItems[i];
-                const showName = item.show || '';
-                const showInfo = showDataMap.get(showName);
-
-                if (showInfo) {
-                    const showImageUrl = showInfo.poster_path ? "https://image.tmdb.org/t/p/w500" + showInfo.poster_path : '';
-                    responseText += `<div class="show-container"><img class="fade show-image" src="${showImageUrl}" alt="${showName}"><p class="show-title">${showName}</p><div class="actors-container">`;
-
-                    const actors = filteredItems.filter(item => item.show === showName);
-                    const wonCount = actors.filter(actor => actor.won).length;
-                    chartData.push({ show: showName, actorCount: actors.length, wonCount: wonCount });
-                    allChartData.push({ show: showName, actorCount: actors.length, wonCount: wonCount });
-
-                    actors.forEach(actor => {
-                        const actorInfo = actorDataMap.get(actor.full_name);
-                        if (actorInfo) {
-                            const actorImageUrl = actorInfo.profile_path ? "https://image.tmdb.org/t/p/w500" + actorInfo.profile_path : '';
-                            const actorPageUrl = `actorProfile.html?id=tmdb-${actorInfo.id}`;
-                            if (actorImageUrl) {
-                                responseText += `<div class="actor-item"><a href="${actorPageUrl}"><img class="fade actor-image" src="${actorImageUrl}" alt="${actorInfo.name}"></a><p class="actor-name">${actorInfo.name}</p></div>`;
-                            } else {
-                                responseText += `<div class="actor-item"><p class="actor-name">${actorInfo.name}</p></div>`;
-                            }
-                        }
-                    });
-
-                    responseText += `</div></div>`;
-                }
-            }
-
-            if (filter === 'tv-series') {
-                generateTvSeriesChart(barChart, chartData);
-                generateTvSeriesChart(lineChart, chartData);
-                generateTvSeriesChart(pieChart, chartData);
+            if (!isBackgroundLoad) {
+                await displayItems(filteredItems.slice(start, start + increment), resetStart);
+                start += increment;
             } else {
-                generateChart(barChart, chartData);
-                generateChart(lineChart, chartData);
-                generateChart(pieChart, chartData);
+                await displayItems(filteredItems.slice(start, filteredItems.length));
             }
-
-            resultsContainer.innerHTML += responseText;
-            start += increment;
         }
     };
 
+    const displayItems = async (items, resetStart = false) => {
+        let chartData = [];
+        let showNames = new Set();
+        let actorNames = new Set();
+    
+        items.forEach(item => {
+            const showName = item.show || '';
+            if (showName && showName !== 'N/A' && !displayedShows.has(showName)) {
+                showNames.add(showName);
+            }
+            if (item.full_name && !displayedActors.has(item.full_name)) {
+                actorNames.add(item.full_name);
+            }
+        });
+    
+        const showResults = await fetchShowData(showNames);
+        const actorResults = await fetchActorData(actorNames);
+    
+        let showDataMap = new Map();
+        let actorDataMap = new Map();
+    
+        showResults.forEach((showResult, index) => {
+            if (showResult.results && showResult.results.length > 0) {
+                showDataMap.set(Array.from(showNames)[index], showResult.results[0]);
+            }
+        });
+    
+        actorResults.forEach((actorResult, index) => {
+            if (actorResult.results && actorResult.results.length > 0) {
+                actorDataMap.set(Array.from(actorNames)[index], actorResult.results[0]);
+            }
+        });
+    
+        const resultsContainer = document.querySelector('.movies ul');
+        let responseText = '';
+    
+        Array.from(showNames).forEach(showName => {
+            const showInfo = showDataMap.get(showName);
+    
+            if (showInfo) {
+                const showImageUrl = showInfo.poster_path ? "https://image.tmdb.org/t/p/w500" + showInfo.poster_path : '';
+                responseText += `<div class="show-container"><img class="fade show-image" src="${showImageUrl}" alt="${showName}"><p class="show-title">${showName}</p><div class="actors-container">`;
+    
+                const actors = filteredItems.filter(actorItem => actorItem.show === showName);
+                console.log(`Actors for show: ${showName}`, actors);
+    
+                const wonCount = actors.filter(actor => actor.won).length;
+                chartData.push({ show: showName, actorCount: actors.length, wonCount: wonCount });
+                allChartData.push({ show: showName, actorCount: actors.length, wonCount: wonCount });
+    
+                let displayedActorsInShow = new Set();
+    
+                actors.forEach(actor => {
+                    const actorInfo = actorDataMap.get(actor.full_name);
+                    if (actorInfo && !displayedActorsInShow.has(actor.full_name)) {
+                        const actorImageUrl = actorInfo.profile_path ? "https://image.tmdb.org/t/p/w500" + actorInfo.profile_path : '';
+                        const actorPageUrl = `actorProfile.html?id=tmdb-${actorInfo.id}`;
+                        if (actorImageUrl) {
+                            responseText += `<div class="actor-item"><a href="${actorPageUrl}"><img class="fade actor-image" src="${actorImageUrl}" alt="${actorInfo.name}"></a><p class="actor-name">${actorInfo.name}</p></div>`;
+                        } else {
+                            responseText += `<div class="actor-item"><p class="actor-name">${actorInfo.name}</p></div>`;
+                        }
+                        displayedActorsInShow.add(actor.full_name);
+                        displayedActors.add(actor.full_name);
+                    }
+                });
+    
+                responseText += `</div></div>`;
+                displayedShows.add(showName);
+            }
+        });
+    
+        resultsContainer.innerHTML += responseText;
+
+        if (filter === 'tv-series' && resetStart) {
+            generateTvSeriesChart(barChart, chartData);
+            generateTvSeriesChart(lineChart, chartData);
+            generateTvSeriesChart(pieChart, chartData);
+        } else {
+            generateChart(barChart, chartData, 'percentage');
+            generateChart(lineChart, chartData);
+            generateChart(pieChart, chartData);
+        }
+    };
+
+    const fetchShowData = async (showNames) => {
+        const showResults = [];
+        for (let showName of showNames) {
+            const response = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=${tmdbApiKey}&query=${encodeURIComponent(showName)}`);
+            const data = await response.json();
+            showResults.push(data);
+        }
+        return showResults;
+    };
+    
+    const fetchActorData = async (actorNames) => {
+        const actorResults = [];
+        for (let actorName of actorNames) {
+            const response = await fetch(`https://api.themoviedb.org/3/search/person?api_key=${tmdbApiKey}&query=${encodeURIComponent(actorName)}`);
+            const data = await response.json();
+            actorResults.push(data);
+        }
+        return actorResults;
+    };
+    
     const resetCharts = (charts) => {
         charts.forEach(chart => {
             if (chart) {
@@ -211,15 +226,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const moreButton = document.getElementById('moreButton');
     moreButton.addEventListener('click', () => {
         const filterValue = urlParams.get('category') || urlParams.get('year') || 'tv-series';
-        loadImages(filterValue);
+        loadImages(filterValue, false);
     });
-
     const initialFilterValue = urlParams.get('category') || urlParams.get('year') || 'tv-series';
     if (initialFilterValue) {
-        loadImages(initialFilterValue, true);
+        await loadImages(initialFilterValue, true);
     }
 
-    document.getElementById('exportCSV').addEventListener('click', () => exportCSV(barChart)); // Change here to export only barChart
+    document.getElementById('exportCSV').addEventListener('click', () => exportCSV(barChart)); 
     document.getElementById('exportWebP').addEventListener('click', () => exportWebP([barChart, lineChart, pieChart]));
     document.getElementById('exportSVG').addEventListener('click', () => exportSVG([barChart, lineChart, pieChart]));
 });
@@ -228,55 +242,102 @@ function generateTvSeriesChart(chart, newData) {
     if (!chart || !chart.data) {
         return;
     }
-
     const tvSeriesData = {};
     newData.forEach(item => {
         if (!tvSeriesData[item.show]) {
             tvSeriesData[item.show] = { actorCount: 0, wonCount: 0 };
         }
-        tvSeriesData[item.show].actorCount += 1;
-        if (item.won) {
-            tvSeriesData[item.show].wonCount += 1;
-        }
+        tvSeriesData[item.show].actorCount += item.actorCount;
+        tvSeriesData[item.show].wonCount += item.wonCount;
     });
+
+    if (chart.data.datasets.length < 3) {
+        chart.data.datasets.push({ label: 'Win Percentage', data: [], backgroundColor: 'rgba(255, 206, 86, 0.2)', borderColor: 'rgba(255, 206, 86, 1)', borderWidth: 1 });
+    }
 
     Object.keys(tvSeriesData).forEach(show => {
         const actorCount = tvSeriesData[show].actorCount;
         const wonCount = tvSeriesData[show].wonCount;
+        const winPercentage = actorCount > 0 ? (wonCount / actorCount * 100).toFixed(2) : 0;
         const labelIndex = chart.data.labels.indexOf(show);
 
         if (labelIndex === -1) {
             chart.data.labels.push(show);
             chart.data.datasets[0].data.push(actorCount);
             chart.data.datasets[1].data.push(wonCount);
+            chart.data.datasets[2].data.push(winPercentage);
         } else {
             chart.data.datasets[0].data[labelIndex] = actorCount;
             chart.data.datasets[1].data[labelIndex] = wonCount;
+            chart.data.datasets[2].data[labelIndex] = winPercentage; 
         }
     });
+
     chart.update();
 }
-
-function generateChart(chart, newData) {
+function generateChart(chart, newData, type = 'total') {
     if (!chart || !chart.data) {
         console.error("Chart or chart data is not defined");
         return;
     }
 
-    newData.forEach(item => {
-        const labelIndex = chart.data.labels.indexOf(item.show);
+    if (type === 'average') {
+        let showData = {};
+        newData.forEach(item => {
+            if (!showData[item.show]) {
+                showData[item.show] = { actorCount: 0, wonCount: 0, count: 0 };
+            }
+            showData[item.show].actorCount += item.actorCount;
+            showData[item.show].wonCount += item.wonCount;
+            showData[item.show].count += 1;
+        });
 
-        if (labelIndex === -1) {
-            chart.data.labels.push(item.show);
-            chart.data.datasets[0].data.push(item.actorCount);
-            chart.data.datasets[1].data.push(item.wonCount);
-        } else {
-            chart.data.datasets[0].data[labelIndex] = item.actorCount;
-            chart.data.datasets[1].data[labelIndex] = item.wonCount;
-        }
-    });
+        Object.keys(showData).forEach(show => {
+            const data = showData[show];
+            const avgActorCount = data.actorCount / data.count;
+            const avgWonCount = data.wonCount / data.count;
+            const labelIndex = chart.data.labels.indexOf(show);
+
+            if (labelIndex === -1) {
+                chart.data.labels.push(show);
+                chart.data.datasets[0].data.push(avgActorCount);
+                chart.data.datasets[1].data.push(avgWonCount);
+            } else {
+                chart.data.datasets[0].data[labelIndex] = avgActorCount;
+                chart.data.datasets[1].data[labelIndex] = avgWonCount;
+            }
+        });
+    } else if (type === 'percentage') {
+        newData.forEach(item => {
+            const labelIndex = chart.data.labels.indexOf(item.show);
+            const percentageWon = item.actorCount > 0 ? Math.min((item.wonCount / item.actorCount) * 100, 100) : 0;
+            if (labelIndex === -1) {
+                chart.data.labels.push(item.show);
+                chart.data.datasets[0].data.push(item.actorCount);
+                chart.data.datasets[1].data.push(percentageWon);
+            } else {
+                chart.data.datasets[0].data[labelIndex] = item.actorCount;
+                chart.data.datasets[1].data[labelIndex] = percentageWon;
+            }
+        });
+    } else {
+        newData.forEach(item => {
+            const labelIndex = chart.data.labels.indexOf(item.show);
+
+            if (labelIndex === -1) {
+                chart.data.labels.push(item.show);
+                chart.data.datasets[0].data.push(item.actorCount);
+                chart.data.datasets[1].data.push(item.wonCount);
+            } else {
+                chart.data.datasets[0].data[labelIndex] = item.actorCount;
+                chart.data.datasets[1].data[labelIndex] = item.wonCount;
+            }
+        });
+    }
+
     chart.update();
 }
+
 
 function createChartContext(elementId, chartType) {
     const ctx = document.getElementById(elementId).getContext('2d');
@@ -304,7 +365,12 @@ function createChartContext(elementId, chartType) {
             maintainAspectRatio: false,
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return chartType === 'bar' && value % 1 === 0 ? value + '%' : value;
+                        }
+                    }
                 }
             }
         }
@@ -313,7 +379,7 @@ function createChartContext(elementId, chartType) {
 
 function exportCSV(chart) {
     const csvRows = [];
-    const headers = ['Show', 'Number of Nominated Actors', 'Number of Winning Actors'];
+    const headers = ['Show', 'Number of Nominated Actors', 'Number of Winning Actors', 'Percentage of Winning Actors'];
     csvRows.push(headers.join(','));
 
     if (chart && chart.data) {
@@ -321,7 +387,8 @@ function exportCSV(chart) {
             const row = [
                 label,
                 chart.data.datasets[0].data[index],
-                chart.data.datasets[1].data[index]
+                chart.data.datasets[1].data[index],
+                chart.data.datasets[1].data[index] > 0 ? (chart.data.datasets[1].data[index] / chart.data.datasets[0].data[index] * 100).toFixed(2) : 0
             ];
             csvRows.push(row.join(','));
         });
@@ -370,7 +437,7 @@ function exportWebP(charts) {
     }, 'image/webp');
 }
 
-function exportSVG(charts, svgWidth = 300, svgHeight = 300) {
+function exportSVG(charts, svgWidth = 1000, svgHeight = 700) {
     const svgContents = [];
     let completedRequests = 0;
 
@@ -390,9 +457,8 @@ function exportSVG(charts, svgWidth = 300, svgHeight = 300) {
             const xSpacing = (svgWidth - 50) / (labels.length + 1);
             const yScale = (svgHeight - 50) / Math.max(...datasets.flatMap(dataset => dataset.data));
 
-            // Draw axes
-            svgContent += `<line x1="30" y1="${svgHeight - 50}" x2="${svgWidth - 30}" y2="${svgHeight - 50}" stroke="black" />`; // X-axis
-            svgContent += `<line x1="30" y1="${svgHeight - 50}" x2="30" y2="20" stroke="black" />`; // Y-axis
+            svgContent += `<line x1="30" y1="${svgHeight - 50}" x2="${svgWidth - 30}" y2="${svgHeight - 50}" stroke="black" />`;
+            svgContent += `<line x1="30" y1="${svgHeight - 50}" x2="30" y2="20" stroke="black" />`;
 
             labels.forEach((label, labelIndex) => {
                 const x = (labelIndex + 1) * xSpacing;
