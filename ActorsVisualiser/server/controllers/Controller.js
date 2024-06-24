@@ -496,6 +496,29 @@ async function getUserFavoritesActors(req, res, username) {
     }
 }
 
+async function fetchNews(req, res) {
+    console.log("Fetching news!");
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    
+    const actorName = url.searchParams.get('actorName');
+    if (!actorName) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: 'actorName query parameter is required' }));
+        res.end();
+        return;
+    }
+
+    try {
+        const articles = await Model.fetchNewsArticles(actorName);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify(articles));
+        res.end();
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: 'Internal Server Error', error: error.message }));
+        res.end();
+    }
+}
 module.exports = {
     getUsers,
     login,
@@ -514,5 +537,6 @@ module.exports = {
     getMovieImage,
     addActorToFavourites,
     removeActorFromFavourites,
-    getUserFavoritesActors
+    getUserFavoritesActors,
+    fetchNews
 };

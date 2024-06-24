@@ -50,7 +50,9 @@ const router = (req, res) => {
          const username = req.url.split('/').pop();
          console.log(username);
          controller.getUserFavoritesActors(req, res, username);
-     } else {
+     } else if (req.url.startsWith('/api/fetchNews') && req.method === 'GET') {
+        controller.fetchNews(req, res);
+    } else {
         res.writeHead(404, { 'Content-Type': 'text/html' });
         res.write('<h1>Page not found</h1>');
         res.end();
