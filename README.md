@@ -224,7 +224,7 @@
                 <li><b>Welcome</b>
                     <ul>
                         <li>Pentru pagina Welcome, utilizatorul are opțiunea de a accesa site-ul ca Guest sau de a se autentifica ca User/Admin.</li>
-                        <li><img src="client/public/resources/WelcomeScreenshot.png" alt="Welcome Page"></li>
+                        <li><img src="../resources/WelcomeScreenshot.png" alt="Welcome Page"></li>
                     </ul>
                 </li>
                 <li><b>Bara de navigație</b>
@@ -237,7 +237,7 @@
                         <li>Pagina are rolul de a realiza autentificarea utilizatorilor la AcVis.</li>
                         <li>Pentru a se loga, utilizatorul trebuie să completeze câmpurile de "username" și "parolă" cu credențiale <b>valide</b>, urmând să acționeze butonul <b>Login</b>.</li>
                         <li>În cazul în care utilizatorul nu are cont pe site, acesta își poate crea unul prin accesarea paginii de înregistrare, ce se face prin apăsarea butonului <b>Register</b>.</li>
-                        <li><img src="client/public/resources/LoginScreenshot.png" alt="Login Page"></li>
+                        <li><img src="../resources/LoginScreenshot.png" alt="Login Page"></li>
                     </ul>
                 </li>
                 <li><b>Register</b>
