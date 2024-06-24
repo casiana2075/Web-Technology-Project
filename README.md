@@ -177,16 +177,17 @@
                 <li>să se înregistreze pe site.</li>
                 <li>să se autentifice pe site.</li>
                 <li>să consulte pagină "AcVis" care reprezintă pagina de Acasă și care conține noutățile disponibile, știri.</li>
-                <li>să acceseze pagina "Statistics" pentru a putea descărca diferite statistici referitoare la premiile SAG</li>
-                <li>să acceseze pagina "Actor Profile" pentru a vizualiza biografia și filmele în care a jucat si pentru care a fost nominalizat. </li>
+                <li>să acceseze pagina "Statistics" pentru a putea vedea și descărca diferite statistici referitoare la premiile SAG</li>
+                <li>să acceseze pagina "Actor Profile" pentru a vizualiza biografia și filmele în care a jucat </li>
+                <li>să acceseze pagina "Favorites" pentru a vizualiza lista de actori favoriți</li>
+                <li>sa acceseze pagina "News" pentru a vizualiza stiri despre un anumit actor </li>
                 <li>să poată filtra rezultatele în functie de ceremonie(an), categorie și gen (serial)</li>
                 <li>să caute informații de interes prin intermediul butonului de search</li>
                 <li>sa poata vizualiza o listă de actori sortați in ordine alfabetica prin intermediul butonului de "MORE"</li>
                 <li>dacă este <b>autentificat</b>, să adauge actori pe lista de favorite, iar informațiile se vor stoca pe pagina de "Favorites" </li>
                 <li>dacă utilizatorul are rol de <b>admin</b>, acesta poate șterge utilizatori din baza de date</li>
                 <li>dacă utilizatorul are rol de <b>admin</b>, acesta poate adăuga actori/informații noi</li>
-                <li>dacă utilizatorul are rol de <b>admin</b>, acesta poate modifica metodele de filtrare</li>
-                <li>dacă utilizatorul are rol de <b>admin</b>, acesta poate adăuga noi metode de vizualizare a statisticilor</li>
+                
             </ul>
         </section>
         <section id="users">
@@ -208,14 +209,26 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    utilizatorii admin pot fi:
+                    <ul>
+                        <li>
+                            o categorie de oameni pe care adaugati in baza de date care doresc să afle informații legate de actori dar pot adăuga alți actori și filmele in care aceștia au jucat .
+                        </li>
+                    </ul>
+                </li>
             </ul>
             <h5>2.3.2 Caracteristici</h5>
             <ul>
                 <li>Utilizatorii care sunt <b> autentificați </b> pot accesa pagină de "Favorites", în care își va pastra o lista de actori preferați
-                    dar și restul paginilor aplicației, "AcVis", "Actor Profile", "Statistics".
+                    dar și restul paginilor aplicației, "AcVis", "Actor Profile", "Statistics", "News".
                   Aceștia pot adauga oricat de mulți actori în lista de favorite.
                 </li>
-                <li>Utilizatorii care nu sunt autentificați pot să vizualizeze "AcVis", "Actor Profile", "Statistics" dar nu pot adăuga actori în lista de favorite fără a fi înregistrati
+                <li>Utilizatorii care nu sunt autentificați pot să vizualizeze "AcVis", "Actor Profile", "Statistics",  "News" dar nu pot adăuga actori în lista de favorite fără a fi înregistrati
+                </li>
+                <li>Utilizatorii care sunt <b> administratori </b> pot accesa formularul de "addActor" și pot adăuga actori in baza de date
+                    dar și restul paginilor aplicației, "AcVis", "Actor Profile", "Statistics", "News".
+                  Aceștia pot adauga oricat de mulți actori în lista de favorite.
                 </li>
                 Ambele tipuri de utilizatori se pot bucura de seria de funcționalități oferite de aplicație. Aceștia pot filtra rezultatele, pot caută rezultate, pot descarca statistici in diferite formate.
             </ul>
@@ -243,6 +256,14 @@
             Mai jos, puteți vedea o prezentare generală a fiecărei pagini a aplicației și funcționalităților pe care le
             oferă:
             <ul>
+                <li id="welcome-page"><b>Welcome</b></li>
+                <li style="list-style: none">
+                    <ul>
+                        <li>Pentru pagina Welcome, utilizatorul are optiunea de a accesa site-ul ca Guest sau de a se autentifica ca User/Admin. </li>
+                        </li>
+                        <img src="client/public/resources/WelcomeScreenshot.png" alt="Welcome Page">
+                    </ul>
+                </li>
                 <li id="nav-bar"><b>Bara de navigație</b></li>
                 <li style="list-style: none">
                     <ul>
@@ -262,7 +283,7 @@
                             accesarea pagini de
                             înregistrare, ce se face prin apăsarea butonului <b>Register</b>.
                         </li>
-                        <img src="./resources/LoginScreenshot.png" alt="Login Page">
+                        <img src="client/public/resources/LoginScreenshot.png" alt="Login Page">
                     </ul>
                 </li>
                 <li id="signup-page"><b>Register</b></li>
@@ -287,9 +308,11 @@
                 <li id="home-page"><b>HomePage</b></li>
                 <li style="list-style: none">
                     <ul>
-                        <li>Pagina are rolul de prezenta câteva seriale/filme și actori relevanti. Aceste informații vor fi adăugate pe baza statisticilor. De asemenea, utilizatorul poate accesa paginile de <b>Statistics</b> și <b>Actor Profile</b> apasând pe informațiile sau pe poza fiecarui actor/film/serial
-                        Utilizatorul poate vizualiza o listă de actori ordonați alfabetic iar dacă vrea să vadă mai mulți actori acesta poate apăsa butonul <b>MORE</b> și va mai primi în continuare o listă de actori ce se va încarca in cadrul aceleași pagini.   
-                        </li>
+                        <li>Pagina are rolul de prezenta câteva seriale/filme și actori relevanti. Aceste informații vor fi adăugate pe baza statisticilor(cei mai populari actori/filme din baza de date). De asemenea, utilizatorul poate accesa paginile de <b>Statistics</b> și <b>Actor Profile</b> 
+                            Utilizatorul poate accesa pagina de stiri pentru a vedea ultimele noutati despre actorii favoriti.
+                            Utilizatorul poate vizualiza o listă de actori ordonați alfabetic iar dacă vrea să vadă mai mulți actori acesta poate apăsa butonul <b>MORE</b> și va mai primi în continuare o listă de actori ce se va încarca in cadrul aceleași pagini.   
+                        
+                    </li>
                         <img src="./resources/HomePageScreenshot.png" alt="Login Page">
                     </ul>
                 </li>
@@ -312,10 +335,32 @@
                 <li style="list-style: none">
                     <ul>
                         <li>Pagina conține lista de actori favoriți ai utilizatorului, iar prin apăsarea pe poza actorului, utilizatorul va fi redirectionat pe pagina <b>Actor Profile</b> a actorului in cauza.</li>
+                        <li>Utilizatorul poate cauta un anumit actor iar dupa ce apasa pe enter acesta va fi evidentiat</li>
                         <li>De asemenea, utilizatorul poate accesa pagina principală, sau se poate intoarce la pagina anterioară.</li>
                     </ul>
                     <img src="./resources/FavoritesScreenshot.png" alt="Login Page">
                 </li>
+                <li id="news"><b>News</b></li>
+                <li style="list-style: none">
+                    <ul>
+                        <li>Pagina ofera știri despre un anumit actor. Utilizatorul poate accesa pagina principală, sau se poate intoarce la pagina anterioară.</li>
+                    </ul>
+                    <img src="./resources/NewsScreenshot.png" alt="Login Page">
+                </li>
+                <li id="form"><b>Add Actor</b></li>
+                <li style="list-style: none">
+                    <ul>
+                        <li>Pagina oferă posibilitatea utilizatorilor cu rol de admin de a adăuga actori în baza de date. </li>
+                        <li>Utilizatorul poate accesa pagina principală, sau se poate intoarce la pagina anterioară.</li>
+                    </ul>
+                    <img src="./resources/AddActorScreenshot.png" alt="Login Page">
+                </li>
+                <li id="ManageUsers"><b>Manage Users</b></li>
+                <li style="list-style: none">
+                    <ul>
+                        <li>Pagina oferă posibilitatea utilizatorilor cu rol de admin de a șterge utilizatori din baza de date. </li>
+                    </ul>
+                    <img src="./resources/ManageUsersScreenshot.png" alt="Login Page">
             </ul>
         </section>
             <section id="hardware-interface">
@@ -373,7 +418,7 @@
                 <section id="utilizatori">
                     <h4>4.2 Secțiunea de utilizatori</h4>
                     <h5 id="utilizatori-1">4.2.1 Descriere și generalități</h5>
-                    Secțiunea <b>Utilizatori</b> este destinată
+                    Secțiunea <b>ManageUsers</b> este destinată
                     <b>adminului</b>, și aceasta îi oferă posibilitatea
                     de a vizualiza o listă cu toți utilizatorii din
                     baza de date. De asemenea, acesta are posibilitatea
@@ -433,26 +478,6 @@
                     </ul>
                 </section>
             <section id="non-functional">
-                <h3>5. Funcționalități pentru protecție și securitate</h3>
-                <section id="safety">
-                    <h4>5.1 Protecția datelor</h4>
-                    <p>
-                        Aplicația va asigura confidențialitatea datelor prin intermediul unei criptări.
-                    </p>
-                </section>
-                <section id="security">
-                    <h4>5.2 Securizarea datelor</h4>
-                    <p>
-                        Autorizarea utilizatorilor se face pe baza standardului JWT. Utilizatorii au acces doar la
-                        informații legate
-                        de progresul in cadrul site-ului, celelalte informații fiind ascunse. Token-ul folosit pentru
-                        autorizare este
-                        stocat intr-un cookie de tip HTTP-only, lucru care previne atacurile de tip XSS. Mai mult, toate
-                        datele sunt introduse
-                        in baza de date prin intermediul unor <b>prepared statements</b>, care asigura prevenirea SQL
-                        Injection.
-                    </p>
-                </section>
                 <section id="software-attributes">
                     <h4>5.3 Calitățile Software</h4>
                     <ul>
