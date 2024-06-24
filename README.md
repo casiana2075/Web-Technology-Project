@@ -224,7 +224,7 @@
                 <li><b>Welcome</b>
                     <ul>
                         <li>Pentru pagina Welcome, utilizatorul are opțiunea de a accesa site-ul ca Guest sau de a se autentifica ca User/Admin.</li>
-                        <li><img src="../resources/WelcomeScreenshot.png" alt="Welcome Page"></li>
+                        <li><img src="ActorsVisualiser/client/public/resources/WelcomeScreenshot.png" alt="Welcome Page"></li>
                     </ul>
                 </li>
                 <li><b>Bara de navigație</b>
