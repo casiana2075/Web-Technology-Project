@@ -1,4 +1,4 @@
-if (!document.cookie.includes('username')) {
+if (!document.cookie.includes('admin')) {
   window.location.href = 'homePage.html';
 }
 
