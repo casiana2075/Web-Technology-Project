@@ -7,7 +7,7 @@ function logoutAdminCookie() {
     document.cookie = "admin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     window.location.reload();
 }
-
+const manageUsers = document.getElementById('manageUsers');
 const login = document.getElementById('login');
 const loginAdmin = document.getElementById('loginAdmin');
 const register = document.getElementById('register');
@@ -19,6 +19,7 @@ const favoriteButton = document.getElementById('favorites-button');
 
 if (document.cookie.includes('username')) {
     console.log('User is logged in');
+    manageUsers.style.display = 'none';
     login.style.display = 'none';
     loginAdmin.style.display = 'none';
     register.style.display = 'none';
@@ -29,6 +30,7 @@ if (document.cookie.includes('username')) {
     favoriteButton.style.display = '';
 } else if(document.cookie.includes('admin')){
     console.log('Admin is logged in');
+    manageUsers.style.display = '';
     login.style.display = 'none';
     loginAdmin.style.display = 'none';
     register.style.display = 'none';
@@ -38,6 +40,8 @@ if (document.cookie.includes('username')) {
     addToFavorites.style.display = 'none';
     favoriteButton.style.display = 'none';
 } else {
+    console.log('Enter as a guest');
+    manageUsers.style.display = 'none';
     login.style.display = '';
     loginAdmin.style.display = '';
     register.style.display = '';

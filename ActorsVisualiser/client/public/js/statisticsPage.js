@@ -38,10 +38,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             let filteredNewItems;
 
             if (filter === 'year') {
-                const specialItems = newItems.filter(item => item.year && item.year.includes('26th Annual Screen Actors Guild Awards'));
-                const otherItems = newItems.filter(item => item.year && !item.year.includes('26th Annual Screen Actors Guild Awards'));
+                const otherItems = newItems.filter(item => item.year);
                 otherItems.sort((a, b) => b.year.localeCompare(a.year));
-                filteredNewItems = specialItems.concat(otherItems);
+                filteredNewItems = otherItems;
             } else if (filter === 'category' || filter === 'tv-series') {
                 filteredNewItems = newItems.filter(item => item.category && item.category !== '');
             }
