@@ -88,6 +88,9 @@
                 <li><a href="#software-attributes">5.3 Calitățile Software</a></li>
             </ul>
         </li>
+        <li>
+            <a href="#c4-diagram">6. Diagrama C4</a>
+        </li>
     </ul>
     <div role="contentinfo">
         <section id="authors" typeof="sa:AuthorsList">
@@ -237,7 +240,7 @@
                         <li>Pagina are rolul de a realiza autentificarea utilizatorilor la AcVis.</li>
                         <li>Pentru a se loga, utilizatorul trebuie să completeze câmpurile de "username" și "parolă" cu credențiale <b>valide</b>, urmând să acționeze butonul <b>Login</b>.</li>
                         <li>În cazul în care utilizatorul nu are cont pe site, acesta își poate crea unul prin accesarea paginii de înregistrare, ce se face prin apăsarea butonului <b>Register</b>.</li>
-                        <li><img src="../resources/LoginScreenshot.png" alt="Login Page"></li>
+                        <li><img src="ActorsVisualiser/client/public/resources/LoginScreenshot.png" alt="Login Page"></li>
                     </ul>
                 </li>
                 <li><b>Register</b>
@@ -245,25 +248,25 @@
                         <li>Pagina oferă funcționalitatea de înregistrare a utilizatorilor, pentru a putea beneficia de toate funcționalitățile AcVis.</li>
                         <li>Pentru a se înregistra, utilizatorul trebuie să completeze câmpurile <b>Username</b>, <b>Password</b>, <b>Confirm Password</b> și <b>E-mail</b>. Mai mult, câmpurile <b>E-mail</b> și <b>Username</b> trebuie să fie <b>unice</b>.</li>
                         <li>În cazul în care utilizatorul își amintește că are un cont existent, acesta poate apăsa butonul <b>Login</b> pentru a reveni la meniul de autentificare.</li>
-                        <li><img src="client/public/resources/RegisterScreenshot.png" alt="Register Page"></li>
+                        <li><img src="ActorsVisualiser/client/public/resources/RegisterScreenshot.png" alt="Register Page"></li>
                     </ul>
                 </li>
                 <li><b>HomePage</b>
                     <ul>
                         <li>Pagina are rolul de prezenta câteva seriale/filme și actori relevanți. Aceste informații vor fi adăugate pe baza statisticilor (cei mai populari actori/filme din baza de date). De asemenea, utilizatorul poate accesa paginile de <b>Statistics</b> și <b>Actor Profile</b>. Utilizatorul poate accesa pagina de știri pentru a vedea ultimele noutăți despre actorii favoriți. Utilizatorul poate vizualiza o listă de actori ordonați alfabetic, iar dacă vrea să vadă mai mulți actori, acesta poate apăsa butonul <b>MORE</b> și va mai primi în continuare o listă de actori ce se va încărca în cadrul aceleași pagini.</li>
-                        <li><img src="client/public/resources/HomePageScreenshot.png" alt="Home Page"></li>
+                        <li><img src="ActorsVisualiser/client/public/resources/HomePageScreenshot.png" alt="Home Page"></li>
                     </ul>
                 </li>
                 <li><b>Statistics</b>
                     <ul>
                         <li>Pagina oferă oportunitatea utilizatorilor de a vizualiza statistici și a le descărca în diferite formate (CSV, WebP și SVG). De asemenea, utilizatorul poate accesa pagina principală sau se poate întoarce la pagina anterioară.</li>
-                        <li><img src="client/public/resources/StatisticsScreenshot.png" alt="Statistics Page"></li>
+                        <li><img src="ActorsVisualiser/client/public/resources/StatisticsScreenshot.png" alt="Statistics Page"></li>
                     </ul>
                 </li>
                 <li><b>Actor Profile</b>
                     <ul>
                         <li>Pagina conține informații relevante despre actorul selectat și filmele/serialele pentru care a fost nominalizat. Prin apăsarea butonului în formă de inimă, actorul poate fi adăugat în lista de favorite a utilizatorului, doar dacă acesta este autentificat. De asemenea, utilizatorul poate accesa pagina principală sau se poate întoarce la pagina anterioară.</li>
-                        <li><img src="client/public/resources/ActorProfileScreenshot.png" alt="Actor Profile Page"></li>
+                        <li><img src="ActorsVisualiser/client/public/resources/ActorProfileScreenshot.png" alt="Actor Profile Page"></li>
                     </ul>
                 </li>
                 <li><b>Favorites</b>
@@ -271,26 +274,26 @@
                         <li>Pagina conține lista de actori favoriți ai utilizatorului, iar prin apăsarea pe poza actorului, utilizatorul va fi redirecționat pe pagina <b>Actor Profile</b> a actorului în cauză.</li>
                         <li>Utilizatorul poate căuta un anumit actor, iar după ce apasă pe enter, acesta va fi evidențiat.</li>
                         <li>De asemenea, utilizatorul poate accesa pagina principală sau se poate întoarce la pagina anterioară.</li>
-                        <li><img src="client/public/resources/FavoritesScreenshot.png" alt="Favorites Page"></li>
+                        <li><img src="ActorsVisualiser/client/public/resources/FavoritesScreenshot.png" alt="Favorites Page"></li>
                     </ul>
                 </li>
                 <li><b>News</b>
                     <ul>
                         <li>Pagina oferă știri despre un anumit actor. Utilizatorul poate accesa pagina principală sau se poate întoarce la pagina anterioară.</li>
-                        <li><img src="client/public/resources/NewsScreenshot.png" alt="News Page"></li>
+                        <li><img src="ActorsVisualiser/client/public/resources/NewsScreenshot.png" alt="News Page"></li>
                     </ul>
                 </li>
                 <li><b>Add Actor</b>
                     <ul>
                         <li>Pagina oferă posibilitatea utilizatorilor cu rol de admin de a adăuga actori în baza de date.</li>
                         <li>Utilizatorul poate accesa pagina principală sau se poate întoarce la pagina anterioară.</li>
-                        <li><img src="client/public/resources/AddActorScreenshot.png" alt="Add Actor Page"></li>
+                        <li><img src="ActorsVisualiser/client/public/resources/AddActorScreenshot.png" alt="Add Actor Page"></li>
                     </ul>
                 </li>
                 <li><b>Manage Users</b>
                     <ul>
-                        <li>Pagina oferă posibilitatea utilizatorilor cu rol de admin de a șterge utilizatori din baza de date.</li>
-                        <li><img src="client/public/resources/ManageUsersScreenshot.png" alt="Manage Users Page"></li>
+                        <li>Pagina oferă posibilitatea utilizatorilor cu rol de admin de a șterge utilizatori din baza de date sau la cererea utilizatorului sa se schimbe parola.</li>
+                        <li><img src="ActorsVisualiser/client/public/resources/ManageUsersScreenshot.png" alt="Manage Users Page"></li>
                     </ul>
                 </li>
             </ul>
@@ -375,6 +378,10 @@
             </section>
         </section>
     </section>
+    <section id="c4-diagram">
+        <h3>6. Diagrama C4</h3>
+        <li><img src="ActorsVisualiser/client/public/resources/ActorsVisualiser-C4.png" alt="C4"></li>
+      </section>
 </article>
 </body>
 </html>
