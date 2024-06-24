@@ -176,10 +176,10 @@
             <ul>
                 <li>să se înregistreze pe site.</li>
                 <li>să se autentifice pe site.</li>
-                <li>să consulte pagină "AcVis" care reprezintă pagina de Acasă și care conține noutățile disponibile</li>
-                <li>să acceseze pagina "Statistics" pentru a putea descărca informații suplimentare referitoare la fiecare actor si productie cinematografica</li>
-                <li>să acceseze pagina "Actor Profile" pentru a vizualiza biografia, știri și filmele în care a jucat si pentru care a fost nominalizat. </li>
-                <li>să poată filtra rezultatele în functie de premii, categorie și gen (film/serial)</li>
+                <li>să consulte pagină "AcVis" care reprezintă pagina de Acasă și care conține noutățile disponibile, știri.</li>
+                <li>să acceseze pagina "Statistics" pentru a putea descărca diferite statistici referitoare la premiile SAG</li>
+                <li>să acceseze pagina "Actor Profile" pentru a vizualiza biografia și filmele în care a jucat si pentru care a fost nominalizat. </li>
+                <li>să poată filtra rezultatele în functie de ceremonie(an), categorie și gen (serial)</li>
                 <li>să caute informații de interes prin intermediul butonului de search</li>
                 <li>sa poata vizualiza o listă de actori sortați in ordine alfabetica prin intermediul butonului de "MORE"</li>
                 <li>dacă este <b>autentificat</b>, să adauge actori pe lista de favorite, iar informațiile se vor stoca pe pagina de "Favorites" </li>
@@ -296,7 +296,7 @@
                 <li id="learning"><b>Statistics</b></li>
                 <li style="list-style: none">
                     <ul>
-                        <li>Pagina oferă oportunitatea utilizatorilor de a vizualiza statistici in diferite formate ( CSV, WebP si SVG). De asemenea, utilizatorul poate accesa pagina principală, sau se poate intoarce la pagina anterioară. </li>
+                        <li>Pagina oferă oportunitatea utilizatorilor de a vizualiza statistici si a le descarca in diferite formate ( CSV, WebP si SVG). De asemenea, utilizatorul poate accesa pagina principală, sau se poate intoarce la pagina anterioară. </li>
                         <img src="./resources/StatisticsScreenshot.png" alt="Login Page">
                     </ul>
                 </li>
