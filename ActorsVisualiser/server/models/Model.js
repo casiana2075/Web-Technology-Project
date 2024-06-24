@@ -92,6 +92,36 @@ function createUser(username, password, email) {
     });
 }
 
+function deleteUser(userid) {
+    console.log("Model!");
+
+    return new Promise((resolve, reject) => {
+        pool.query('DELETE FROM users WHERE userid = $1', [userid], (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res);
+            }
+        });
+    });
+
+}
+
+function changeUserPassword(userid, password) {
+    console.log("Model!");
+
+    return new Promise((resolve, reject) => {
+        pool.query('UPDATE users SET password = $1 WHERE userid = $2', [password, userid], (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res);
+            }
+        });
+    });
+
+}
+
 function getCategories() {
     console.log("Model!");
 
@@ -407,6 +437,8 @@ module.exports = {
     getUserByEmail,
     getUserByUsername,
     createUser,
+    deleteUser,
+    changeUserPassword,
     getCategories,
     getYears,
     getActorsFromDb,

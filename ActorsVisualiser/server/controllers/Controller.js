@@ -122,6 +122,58 @@ async function register(req, res) {
     }
 }
 
+async function deleteUser(req, res, userid) {
+    console.log("delete user Controller!");
+
+    const user = await Model.deleteUser(userid);
+
+    if (user) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: "User deleted!" }));
+        res.end();
+    } else {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: "User not found" }));
+        res.end();
+    }
+
+}
+
+async function changeUserPassword(req, res, userid) {   
+    console.log("change user password Controller!");
+
+    try {
+        const body = await getPostData(req);
+        const newPassword = JSON.parse(body).password;
+        console.log(newPassword);
+
+        // Validate input
+        if (!newPassword) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify({ message: "Password is required" }));
+            res.end();
+            return;
+        }
+
+        const user = await Model.changeUserPassword(userid, newPassword);
+
+        if (user) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify({ message: "Password changed successfully!" }));
+            res.end();
+        } else {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify({ message: "User not found" }));
+            res.end();
+        }
+    } catch (error) {
+        console.error('Error changing password:', error);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: 'Internal Server Error' }));
+        res.end();
+    }
+}
+
 async function getCategories(req, res) {
     console.log("Fetching categories!");
 
@@ -172,23 +224,6 @@ async function getSeriesCategories(req, res) {
         return;
     }
 }
-
-// async function getActors(req, res) {
-//     console.log("Fetching actors!");
-
-//     try {
-//         const actors = await Model.getActors();
-//         res.writeHead(200, { 'Content-Type': 'application/json' });
-//         res.write(JSON.stringify(actors));
-//         res.end();
-//         return;
-//     } catch (error) {
-//         res.writeHead(500, { 'Content-Type': 'application/json' });
-//         res.write(JSON.stringify({ message: 'Internal Server Error' }));
-//         res.end();
-//         return;
-//     }
-// }
 
 async function getAwardsInfo(req, res) {
     const url = new URL(req.url, `http://${req.headers.host}`);
@@ -524,6 +559,8 @@ module.exports = {
     login,
     loginAdmin,
     register,
+    deleteUser,
+    changeUserPassword,
     getCategories,
     getYears,
     getActors,

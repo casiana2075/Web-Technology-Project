@@ -14,6 +14,12 @@ const router = (req, res) => {
     } else if (req.url === '/api/users' && req.method === 'POST') {
         controller.register(req, res);
         console.log("Register!");
+    } else if (req.url.startsWith('/api/user/') && req.method === 'DELETE') {
+        const userid = req.url.split('/').pop();
+        controller.deleteUser(req, res, userid);
+    } else if (req.url.startsWith('/api/user/password/') && req.method === 'PUT') {
+        const userid = req.url.split('/').pop();
+        controller.changeUserPassword(req, res, userid);
     } else if (req.url.startsWith('/api/awardsInfo') && req.method === 'GET') {
         const url = new URL(req.url, `http://${req.headers.host}`);
         const category = url.searchParams.get('category');

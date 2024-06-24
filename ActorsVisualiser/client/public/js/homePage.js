@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function fetchAndDisplayActors(page, letter = '', append = false) {
         let actorsToFetch = 30;
-        let pagesNeeded = Math.ceil(actorsToFetch / 20); // TMDB API returns 20 actors per page
+        let pagesNeeded = Math.ceil(actorsToFetch / 30); // TMDB API returns 20 actors per page
         let fetchPromises = [];
 
         for (let i = 0; i < pagesNeeded; i++) {
