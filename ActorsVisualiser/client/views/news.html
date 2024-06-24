@@ -31,9 +31,19 @@
             </div>
             <div class="account-button"><i class="fas fa-user"></i>
                 <div id="accountBox" class="accountBox">
+                    <a style="display: none;" href="manageUsers.html" id="manageUsers">
+                        <ul>
+                            <li>Manage user accounts</li>
+                        </ul>
+                    </a>
                     <a style="display: none;" href="login.html" id="login">
                         <ul>
-                            <li>Login</li>
+                            <li>Login as User</li>
+                        </ul>
+                    </a>
+                    <a style="display: none;" href="loginAdmin.html" id="loginAdmin">
+                        <ul>
+                            <li>Login as Admin</li>
                         </ul>
                     </a>
                     <a style="display: none;" href="register.html" id="register">
@@ -41,7 +51,12 @@
                             <li>Register</li>
                         </ul>
                     </a>
-                    <a style="display: none;" id="logout" onclick="logoutUser()">
+                    <a style="display : none;" id="logoutUser" onclick="logoutUserCookie()">
+                        <ul>
+                            <li>Logout</li>
+                        </ul>
+                    </a>
+                    <a style="display : none;" id="logoutAdmin" onclick="logoutAdminCookie()">
                         <ul>
                             <li>Logout</li>
                         </ul>
