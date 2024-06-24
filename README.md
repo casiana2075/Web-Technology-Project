@@ -2,7 +2,6 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <title>AcVis (Actors Smart Visualiser)</title>
 </head>
 <body>
 <article>
@@ -380,7 +379,7 @@
     </section>
     <section id="c4-diagram">
         <h3>6. Diagrama C4</h3>
-        <li><img src="ActorsVisualiser/client/public/resources/ActorsVisualiser-C4.png" alt="C4"></li>
+        <li><img src="ActorsVisualiser/client/public/resources/ActorsVisualiser-C4.jpg" alt="C4"></li>
       </section>
 </article>
 </body>
