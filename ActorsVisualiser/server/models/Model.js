@@ -142,7 +142,7 @@ function getYears() {
     return new Promise((resolve, reject) => {
         const query = `
             SELECT year FROM (
-                SELECT DISTINCT year FROM "awardsInfo" WHERE year IS NOT NULL
+                SELECT DISTINCT year FROM "awardsInfo" WHERE year IS NOT NULL AND LENGTH(year) > 5
             ) AS distinct_years ORDER BY LENGTH(year) DESC
         `;
         pool.query(query, (err, res) => {
@@ -187,6 +187,7 @@ function getSeriesCategories() {
         });
     });
 }
+
 function getAwardsInfo(category, year) {
     console.log("Model!");
     console.log("Category:", category);
