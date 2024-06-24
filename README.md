@@ -359,14 +359,6 @@
         </section>
         <section id="non-functional">
             <h4>5. Funcționalități pentru protecție și securitate</h4>
-            <section id="safety">
-                <h5>5.1 Protecția datelor</h5>
-                <p>Informațiile utilizatorilor sunt protejate prin criptare și autentificare securizată.</p>
-            </section>
-            <section id="security">
-                <h5>5.2 Securizarea datelor</h5>
-                <p>Aplicația implementează măsuri de securitate pentru a preveni accesul neautorizat și atacurile cibernetice.</p>
-            </section>
             <section id="software-attributes">
                 <h5>5.3 Calitățile Software</h5>
                 <ul>
