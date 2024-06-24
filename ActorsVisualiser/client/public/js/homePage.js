@@ -8,6 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let allActorsData = [];
     let currentLetter = '';
 
+    
+    async function fetchActorIdFromTmdb(actorName) {
+        const response = await fetch(`https://api.themoviedb.org/3/search/person?api_key=${apiKey}&query=${encodeURIComponent(actorName)}`);
+        const data = await response.json();
+        if (data.results && data.results.length > 0) {
+            return data.results[0].id; // return the first match
+        }
+        return null;
+    }
+
     function fetchAndDisplayPopularActor(actorElementId, actorIndex) {
         fetch(`${apiUrl}&page=1`)
             .then(response => response.json())
@@ -237,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`Searching for: ${searchTerm}`);
             if (searchTerm) {
                 Promise.all([searchLocalForActor(searchTerm), searchLocalApiForActor(searchTerm), searchTmdbForActor(searchTerm)])
-                    .then(results => {
+                    .then(async results => {
                         let [localResultsFromDb, localResultsFromApi, tmdbResult] = results;
 
                         console.log("Local results from DB:", localResultsFromDb);
@@ -247,7 +257,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         let recommendations = '';
 
                         if (localResultsFromDb.length > 0) {
-                            recommendations += localResultsFromDb.map(actor => `<li><a href="#" data-actor-id="local-${actor.id}" data-actor-name="${actor.full_name}" class="always-active">${actor.full_name}</a></li>`).join('');
+                            for (const actor of localResultsFromDb) {
+                                const actorId = await fetchActorIdFromTmdb(actor.full_name);
+                                recommendations += `<li><a href="#" data-actor-id="tmdb-${actorId}" data-actor-name="${actor.full_name}" class="always-active">${actor.full_name}</a></li>`;
+                            }
                         }
 
                         if (localResultsFromApi.length > 0) {
