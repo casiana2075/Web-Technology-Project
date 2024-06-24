@@ -7,42 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPage = 1;
     let allActorsData = [];
     let currentLetter = '';
-    async function fetchLocalActors() {
-        try {
-            const response = await fetch(localApiUrl);
-            const data = await response.json();
-            console.log(data);
-            return data
-                .filter(actor => actor.full_name) 
-                .map(actor => actor.full_name.toLowerCase());
-        } catch (error) {
-            console.error('Error fetching local actors:', error);
-            return [];
-        }
-    }
 
-    async function fetchAndDisplayPopularActor(actorElementId, actorIndex) {
-        try {
-            const localActors = await fetchLocalActors();
-            console.log(localActors);
-            let currentIndex = actorIndex;
-            let actorFound = false;
-
-            while (!actorFound) {
-                const response = await fetch(`${apiUrl}&page=1`);
-                const data = await response.json();
-
-                if (data.results && data.results.length > currentIndex) {
-                    let actor = data.results[currentIndex];
-                    let actorNameLower = actor.name.toLowerCase();
-
-                    if (!localActors.includes(actorNameLower)) {
-                        console.log(`${actor.name} is not found in local actors. Fetching next actor...`);
-                        currentIndex++;
-                        continue;
-                    }
-
+    function fetchAndDisplayPopularActor(actorElementId, actorIndex) {
+        fetch(`${apiUrl}&page=1`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results && data.results.length > actorIndex) {
+                    let actor = data.results[actorIndex];
                     let actorElement = document.getElementById(actorElementId);
+
                     if (!actorElement) {
                         console.error(`Element with id ${actorElementId} not found`);
                         return;
@@ -74,23 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         biography: actor.biography,
                         profile_path: actor.profile_path
                     });
-
-                    actorFound = true;
-                } else {
-                    console.log(`No more actors found on page 1.`);
-                    break;
                 }
-            }
-        } catch (error) {
-            console.error(error);
-        }
+            })
+            .catch(error => console.error(error));
     }
 
     fetchAndDisplayPopularActor('logoActors1', 0);
     fetchAndDisplayPopularActor('logoActors2', 1);
-    fetchAndDisplayPopularActor('logoActors3', 3);
-
-
+    fetchAndDisplayPopularActor('logoActors3', 2);
 
     function fetchAndDisplayActors(page, letter = '', append = false) {
         let actorsToFetch = 30;
