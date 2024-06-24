@@ -367,8 +367,8 @@ function createChartContext(elementId, chartType) {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        callback: function(value) {
-                            return chartType === 'bar' && value % 1 === 0 ? value + '%' : value;
+                         callback: function(value) {
+                            return value;
                         }
                     }
                 }
