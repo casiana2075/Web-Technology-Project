@@ -20,98 +20,121 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     }
 
-    function fetchAndDisplayPopularActor(actorElementId, actorIndex) {
-        fetch(`${apiUrl}&page=1`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.results && data.results.length > actorIndex) {
-                    let actor = data.results[actorIndex];
-                    let actorElement = document.getElementById(actorElementId);
+    async function fetchLocalActors() {
+        const response = await fetch(localApiUrl);
+        return response.json();
+    }
 
-                    if (!actorElement) {
-                        console.error(`Element with id ${actorElementId} not found`);
-                        return;
-                    }
+    async function fetchAndDisplayPopularActor(actorElementId, actorIndex, page = 1) {
+        try {
+            const response = await fetch(`${apiUrl}&page=${page}`);
+            const data = await response.json();
+            if (data.results && data.results.length > actorIndex) {
+                let actor = data.results[actorIndex];
+                let localActors = await fetchLocalActors();
 
-                    actorElement.querySelector('.logoCaption').textContent = `${actor.name} - ${actor.known_for_department}`;
-                    actorElement.querySelector('.infoBox').textContent = actor.biography;
-                    actorElement.style.backgroundImage = `url('https://image.tmdb.org/t/p/w500${actor.profile_path || placeholderImage}')`;
-
-                    actorElement.addEventListener('mouseover', () => {
-                        fetch(`https://api.themoviedb.org/3/person/${actor.id}?api_key=${apiKey}`)
-                            .then(response => response.json())
-                            .then(actorData => {
-                                actorElement.querySelector('.infoBox').textContent = actorData.biography.substring(0, 500) + '...';
-                                actorElement.querySelector('.infoBox').style.display = 'block';
-                                actorElement.classList.add('dimmed');
-                            })
-                            .catch(error => console.error(error));
-                    });
-
-                    actorElement.addEventListener('mouseout', () => {
-                        actorElement.querySelector('.infoBox').style.display = 'none';
-                        actorElement.classList.remove('dimmed');
-                    });
-
-                    allActorsData.push({
-                        id: actor.id,
-                        name: actor.name,
-                        biography: actor.biography,
-                        profile_path: actor.profile_path
-                    });
+                if (!localActors.some(localActor => localActor.full_name && localActor.full_name.toLowerCase() === actor.name.toLowerCase())) {
+                    console.log(`${actor.name} is not found in local actors. Fetching next actor...`);
+                    return fetchAndDisplayPopularActor(actorElementId, actorIndex + 2, page);
                 }
-            })
-            .catch(error => console.error(error));
+
+                let actorElement = document.getElementById(actorElementId);
+                if (!actorElement) {
+                    console.error(`Element with id ${actorElementId} not found`);
+                    return;
+                }
+
+                actorElement.querySelector('.logoCaption').textContent = `${actor.name} - ${actor.known_for_department}`;
+                actorElement.querySelector('.infoBox').textContent = actor.biography;
+                actorElement.style.backgroundImage = `url('https://image.tmdb.org/t/p/w500${actor.profile_path || placeholderImage}')`;
+
+                actorElement.addEventListener('mouseover', () => {
+                    fetch(`https://api.themoviedb.org/3/person/${actor.id}?api_key=${apiKey}`)
+                        .then(response => response.json())
+                        .then(actorData => {
+                            actorElement.querySelector('.infoBox').textContent = actorData.biography.substring(0, 500) + '...';
+                            actorElement.querySelector('.infoBox').style.display = 'block';
+                            actorElement.classList.add('dimmed');
+                        })
+                        .catch(error => console.error(error));
+                });
+
+                actorElement.addEventListener('mouseout', () => {
+                    actorElement.querySelector('.infoBox').style.display = 'none';
+                    actorElement.classList.remove('dimmed');
+                });
+
+                allActorsData.push({
+                    id: actor.id,
+                    name: actor.name,
+                    biography: actor.biography,
+                    profile_path: actor.profile_path
+                });
+            } else if (data.results.length === 0) {
+                console.log(`No more actors found on page ${page}.`);
+            } else {
+                console.log(`Fetching next page ${page + 1}...`);
+                return fetchAndDisplayPopularActor(actorElementId, 0, page + 1);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     fetchAndDisplayPopularActor('logoActors1', 0);
     fetchAndDisplayPopularActor('logoActors2', 1);
     fetchAndDisplayPopularActor('logoActors3', 2);
-
+   
     async function fetchAndDisplayActors(page, letter = '', append = false, numActors = 1000) {
         let actorsToFetch = numActors;
         let pagesNeeded = Math.ceil(actorsToFetch / 20); // 20 actors per page (tmdb api limit)
         let fetchPromises = [];
-
+    
         for (let i = 0; i < pagesNeeded; i++) {
             fetchPromises.push(
                 fetch(`${apiUrl}&page=${page + i}`)
                     .then(response => response.json())
             );
         }
-
+    
         const results = await Promise.all(fetchPromises);
-
+    
         let imageContainer = document.querySelector('.actorsTable .actorsLine');
         if (!imageContainer) {
             console.error('Element with class "actorsTable .actorsLine" not found');
             return;
         }
-
+    
         if (!append) {
             imageContainer.innerHTML = ''; 
             actorBuffer = []; 
         }
-
+    
         let allNewActors = [];
         results.forEach(data => {
             let newActors = letter ? data.results.filter(actor => actor.name.toLowerCase().startsWith(letter)) : data.results;
             allNewActors.push(...newActors);
         });
-
-        actorBuffer = actorBuffer.concat(allNewActors.slice(0, actorsToFetch)); 
+    
+        let existingActorsResponse = await fetch(localApiUrl);
+        let existingActorsData = await existingActorsResponse.json();
+        let existingActorNames = new Set(existingActorsData.map(actor => actor.full_name ? actor.full_name.toLowerCase() : null));
+    
+        let filteredNewActors = allNewActors.filter(actor => !existingActorNames.has(actor.name.toLowerCase()));
+    
+        actorBuffer = actorBuffer.concat(filteredNewActors.slice(0, actorsToFetch)); 
         displayActorsFromBuffer(actorsPerPage); 
-
+    
         currentPage += pagesNeeded; 
     }
-
+    
     function displayActorsFromBuffer(numActorsToDisplay = 100) {
         let imageContainer = document.querySelector('.actorsTable .actorsLine');
         if (!imageContainer) {
             console.error('Element with class "actorsTable .actorsLine" not found');
             return;
         }
-
+    
         for (let i = 0; i < numActorsToDisplay && actorBuffer.length > 0; i++) {
             let actor = actorBuffer.shift(); 
             if (!allActorsData.some(existingActor => existingActor.id === actor.id)) {
@@ -120,19 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 actorDiv.style.backgroundImage = `url('https://image.tmdb.org/t/p/w500${actor.profile_path || placeholderImage}')`;
                 actorDiv.style.backgroundSize = 'cover';
                 actorDiv.style.backgroundPosition = 'center';
-
+    
                 let actorNameDiv = document.createElement('div');
                 actorNameDiv.textContent = actor.name;
                 actorNameDiv.classList.add('actorName');
                 actorDiv.appendChild(actorNameDiv);
-
+    
                 let actorAnchor = document.createElement('a');
                 actorAnchor.href = `actorProfile.html?id=tmdb-${actor.id}`;
                 console.log(`Generated URL: actorProfile.html?id=tmdb-${actor.id}`);
                 actorAnchor.appendChild(actorDiv);
-
+    
                 imageContainer.appendChild(actorAnchor);
-
+    
                 allActorsData.push({
                     id: actor.id,
                     name: actor.name,
@@ -143,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    
     async function fetchAndStoreActorsByLetter(letter) {
         let page = 1;
         allLettersActors[letter] = [];
