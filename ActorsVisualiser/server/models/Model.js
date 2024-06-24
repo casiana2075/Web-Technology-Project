@@ -32,6 +32,22 @@ function checkUser(username, password) {
     });
 
 }
+
+function checkAdmin(name, password, key) {
+    console.log("Check Admin Model!");
+    
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM admins WHERE name = $1 AND password = $2 AND key = $3', [name, password, key], (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows[0]);
+            }
+        });
+    });
+
+}
+
 function getUserByEmail(email) {
     console.log("Model!");
 
@@ -325,6 +341,7 @@ function getUserFavoritesActors(username) {
 module.exports = {
     findAll,
     checkUser,
+    checkAdmin,
     getUserByEmail,
     getUserByUsername,
     createUser,

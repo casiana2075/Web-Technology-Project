@@ -37,6 +37,29 @@ async function login(req, res) {
     }
 }
 
+async function loginAdmin(req, res) {
+    console.log("login admin Controller!");
+
+    const body = await getPostData(req);
+    const name = JSON.parse(body).name;
+    const password = JSON.parse(body).password;
+    const key = JSON.parse(body).key;
+
+
+    const validAdmin = await Model.checkAdmin(name, password, key);
+
+    if (validAdmin) {
+        console.log("Valid admin!");
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: "Valid admin!" }));
+        res.end();
+    } else {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: "Admin not found" }));
+        res.end();
+    }
+}
+
 async function register(req, res) {
     console.log("Controller!");
 
@@ -90,10 +113,12 @@ async function register(req, res) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: "User created!" }));
         res.end();
+        return;
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: "User not created" }));
         res.end();
+        return;
     }
 }
 
@@ -105,10 +130,12 @@ async function getCategories(req, res) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify(categories));
         res.end();
+        return;
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: 'Internal Server Error' }));
         res.end();
+        return;
     }
 }
 
@@ -120,10 +147,12 @@ async function getYears(req, res) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify(years));
         res.end();
+        return;
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: 'Internal Server Error' }));
         res.end();
+        return; 
     }
 }
 
@@ -135,27 +164,31 @@ async function getSeriesCategories(req, res) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify(categories));
         res.end();
+        return;
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: 'Internal Server Error' }));
         res.end();
+        return;
     }
 }
 
-async function getActors(req, res) {
-    console.log("Fetching actors!");
+// async function getActors(req, res) {
+//     console.log("Fetching actors!");
 
-    try {
-        const actors = await Model.getActors();
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify(actors));
-        res.end();
-    } catch (error) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({ message: 'Internal Server Error' }));
-        res.end();
-    }
-}
+//     try {
+//         const actors = await Model.getActors();
+//         res.writeHead(200, { 'Content-Type': 'application/json' });
+//         res.write(JSON.stringify(actors));
+//         res.end();
+//         return;
+//     } catch (error) {
+//         res.writeHead(500, { 'Content-Type': 'application/json' });
+//         res.write(JSON.stringify({ message: 'Internal Server Error' }));
+//         res.end();
+//         return;
+//     }
+// }
 
 async function getAwardsInfo(req, res) {
     const url = new URL(req.url, `http://${req.headers.host}`);
@@ -287,10 +320,12 @@ async function getActors(req, res) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify(actors));
         res.end();
+        return;
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: 'Internal Server Error' }));
         res.end();
+        return;
     }
 }
 async function getActorsFromDb(req, res) {
@@ -301,10 +336,12 @@ async function getActorsFromDb(req, res) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify(actors));
         res.end();
+        
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: 'Internal Server Error' }));
         res.end();
+        return;
     }
 }
 
@@ -316,10 +353,12 @@ async function getActorById(req, res, id) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify(actor));
         res.end();
+        return;
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: 'Internal Server Error' }));
         res.end();
+        return;
     }
 }
 
@@ -331,10 +370,12 @@ async function getMoviesByActorId(req, res, id) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify(movies));
         res.end();
+        return;
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: 'Internal Server Error' }));
         res.end();
+        return;
     }
 }
 
@@ -346,10 +387,11 @@ async function getImage(req, res, imageName) {
         if (image.length === 0) {
             res.writeHead(404, { 'Content-Type': 'application/json' })
             res.end(JSON.stringify({ message: "Image not found!" }));
+            return;
         } else {
-
             res.writeHead(200, { 'Content-Type': 'image/jpg' })
-            res.end(image)
+            res.end(image);
+            return;
         }
     } catch (error) {
         console.log(error)
@@ -366,10 +408,12 @@ async function getMovieImage(req, res, imageName) {
         if (image.length === 0) {
             res.writeHead(404, { 'Content-Type': 'application/json' })
             res.end(JSON.stringify({ message: "Image not found!" }));
+            return;
         } else {
 
             res.writeHead(200, { 'Content-Type': 'image/jpg' })
-            res.end(image)
+            res.end(image);
+            return;
         }
     } catch (error) {
         console.log(error)
@@ -397,10 +441,12 @@ async function addActorToFavourites(req, res) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: "Actor added to favourites!" }));
         res.end();
+        return;
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: 'Internal Server Error' }));
         res.end();
+        return;
     }
 }
 
@@ -424,10 +470,12 @@ async function removeActorFromFavourites(req, res) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: "Actor removed from favourites!" }));
         res.end();
+        return;
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: 'Internal Server Error' }));
         res.end();
+        return;
     }
 }
 
@@ -439,16 +487,19 @@ async function getUserFavoritesActors(req, res, username) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify(favorites));
         res.end();
+        return;
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: 'Internal Server Error' }));
         res.end();
+        return;
     }
 }
 
 module.exports = {
     getUsers,
     login,
+    loginAdmin,
     register,
     getCategories,
     getYears,

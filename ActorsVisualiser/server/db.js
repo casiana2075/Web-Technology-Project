@@ -32,6 +32,14 @@ function createTablesIfNotExists() {
         favorites TEXT[] UNIQUE
     );`; 
 
+    const createAdminsTableQuery = `
+    CREATE TABLE IF NOT EXISTS "admins" (
+        adminid SERIAL PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        password VARCHAR(50) NOT NULL,
+        key VARCHAR(50) NOT NULL
+    );`; 
+
     const createAddedActorsTableQuery = `
     CREATE TABLE IF NOT EXISTS "addedActors" (
         id SERIAL PRIMARY KEY,
@@ -59,6 +67,14 @@ function createTablesIfNotExists() {
             console.error('Error creating  users table', err.stack);
         } else {
             console.log('Table users created or already exists');
+        }
+    });
+
+    pool.query(createAdminsTableQuery, (err, res) => {
+        if (err) {
+            console.error('Error creating admins table', err.stack);
+        } else {
+            console.log('Table admins created or already exists');
         }
     });
 

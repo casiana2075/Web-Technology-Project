@@ -8,6 +8,9 @@ const router = (req, res) => {
     } else if (req.url === '/api/login' && req.method === 'POST') {
         controller.login(req, res);
         console.log("Login!");
+    } else if (req.url === '/api/login/admin' && req.method === 'POST') {
+        controller.loginAdmin(req, res);
+        console.log("Login as Admin!");
     } else if (req.url === '/api/users' && req.method === 'POST') {
         controller.register(req, res);
         console.log("Register!");

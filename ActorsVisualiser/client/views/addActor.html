@@ -27,16 +27,25 @@
                             <li>Login</li>
                         </ul>
                     </a>
-                    <a style="display: none;" href="register.html" id="register">
+                    <a style="display: none;" href="loginAdmin.html" id="loginAdmin">
                         <ul>
-                            <li>Register</li>
+                            <li>Login as Admin</li>
                         </ul>
-                    </a>
-                    <a style="display : none;" id="logout" onclick="logoutUser()">
-                        <ul>
-                            <li>Logout</li>
-                        </ul>
-                    </a>
+                        <a style="display: none;" href="register.html" id="register">
+                            <ul>
+                                <li>Register</li>
+                            </ul>
+                        </a>
+                        <a style="display : none;" id="logoutUser" onclick="logoutUserCookie()">
+                            <ul>
+                                <li>Logout</li>
+                            </ul>
+                        </a>
+                        <a style="display : none;" id="logoutAdmin" onclick="logoutAdminCookie()">
+                            <ul>
+                                <li>Logout</li>
+                            </ul>
+                        </a>
                 </div>
             </div>
         </div>
@@ -68,7 +77,7 @@
                 required>
             <input type="text" id="actorKnownFor" name="actorKnownFor" placeholder="Actor Known For" required>
             <div id="moviesContainer">
-                
+
             </div>
             <button type="button" id="addMoreMovies">Add Movies</button>
             <div id="error-message"></div>

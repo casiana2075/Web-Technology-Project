@@ -1,6 +1,7 @@
 
-if (document.cookie.includes('username')) {
+if (document.cookie.includes('username' || 'admin')) {
     window.location.href = 'homePage.html';
+    window.alert("You are already logged in. Please log out to log in as an user.");
 }
 
 document.getElementById('login-form').addEventListener('submit', event => {
@@ -10,13 +11,6 @@ document.getElementById('login-form').addEventListener('submit', event => {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const rememberMe = document.getElementById('remember-me').checked;
-    if (rememberMe) {
-        let date = new Date();
-        date.setMonth(date.getMonth() + 1);
-        document.cookie = `username=${username}; expires=${date.toUTCString()}; path=/`;
-    } else {
-        document.cookie = `username=${username}; path=/;`;
-    }
 
     fetch('http://localhost:3001/api/login', {
         method: 'POST',
@@ -26,9 +20,13 @@ document.getElementById('login-form').addEventListener('submit', event => {
         body: JSON.stringify({ username, password })
     }).then(response => {
         if (response.status === 200) {
-            let date = new Date();
-            date.setMonth(date.getMonth() + 1);
-            document.cookie = `username=${username}; expires=${date.toUTCString()}; path=/`;
+            if (rememberMe) {
+                let date = new Date();
+                date.setMonth(date.getMonth() + 1);
+                document.cookie = `username=${username}; expires=${date.toUTCString()}; path=/`;
+            } else {
+                document.cookie = `username=${username}; path=/;`;
+            }
             window.location.href = 'homePage.html';
         } else {
             response.json().then(data => {

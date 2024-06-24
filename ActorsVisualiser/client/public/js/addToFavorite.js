@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const username = document.cookie.split('; ').find(row => row.startsWith('username')).split('=')[1];
+    console.log('Username:', username);
     const urlParams = new URLSearchParams(window.location.search);
     const actorId = urlParams.get('id');
     const favoriteButton = document.getElementById('add-to-favorites');
