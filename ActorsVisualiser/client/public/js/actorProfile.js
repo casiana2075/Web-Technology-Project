@@ -22,6 +22,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('actor-profile-deathday').textContent = `Deathday: ${deathday}`;
                 document.getElementById('actor-profile-department').textContent = `Known for: ${data.knownfor || 'N/A'}`;
                 document.getElementById('actor-profile-birthplace').textContent = `Place of Birth: ${data.birthplace || 'N/A'}`;
+
+                // Fetch movies for the local actor
+                fetch(`http://localhost:3001/api/actor/movies/${id}`)
+                    .then(response => response.json())
+                    .then(movies => {
+                        let actorsMovies = document.getElementById('actors-movies');
+                        actorsMovies.innerHTML = '';
+                        if (movies && movies.length > 0) {
+                            movies.forEach(movie => {
+                                console.log("Movie", movie);
+                                if (movie.image) {
+                                    let movieElement = document.createElement('li');
+                                    let movieImage = document.createElement('img');
+
+
+                                    console.log("Movie Image ->", movie.image);
+                                    movieImage.src = `http://localhost:3001/api/resources/image/movie/${movie.image}`;
+                                    movieImage.alt = movie.name;
+                                    movieElement.appendChild(movieImage);
+
+                                    let movieTitle = document.createElement('p');
+                                    movieTitle.textContent = movie.name;
+                                    movieTitle.style.color = 'white';
+                                    movieElement.appendChild(movieTitle);
+
+                                    movieElement.addEventListener('click', () => {
+                                        const query = encodeURIComponent(movie.name);
+                                        window.open(`https://www.google.com/search?q=${query}`, '_blank');
+                                    });
+
+                                    actorsMovies.appendChild(movieElement);
+                                }
+                            })
+                        } else {
+                            let noMovies = document.createElement('p');
+                            noMovies.textContent = 'Sorry, no movies available for this actor for now.';
+                            noMovies.style.color = 'white';
+                            actorsMovies.appendChild(noMovies);
+                        }
+
+                    })
+                    .catch(error => console.error('Error:', error));
             })
             .catch(error => console.error('Error:', error));
     } else if (actorId.startsWith('tmdb-')) {
@@ -54,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (data.cast && data.cast.length > 0) {
                     data.cast.forEach(movie => {
+                        console.log("Movie", movie);
                         if (movie.poster_path) {
                             let movieElement = document.createElement('li');
                             let movieImage = document.createElement('img');

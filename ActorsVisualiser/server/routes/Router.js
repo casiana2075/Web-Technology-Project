@@ -1,7 +1,4 @@
 const controller = require('../controllers/Controller');
-const multiparty = require('multiparty');
-const fs = require('fs');
-const path = require('path');
 
 const router = (req, res) => {
     console.log("Router!");
@@ -27,70 +24,21 @@ const router = (req, res) => {
         controller.getSeriesCategories(req, res);
     } else if (req.url.startsWith('/api/actorsFromDb') && req.method === 'GET') {
         controller. getActorsFromDb(req, res);
-    } 
-    else if (req.url === '/api/actors' && req.method === 'POST') { 
-        const form = new multiparty.Form();
-        form.parse(req, async (err, fields, files) => {
-            if (err) {
-                res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: "Error parsing form data. Please try again." }));
-                return;
-            }
-            try {
-                const requiredFields = ['name', 'details', 'birthday', 'birthplace', 'knownfor'];
-                for (const field of requiredFields) {
-                    if (!fields[field] || fields[field].length === 0 || fields[field][0].trim() === '') {
-                        res.writeHead(400, { 'Content-Type': 'application/json' });
-                        res.end(JSON.stringify({ message: `${field} required.` }));
-                        return;
-                    }
-                }
-    
-                const name = fields.name[0];
-                const details = fields.details[0];
-                const birthday = fields.birthday[0];
-                const deathday = fields.deathday ? fields.deathday[0] : null;
-                const birthplace = fields.birthplace[0];
-                const knownfor = fields.knownfor[0];
-    
-                let fileName;
-                if (files.image && files.image[0]) {
-                    const file = files.image[0];
-                    const validFormats = ['.jpg', 'jpeg', '.png', '.gif'];
-                    const fileExtension = path.extname(file.originalFilename).toLowerCase();
-                    if (!validFormats.includes(fileExtension)) {
-                        res.writeHead(400, { 'Content-Type': 'application/json' });
-                        res.end(JSON.stringify({ message: "Invalid file format. Only jpg, jpeg, png and gif formats are allowed." }));
-                        return;
-                    }
-                    const tempPath = file.path;
-                    fileName = `${Date.now()}-${file.originalFilename}`;
-                    const targetPath = path.join(__dirname, '../resources/', fileName);
-                    fs.rename(tempPath, targetPath, async (err) => {
-                        if (err) {
-                            res.writeHead(500, { 'Content-Type': 'application/json' });
-                            res.end(JSON.stringify({ message: "Failed to save the uploaded file. Please try again." }));
-                            return;
-                        }
-                        await controller.addActor(req, res, name, details, birthday, deathday, birthplace, knownfor, fileName);
-                    });
-                } else {
-                    await controller.addActor(req, res, name, details, birthday, deathday, birthplace, knownfor, null);
-                }
-            } catch (error) {
-                res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: "An unexpected error occurred. Please try again later." }));
-            }
-        });
+    } else if (req.url === '/api/actors' && req.method === 'POST') { 
+        controller.addActor(req, res);
     } else if (req.url === '/api/actors' && req.method === 'GET') {
         controller.getActors(req, res);
     } else if (req.url.startsWith('/api/actors/') && req.method === 'GET') {
         const id = req.url.split('/').pop();
         controller.getActorById(req, res, id);
+    } else if (req.url.startsWith('/api/actor/movies/') && req.method === 'GET') {
+        const id = req.url.split('/').pop();
+        console.log(id);
+        controller.getMoviesByActorId(req, res, id);
     } else if(req.url.match(/^\/api\/resources\/images\/([a-zA-Z0-9-_.(){}[\]!@#$%^&~]+)\.(jpg|jpeg|png|gif)$/) && req.method === 'GET'){
-
         controller.getImage(req, res, req.url.split('/')[4]);
-
+    } else if(req.url.match(/^\/api\/resources\/image\/movie\/([a-zA-Z0-9-_.(){}[\]!@#$%^&~]+)\.(jpg|jpeg|png|gif)$/) && req.method === 'GET'){
+        controller.getMovieImage(req, res, req.url.split('/')[5]);
     } else if (req.url === '/api/users/addActorToFavourites' && req.method === 'POST') {
         controller.addActorToFavourites(req, res);
     } else if (req.url === '/api/users/removeActorFromFavourites' && req.method === 'POST') {

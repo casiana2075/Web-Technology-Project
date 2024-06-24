@@ -41,7 +41,8 @@ function createTablesIfNotExists() {
         deathday DATE,
         birthplace VARCHAR(50) NOT NULL,
         knownFor VARCHAR(10000) NOT NULL,
-        image VARCHAR(1000)
+        image VARCHAR(1000),
+        movies JSONB
     );`;
 
     pool.query(createAwardsInfoTableQuery, (err, res) => {

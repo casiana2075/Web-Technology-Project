@@ -94,14 +94,13 @@ body {
     display: block;
 }
 
-
 .form-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     position: absolute;
-    top: 60%;
+    top: 90%;
     left: 50%;
     transform: translate(-50%, -50%);
     height: auto;
@@ -139,6 +138,7 @@ form {
     display: none;
 }
 
+
 .button {
     display: inline-block;
     padding: 5px;
@@ -165,7 +165,7 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
-    width: 30%;
+    width: 40%;
 }
 
 input[type="submit"] {
@@ -187,58 +187,79 @@ textarea::placeholder {
     text-align: center;
 }
 
-.input-container {
+#moviesContainer {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.movieInput {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%;
-    gap: 10px;
+    border: 2px dashed #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    position: relative;
 }
 
-.input-container label {
-    font-size: 12px;
-    color: #1a1b1c;
+.movieInput input[type="text"] {
+    width: 70%;
+    margin-bottom: 10px;
 }
 
-a {
-    text-decoration: none;
-    color: #1a1b1c;
+.movieImageDropArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    width: 100%;
+    padding: 10px;
 }
 
-#addActorButton {
-    margin-bottom: 20px;
+.movieImageDropArea img {
+    margin-bottom: 10px;
 }
 
-@media screen and (min-width: 481px) and (max-width: 1200px) {
-    .container {
-        max-width: 90%;
-        padding: 10px;
-    }
-
-    .profile {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .profile img {
-        width: 25%;
-        height: auto;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    .awards-icons {
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.movieInput .button {
+    margin-top: 10px;
 }
 
-@media screen and (min-width: 1201px) {
-    .container {
-        max-width: 1200px;
-        padding: 20px;
-    }
+.deleteMovie {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.deleteMovie:hover {
+    background-color: #cc0000;
+}
+
+#addMoreMovies {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#addMoreMovies:hover {
+    background-color: #0056b3;
+}
+
+.actorDeathDate {
+    width: 20%;
 }

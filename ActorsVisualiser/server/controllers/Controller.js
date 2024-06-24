@@ -1,5 +1,8 @@
 const Model = require('../models/Model');
 const { getPostData } = require('../utils');
+const multiparty = require('multiparty');
+const fs = require('fs');
+const path = require('path');
 
 async function getUsers(req, res) {
     console.log("Controller!");
@@ -22,14 +25,14 @@ async function login(req, res) {
 
     const validUser = await Model.checkUser(username, password);
 
-    if(validUser){
-        console.log("Valid user!" );
+    if (validUser) {
+        console.log("Valid user!");
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "Valid user!"}));
+        res.write(JSON.stringify({ message: "Valid user!" }));
         res.end();
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "User not found"}));
+        res.write(JSON.stringify({ message: "User not found" }));
         res.end();
     }
 }
@@ -46,14 +49,14 @@ async function register(req, res) {
     // Validate input
     if (!username || !password || !confirmPassword || !email) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "Missing fields"}));
+        res.write(JSON.stringify({ message: "Missing fields" }));
         res.end();
         return;
     }
 
     if (password !== confirmPassword) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "Passwords do not match"}));
+        res.write(JSON.stringify({ message: "Passwords do not match" }));
         res.end();
         return;
     }
@@ -61,7 +64,7 @@ async function register(req, res) {
     const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     if (!emailRegex.test(email)) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "Invalid email"}));
+        res.write(JSON.stringify({ message: "Invalid email" }));
         res.end();
         return;
     }
@@ -69,7 +72,7 @@ async function register(req, res) {
     const existingEmail = await Model.getUserByEmail(email);
     if (existingEmail) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "An user with this email already exists"}));
+        res.write(JSON.stringify({ message: "An user with this email already exists" }));
         res.end();
         return;
     }
@@ -77,21 +80,19 @@ async function register(req, res) {
     const existingUser = await Model.getUserByUsername(username);
     if (existingUser) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "Username already exists"}));
+        res.write(JSON.stringify({ message: "Username already exists" }));
         res.end();
         return;
     }
 
     const newUser = await Model.createUser(username, password, email);
-    console.log(newUser);   
-
-    if(newUser){
+    if (newUser) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "User created!"}));
+        res.write(JSON.stringify({ message: "User created!" }));
         res.end();
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "User not created"}));
+        res.write(JSON.stringify({ message: "User not created" }));
         res.end();
     }
 }
@@ -166,44 +167,116 @@ async function getAwardsInfo(req, res) {
     } else {
         isSeriesFilter = url.searchParams.get('seriesFilter') === 'true';
     }
-    console.log("Fetching awards info!");
-    console.log("Category:", category);
-    console.log("Year:", year);
-    console.log("Is Series Filter:", isSeriesFilter);
 
     try {
         const awardsInfo = await Model.getAwardsInfo(category, year, isSeriesFilter);
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify(awardsInfo));
         res.end();
+        return;
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify({ message: 'Internal Server Error' }));
         res.end();
+        return;
     }
 }
 
-async function addActor(req, res, name, details, birthday, deathday, birthplace, knownfor, image) {
-    console.log("Controller!");
 
-    if (!name || !details || !birthday || !birthplace || !knownfor) {
-        res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "Missing fields"}));
-        res.end();
-        return;
-    }
- 
-    const newActor = await Model.addActor(name, details, birthday, deathday, birthplace, knownfor, image);
+async function addActor(req, res) {
+    console.log("add Actor Controller!");
+    var flag = 0;
+    const form = new multiparty.Form();
+    form.parse(req, async (err, fields, files) => {
+        if (err) {
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify({ message: 'Internal Server Error' }));
+            res.end();
+            return;
+        }
+        try {
+            const requiredFields = ['name', 'details', 'birthday', 'birthplace', 'knownfor'];
+            for (const field of requiredFields) {
+                if (!fields[field] || fields[field].length === 0 || fields[field][0].trim() === '') {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.write(JSON.stringify({ message: `${field} required.` }));
+                    res.end();
+                    return;
+                }
+            }
 
-    if(newActor){
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "Actor added!"}));
-        res.end();
-    } else {
-        res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "Failed to add actor"}));
-        res.end();
-    }
+            const name = fields.name[0];
+            const details = fields.details[0];
+            const birthday = fields.birthday[0];
+            const deathday = fields.deathday ? fields.deathday[0] : null;
+            const birthplace = fields.birthplace[0];
+            const knownfor = fields.knownfor[0];
+
+            let actorImageFileName = null;
+            if (files.image && files.image[0]) {
+                const file = files.image[0];
+                flag = 1;
+                const validFormats = ['.jpg', '.jpeg', '.png', '.gif'];
+                const fileExtension = path.extname(file.originalFilename).toLowerCase();
+                if (!validFormats.includes(fileExtension)) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.write(JSON.stringify({ message: "Invalid file format. Only jpg, jpeg, png and gif formats are allowed." }));
+                    res.end();
+                    return;
+                }
+                const tempPath = file.path;
+                actorImageFileName = `${Date.now()}-${file.originalFilename}`;
+                const targetPath = path.join(__dirname, '../resources/', actorImageFileName);
+                fs.renameSync(tempPath, targetPath);
+            }
+
+            // Extract movies data
+
+            if (fields.movies) {
+                var movies = JSON.parse(fields.movies);
+
+                for (let i = 0; i < movies.length; i++) {
+                    const fieldName = `movieImage${i + 1}`;
+                    const movieFile = files[fieldName];
+                    const movieImage = movies[i].image;
+
+                    if (!(movieImage.endsWith('.jpg') || movieImage.endsWith('.jpeg') || movieImage.endsWith('.png') || movieImage.endsWith('.gif'))) {
+                        res.writeHead(400, { 'Content-Type': 'application/json' });
+                        res.write(JSON.stringify({ message: "Invalid file format. Only jpg, jpeg, png and gif formats are allowed." }));
+                        res.end();
+                        return;
+                    }
+                    if (movieFile && movieFile.length > 0) {
+                        const file = movieFile[0];
+                        const tempPath = file.path;
+                        movies[i].image = `${Date.now()}-${file.originalFilename}`;
+                        const targetPath = path.join(__dirname, '../resources/', movies[i].image);
+
+                        fs.renameSync(tempPath, targetPath);
+                    } else {
+                        console.error(`File for ${fieldName} not found.`);
+                    }
+                }
+            }
+            try {
+                const newActor = await Model.addActor(name, details, birthday, deathday, birthplace, knownfor, actorImageFileName, movies);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.write(JSON.stringify(newActor));
+                res.end();
+                return;
+            } catch (error) {
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.write(JSON.stringify({ message: 'Internal Server Error' }));
+                res.end();
+                return;
+            }
+        } catch (error) {
+            console.error("Error adding actor:", error);
+            res.write(JSON.stringify({ message: 'Internal Server Error' }));
+            res.end();
+            return;
+        }
+    });
 }
 
 async function getActors(req, res) {
@@ -235,13 +308,28 @@ async function getActorsFromDb(req, res) {
     }
 }
 
-async function getActorById( req, res, id) {
+async function getActorById(req, res, id) {
     console.log("get actor by id Controller!");
 
     try {
         const actor = await Model.findActorById(id);
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.write(JSON.stringify(actor));
+        res.end();
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ message: 'Internal Server Error' }));
+        res.end();
+    }
+}
+
+async function getMoviesByActorId(req, res, id) {
+    console.log("get movies by actor id Controller!");
+
+    try {
+        const movies = await Model.findMoviesByActorId(id);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify(movies));
         res.end();
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -269,6 +357,26 @@ async function getImage(req, res, imageName) {
 
 }
 
+async function getMovieImage(req, res, imageName) {
+    console.log("get movies Image Controller!");
+
+    try {
+        const image = await Model.getMovieImage(imageName, res);
+
+        if (image.length === 0) {
+            res.writeHead(404, { 'Content-Type': 'application/json' })
+            res.end(JSON.stringify({ message: "Image not found!" }));
+        } else {
+
+            res.writeHead(200, { 'Content-Type': 'image/jpg' })
+            res.end(image)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
 async function addActorToFavourites(req, res) {
     console.log("add to fav Controller!");
 
@@ -279,7 +387,7 @@ async function addActorToFavourites(req, res) {
     const user = await Model.getUserByUsername(username);
     if (!user) {
         res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "User not found"}));
+        res.write(JSON.stringify({ message: "User not found" }));
         res.end();
         return;
     }
@@ -287,7 +395,7 @@ async function addActorToFavourites(req, res) {
     try {
         await Model.addActorToFavourites(user.userid, actorId);
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "Actor added to favourites!"}));
+        res.write(JSON.stringify({ message: "Actor added to favourites!" }));
         res.end();
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -306,7 +414,7 @@ async function removeActorFromFavourites(req, res) {
     const user = await Model.getUserByUsername(username);
     if (!user) {
         res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "User not found"}));
+        res.write(JSON.stringify({ message: "User not found" }));
         res.end();
         return;
     }
@@ -314,7 +422,7 @@ async function removeActorFromFavourites(req, res) {
     try {
         await Model.removeActorFromFavourites(user.userid, actorId);
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({message: "Actor removed from favourites!"}));
+        res.write(JSON.stringify({ message: "Actor removed from favourites!" }));
         res.end();
     } catch (error) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -348,9 +456,11 @@ module.exports = {
     getSeriesCategories,
     getAwardsInfo,
     addActor,
-    getActorsFromDb, 
+    getActorsFromDb,
+    getMoviesByActorId,
     getActorById,
     getImage,
+    getMovieImage,
     addActorToFavourites,
     removeActorFromFavourites,
     getUserFavoritesActors

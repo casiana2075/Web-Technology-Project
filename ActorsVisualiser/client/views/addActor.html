@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/addActor.css"> 
+    <link rel="stylesheet" href="../public/css/addActor.css">
     <link rel="icon" href="../public/resources/icon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -22,9 +22,21 @@
             <div class="home-button"><a href="homePage.html"><i class="fas fa-home"></i></a></div>
             <div class="account-button"><i class="fas fa-user"></i>
                 <div id="accountBox" class="accountBox">
-                    <a style ="display: none;" href="login.html" id="login"><ul><li>Login</li></ul></a>
-                    <a style="display: none;" href="register.html" id="register"><ul><li>Register</li></ul></a>
-                    <a style="display : none;" id="logout" onclick="logoutUser()"><ul><li>Logout</li></ul></a>
+                    <a style="display: none;" href="login.html" id="login">
+                        <ul>
+                            <li>Login</li>
+                        </ul>
+                    </a>
+                    <a style="display: none;" href="register.html" id="register">
+                        <ul>
+                            <li>Register</li>
+                        </ul>
+                    </a>
+                    <a style="display : none;" id="logout" onclick="logoutUser()">
+                        <ul>
+                            <li>Logout</li>
+                        </ul>
+                    </a>
                 </div>
             </div>
         </div>
@@ -34,36 +46,40 @@
             <h1>Add a new actor</h1>
             <div id="drop-area">
                 <form class="my-form">
-                    <img id="placeholder" src="../public/resources/noUploadedImage.png" alt="Upload Image" style="width: 100px; margin: 0 auto;">
+                    <img id="placeholder" src="../public/resources/noUploadedImage.png" alt="Upload Image"
+                        style="width: 100px; margin: 0 auto;">
                     <p>Upload Actor Profile image by dragging and dropping onto the dashed region</p>
                     <p style="color: rgb(94, 94, 94);"> or </p>
-                    <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+                    <input type="file" id="fileElem" accept="image/*" onchange="handleFiles(this.files)">
                     <label class="button" for="fileElem">Browse Files</label>
                 </form>
             </div>
             <input type="text" id="actorName" name="actorName" placeholder="Actor Name" required>
             <textarea id="actorDetails" name="actorDetails" placeholder="Actor Details" required></textarea>
-            <div class="input-container">
+            <div id="date" class="input-container">
                 <label for="actorBirthday">Actor Birthday:</label>
                 <input type="date" id="actorBirthday" name="actorBirthday" required>
             </div>
-            <div class="input-container">
+            <div id="date" class="input-container">
                 <label for="actorDeathday">Actor Deathday:</label>
                 <input type="date" id="actorDeathday" name="actorDeathday">
             </div>
-            <input type="text" id="actorPlaceOfBirth" name="actorPlaceOfBirth" placeholder="Actor Place of Birth" required>
+            <input type="text" id="actorPlaceOfBirth" name="actorPlaceOfBirth" placeholder="Actor Place of Birth"
+                required>
             <input type="text" id="actorKnownFor" name="actorKnownFor" placeholder="Actor Known For" required>
+            <div id="moviesContainer">
+                
+            </div>
+            <button type="button" id="addMoreMovies">Add Movies</button>
             <div id="error-message"></div>
             <div id="success-message"></div>
             <input type="submit" id="addActorButton" value="Add Actor">
         </form>
     </div>
-    
 
     <script src="../public/js/backButton.js"></script>
     <script src="../public/js/addActor.js"></script>
     <script src="../public/js/logout.js"></script>
-
 </body>
 
 </html>

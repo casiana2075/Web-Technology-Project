@@ -2,6 +2,8 @@ if (!document.cookie.includes('username')) {
   window.location.href = 'homePage.html';
 }
 
+var movieNumber = 0;
+var movies = [];
 let dropArea = document.getElementById('drop-area');
 let fileInput = document.getElementById('fileElem');
 let uploadedFile = null;
@@ -9,37 +11,29 @@ let uploadedFile = null;
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
   dropArea.addEventListener(eventName, preventDefaults, false);
 });
-
 function preventDefaults(e) {
   e.preventDefault();
   e.stopPropagation();
 }
-
 ['dragenter', 'dragover'].forEach(eventName => {
   dropArea.addEventListener(eventName, highlight, false);
 });
-
 ['dragleave', 'drop'].forEach(eventName => {
   dropArea.addEventListener(eventName, unhighlight, false);
 });
-
 function highlight(e) {
   dropArea.classList.add('highlight');
 }
-
 function unhighlight(e) {
   dropArea.classList.remove('highlight');
 }
-
 dropArea.addEventListener('drop', handleDrop, false);
-
 function handleDrop(e) {
   let dt = e.dataTransfer;
   let files = dt.files;
 
   handleFiles(files);
 }
-
 function handleFiles(files) {
   ([...files]).forEach(file => {
     if (file.type.startsWith('image/')) {
@@ -77,6 +71,14 @@ document.getElementById('addActorButton').onclick = event => {
     formData.append('image', uploadedFile);
   }
 
+  for (let i = 1; i <= movieNumber; i++) {
+    const movieName = document.getElementById(`movie${i}`).querySelector('.movieName').value;
+    const movieImage = document.getElementById(`movie${i}`).querySelector('.movieImage').files[0];
+    movies.push({ name: movieName, image: movieImage.name });
+    formData.append('movieImage'+ i, movieImage);
+  }
+  formData.append('movies', JSON.stringify(movies));
+
   fetch('http://localhost:3001/api/actors', {
     method: 'POST',
     body: formData
@@ -112,3 +114,29 @@ document.getElementById('addActorButton').onclick = event => {
     }
   });
 };
+
+document.getElementById('addMoreMovies').addEventListener('click', () => {
+  const moviesContainer = document.getElementById('moviesContainer');
+  const movieDiv = document.createElement('div');
+  movieNumber++;
+  movieDiv.setAttribute('id', `movie${movieNumber}`);
+
+  
+  movieDiv.classList.add('movieInput');
+  movieDiv.innerHTML = `
+    <input type="text" placeholder="Movie Name" class="movieName">
+    <input type="file" accept="image/*" class="movieImage">
+    <button class="deleteMovie">Delete</button>
+  `;
+
+  moviesContainer.appendChild(movieDiv);
+
+});
+
+// Update the event listener for dynamically added delete buttons
+moviesContainer.addEventListener('click', function(event) {
+  if (event.target.classList.contains('deleteMovie')) {
+    const movieDiv = event.target.parentElement;
+    movieDiv.remove();
+  }
+});

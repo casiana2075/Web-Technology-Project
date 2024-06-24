@@ -2,7 +2,7 @@ const pool = require('../db');
 const path = require('path');
 const fs = require('fs');
 
-function findAll(){
+function findAll() {
 
     console.log("Model!");
 
@@ -18,14 +18,12 @@ function findAll(){
 
 }
 
-function checkUser(username, password){
-
+function checkUser(username, password) {
     console.log("Model!");
-    console.log(username, password);
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username,password], (err, res) => {
-        if (err) {
+        pool.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username, password], (err, res) => {
+            if (err) {
                 reject(err);
             } else {
                 resolve(res.rows[0]);
@@ -34,13 +32,12 @@ function checkUser(username, password){
     });
 
 }
-function getUserByEmail(email){
+function getUserByEmail(email) {
     console.log("Model!");
-    console.log(email);
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM users WHERE email = $1' , [email], (err, res) => {
-        if (err) {
+        pool.query('SELECT * FROM users WHERE email = $1', [email], (err, res) => {
+            if (err) {
                 reject(err);
             } else {
                 resolve(res.rows[0]);
@@ -49,13 +46,12 @@ function getUserByEmail(email){
     });
 }
 
-function getUserByUsername(username){
+function getUserByUsername(username) {
     console.log("Model!");
-    console.log(username);
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM users WHERE username = $1' , [username], (err, res) => {
-        if (err) {
+        pool.query('SELECT * FROM users WHERE username = $1', [username], (err, res) => {
+            if (err) {
                 reject(err);
             } else {
                 resolve(res.rows[0]);
@@ -64,13 +60,12 @@ function getUserByUsername(username){
     });
 }
 
-function createUser(username, password, email){
+function createUser(username, password, email) {
     console.log("Model!");
-    console.log(username, password, email);
 
     return new Promise((resolve, reject) => {
         pool.query('INSERT INTO users (username, password, email) VALUES ($1, $2, $3) RETURNING *', [username, password, email], (err, res) => {
-        if (err) {
+            if (err) {
                 reject(err);
             } else {
                 resolve(res.rows[0]);
@@ -113,15 +108,15 @@ function getYears() {
 }
 function getActorsFromDb() {
     console.log("Model!");
-     return new Promise((resolve, reject) =>{
-     pool.query('SELECT DISTINCT full_name FROM "awardsInfo"', (err, res) => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT DISTINCT full_name FROM "awardsInfo"', (err, res) => {
             if (err) {
                 reject(err);
             } else {
                 resolve(res.rows);
             }
         });
-     }
+    }
     );
 }
 
@@ -132,9 +127,6 @@ function getSeriesCategories() {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM "awardsInfo" WHERE LOWER(category) LIKE $1';
         const params = ['%series%'];
-
-        console.log('Executing query:', query);
-        console.log('With parameters:', params);
 
         pool.query(query, params, (err, res) => {
             if (err) {
@@ -157,7 +149,7 @@ function getAwardsInfo(category, year) {
         const params = [];
 
         if (category) {
-            console.log('Category before query:', category); 
+            console.log('Category before query:', category);
             params.push(`%${category}%`);
             query += ' AND LOWER(category) LIKE LOWER($' + params.length + ')';
         }
@@ -181,15 +173,26 @@ function getAwardsInfo(category, year) {
     });
 }
 
-function addActor(name, details, birthday, deathday, birthplace, knownfor, image) {
+function addActor(name, details, birthday, deathday, birthplace, knownfor, image, movies) {
     console.log("Model!");
-    console.log(name, details, birthday, deathday, birthplace, knownfor, image);
+    console.log(name, details, birthday, deathday, birthplace, knownfor, image, movies);
 
     deathday = deathday === "" ? null : deathday;
 
+    let moviesJson = movies;
+    if (typeof movies === 'object') {
+        try {
+            moviesJson = JSON.stringify(movies);
+        } catch (error) {
+            console.error('Error stringifying movies:', error);
+            return;
+        }
+    }
+
     return new Promise((resolve, reject) => {
-        pool.query('INSERT INTO "addedActors" (actorname, details, birthday, deathday, birthplace, knownfor, image) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [name, details, birthday, deathday, birthplace, knownfor, image], (err, res) => {
+        pool.query('INSERT INTO "addedActors" (actorname, details, birthday, deathday, birthplace, knownfor, image, movies) VALUES ($1, $2, $3, $4, $5, $6, $7, $8::jsonb) RETURNING *', [name, details, birthday, deathday, birthplace, knownfor, image, moviesJson], (err, res) => {
             if (err) {
+                console.error("Query Error:", err);
                 reject(err);
             } else {
                 resolve(res.rows[0]);
@@ -212,7 +215,7 @@ function findAllActors() {
     });
 }
 
-function findActorById(id){
+function findActorById(id) {
     console.log("Find actor by id Model!");
 
     return new Promise((resolve, reject) => {
@@ -226,13 +229,28 @@ function findActorById(id){
     });
 }
 
-function getImage(imageName, res){
+function findMoviesByActorId(id) {
+    console.log("Find movies by actor id Model!");
+    console.log(id);
+
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT movies FROM "addedActors" WHERE id = $1', [id], (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res.rows[0].movies);
+            }
+        });
+    });
+}
+
+function getImage(imageName, res) {
     return new Promise((resolve, reject) => {
         pool.query('SELECT COUNT(*) FROM "addedActors" WHERE image=$1', [imageName], function (err, result) {
             if (err) {
                 reject(err);
             } else {
-                if(result.rows[0].count > 0){
+                if (result.rows[0].count > 0) {
                     const imagePath = path.join(__dirname, '../resources/', imageName);
                     fs.readFile(imagePath, (err, data) => {
                         if (err) {
@@ -244,6 +262,20 @@ function getImage(imageName, res){
                 } else {
                     resolve(null);
                 }
+            }
+        });
+    });
+}
+
+function getMovieImage(imageName, res) {
+    console.log("get movie image Model!");
+    return new Promise((resolve, reject) => {
+        const imagePath = path.join(__dirname, '../resources/', imageName);
+        fs.readFile(imagePath, (err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
             }
         });
     });
@@ -284,7 +316,6 @@ function getUserFavoritesActors(username) {
             if (err) {
                 reject(err);
             } else {
-                console.log(res.rows[0].favorites);
                 resolve(res.rows[0].favorites);
             }
         });
@@ -303,9 +334,11 @@ module.exports = {
     getSeriesCategories,
     getAwardsInfo,
     addActor,
-    findAllActors, 
+    findAllActors,
     findActorById,
+    findMoviesByActorId,
     getImage,
+    getMovieImage,
     addActorToFavourites,
     removeActorFromFavourites,
     getUserFavoritesActors
