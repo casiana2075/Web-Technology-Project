@@ -90,6 +90,9 @@
         <li>
             <a href="#c4-diagram">6. Diagrama C4</a>
         </li>
+        <li>
+         <a href="demo">Demo</a>
+        </li>
     </ul>
     <div role="contentinfo">
         <section id="authors" typeof="sa:AuthorsList">
@@ -373,6 +376,10 @@
         <h3>6. Diagrama C4</h3>
         <li><img src="ActorsVisualiser/client/public/resources/ActorsVisualiser-C4.jpg" alt="C4"></li>
       </section>
+    <section id="demo">
+     <h3>Demo(link)</h3>
+     <a href="https://www.youtube.com/watch?v=DvO-2jSX_jg&ab_channel=CasianaMaxim">Accesează Demo</a>
+    </section>
 </article>
 </body>
 </html>
