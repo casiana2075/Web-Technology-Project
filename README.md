@@ -91,7 +91,7 @@
             <a href="#c4-diagram">6. Diagrama C4</a>
         </li>
         <li>
-         <a href="demo">Demo</a>
+         <a href="#demo">Demo</a>
         </li>
     </ul>
     <div role="contentinfo">
