@@ -93,6 +93,9 @@
         <li>
          <a href="#demo">Demo</a>
         </li>
+        <li>
+         <a href="#Performance"> Performance</a>
+        </li>
     </ul>
     <div role="contentinfo">
         <section id="authors" typeof="sa:AuthorsList">
@@ -379,6 +382,13 @@
     <section id="demo">
      <h3>Demo(link)</h3>
      <a href="https://www.youtube.com/watch?v=DvO-2jSX_jg&ab_channel=CasianaMaxim">Accesează Demo</a>
+    </section>
+    <section id="c4-diagram">
+        <h3> Performance</h3>
+        <li><img src="PerformanceInsides/home.png" alt="homePerformance"></li>
+        <li><img src="PerformanceInsides/statistics.png" alt="statisticsPerformance"></li>
+        <li><img src="PerformanceInsides/actorProfile.png" alt="actorProfilePerformance"></li>
+        <li><img src="PerformanceInsides/news.png" alt="newsPerformance"></li>
     </section>
 </article>
 </body>
