@@ -383,7 +383,7 @@
      <h3>Demo(link)</h3>
      <a href="https://www.youtube.com/watch?v=DvO-2jSX_jg&ab_channel=CasianaMaxim">Accesează Demo</a>
     </section>
-    <section id="c4-diagram">
+    <section id="Performance">
         <h3> Performance</h3>
         <li><img src="PerformanceInsides/home.png" alt="homePerformance"></li>
         <li><img src="PerformanceInsides/statistics.png" alt="statisticsPerformance"></li>
